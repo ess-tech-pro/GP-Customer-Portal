@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import './styles/global.css';
 import { store } from './store/store';
 import App from './App';
+import './i18n';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
