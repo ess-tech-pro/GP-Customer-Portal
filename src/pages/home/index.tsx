@@ -18,7 +18,7 @@ function Home() {
   }, [dispatch]);
 
   const onAddMoreProduct = () => {
-    dispatch(postCart({ title: 'this is test' }));
+    dispatch(postCart({ title: 'this is testzxcxzc' }));
   };
 
 
