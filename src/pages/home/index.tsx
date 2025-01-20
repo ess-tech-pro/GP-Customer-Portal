@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
 import { fetchProducts, postCart } from '../../store/slices/exampleSlice';
+import { AppDispatch, RootState } from '../../store/store';
 
 function Home() {
+  const { t, i18n } = useTranslation();
+
   const dispatch = useDispatch<AppDispatch>();
   const { products } = useSelector((state: RootState) => state.example);
   const { user, accessToken } = useSelector((state: RootState) => state.login);
@@ -16,6 +19,11 @@ function Home() {
 
   const onAddMoreProduct = () => {
     dispatch(postCart({ title: 'this is test' }));
+  };
+
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
   };
 
   return (
@@ -55,7 +63,25 @@ function Home() {
         </dl>
       </div>
 
-      <h2 className="text-3xl font-semibold text-center my-8">Product List</h2>
+      <h2 className="text-3xl font-semibold text-center my-8">{t('welcome')}</h2>
+      <h2 className="text-3xl font-semibold text-center my-8">{t('description')}</h2>
+
+      <div className="flex justify-center py-3">
+        <button
+          onClick={() => changeLanguage('en')}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          English
+        </button>
+        <button
+          onClick={() => changeLanguage('vi')}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Tiếng Việt
+        </button>
+      </div>
+
+
       <div className="flex justify-center py-3">
         <button
           onClick={() => onAddMoreProduct()}
@@ -64,6 +90,8 @@ function Home() {
           Add More Product
         </button>
       </div>
+
+
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4">
         {products.map((product) => (
