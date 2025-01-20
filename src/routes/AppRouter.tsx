@@ -6,6 +6,7 @@ import AuthLayout from '../layouts/AuthLayout'
 
 const Home = lazy(() => import('../pages/home'))
 const Login = lazy(() => import('../pages/login'))
+const GameDetail = lazy(() => import('../pages/game/detail'))
 
 const routesConfig = [
 	{
@@ -23,6 +24,11 @@ const routesConfig = [
 		layout: AuthLayout,
 		component: Login,
 	},
+  {
+    path: ROUTE_PATH.GAME.DETAIL,
+    layout: MainLayout,
+    component: GameDetail,
+  }
 ]
 
 const createAppRouter = () =>
