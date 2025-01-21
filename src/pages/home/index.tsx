@@ -1,3 +1,5 @@
+import Button from "@mui/material/Button";
+import { styled } from "@mui/system";
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +27,14 @@ function Home() {
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
   };
+
+  const CustomButton = styled(Button)`
+  background-color: red;
+  color: white;
+  &:hover {
+    background-color: red;
+  }
+  `;
 
   return (
     <div className="py-10">
@@ -79,6 +89,7 @@ function Home() {
         >
           Tiếng Việt
         </button>
+        <CustomButton>Styled-Components Button</CustomButton>
       </div>
 
 
