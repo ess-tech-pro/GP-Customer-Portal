@@ -43,5 +43,8 @@
 			"mode": "auto"
 		}
 	],
-	"nuxt.isNuxtApp": false
+	"nuxt.isNuxtApp": false,
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	}
 }
