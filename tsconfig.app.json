@@ -8,7 +8,10 @@
     "vite.config.ts",
     "configs/**/*"
   ],
-  "files": ["src/vite-env.d.ts"],
+  "files": [
+		"configs/auto-imports.d.ts",
+    "src/vite-env.d.ts"
+	],
   "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.jsx", "src/**/*.tsx"],
   "compilerOptions": {
     "useDefineForClassFields": true,
