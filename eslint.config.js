@@ -92,8 +92,9 @@ export default [
 			'react/jsx-one-expression-per-line': 'off',
 			'react/jsx-wrap-multilines': 'off',
 			'implicit-arrow-linebreak': 'off',
-      'react/function-component-definition': 'off',
-      'arrow-body-style': 'off',
+			'react/function-component-definition': 'off',
+			'arrow-body-style': 'off',
+			'no-console': 'off',
 			quotes: 'off',
 		},
 		settings: {
