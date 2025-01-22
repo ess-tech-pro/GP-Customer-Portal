@@ -94,7 +94,6 @@ export default [
 			'implicit-arrow-linebreak': 'off',
 			'react/function-component-definition': 'off',
 			'arrow-body-style': 'off',
-			'no-console': 'off',
 			quotes: 'off',
 		},
 		settings: {

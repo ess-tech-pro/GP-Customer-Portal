@@ -1,6 +1,12 @@
 function SidebarRight() {
   return (
-    <div>Sidebar Right</div>
+    <div className="lg:block">
+      <div className="flex justify-between">
+        <h3 className="font-medium">
+          Mini mode
+        </h3>
+      </div>
+    </div>
   )
 };
 

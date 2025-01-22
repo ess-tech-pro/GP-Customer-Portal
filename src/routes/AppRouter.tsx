@@ -24,11 +24,11 @@ const routesConfig = [
 		layout: AuthLayout,
 		component: Login,
 	},
-  {
-    path: ROUTE_PATH.GAME.DETAIL,
-    layout: MainLayout,
-    component: GameDetail,
-  }
+	{
+		path: ROUTE_PATH.GAME.DETAIL,
+		layout: MainLayout,
+		component: GameDetail,
+	},
 ]
 
 const createAppRouter = () =>
