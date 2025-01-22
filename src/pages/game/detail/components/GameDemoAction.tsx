@@ -1,53 +1,66 @@
-import { Button, Stack, styled } from '@mui/material'
+import { Box, Button, Stack } from '@mui/material'
 import LaunchIcon from '@mui/icons-material/Launch'
 import FilterNoneIcon from '@mui/icons-material/FilterNone'
 import SelectCurrency from './SelectCurrency'
 import SelectLanguage from './SelectLanguage'
 import ButtonReload from './ButtonReload'
 
-const BoxActionStyled = styled(Stack)(() => ({}));
-
-interface RenderButtonProps {
+interface IRenderButtonProps {
   icon: React.ReactNode;
   onClick: () => void;
 }
 
-const RenderButton = ({icon, onClick}: RenderButtonProps) => {
+const RenderButton = ({ icon, onClick }: IRenderButtonProps) => {
   return (
     <Button
-    onClick={onClick}
-    variant='text'
-    sx={{
-      border: '2px solid #ff9801',
-      borderRadius: '10px',
-      minWidth: '55px',
-      padding: '4px 6px',
-      '& svg': {
-        color: '#ff9801',
-      }
-    }}>
+      onClick={onClick}
+      variant='text'
+      sx={{
+        border: '2px solid #ff9801',
+        borderRadius: '10px',
+        minWidth: '55px',
+        padding: '4px 6px',
+        '& svg': {
+          color: '#ff9801',
+        }
+      }}>
       {icon}
     </Button>
   )
 };
 
-const GameDemoAction = () => {
-	return (
-		<BoxActionStyled direction="row" gap={2} alignItems='center'>
-			<SelectCurrency />
-			<SelectLanguage />
+const GameDemoAction = ({ id }: { id: string }) => {
+  console.log('Id game:', id);
 
-			{/* Button Reload */}
-			<ButtonReload />
+  return (
+    <Stack direction={
+      {
+        sm: 'column',
+        md: 'row',
+      }
+    } gap={2} alignItems='center' sx={{
+      padding: '0 2rem',
+    }}>
+      <Box sx={{ flexGrow: 1, width: '100%' }}>
+        <SelectCurrency />
+      </Box>
+      <Box sx={{ flexGrow: 1, width: '100%' }}>
+        <SelectLanguage />
+      </Box>
 
-			{/* Button Launch Game */}
-      <RenderButton icon={<LaunchIcon />} onClick={() => console.log('Launch Game')} />
+      <Stack direction="row" gap={2} alignItems='center'>
+        {/* Button Reload */}
+        <ButtonReload id={id} />
 
-			{/* Button filter */}
-      <RenderButton icon={<FilterNoneIcon />} onClick={() => console.log('Filter')} />
+        {/* Button Launch Game */}
+        <RenderButton icon={<LaunchIcon />} onClick={() => console.log('Launch Game')} />
 
-		</BoxActionStyled>
-	)
+        {/* Button filter */}
+        <RenderButton icon={<FilterNoneIcon />} onClick={() => console.log('Filter')} />
+      </Stack>
+
+    </Stack>
+  )
 }
 
 export default GameDemoAction
