@@ -1,5 +1,6 @@
-import { Square } from "@mui/icons-material";
+import { Computer, Smartphone, Square } from "@mui/icons-material";
 import { Grid2, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 const GameDetails = () => {
   const data = useMemo(() => ([
@@ -92,8 +93,8 @@ const GameDetails = () => {
     },
     {
       "title": "Available On",
-      "type": "text",
-      "value": "🖥️ 📱"
+      "type": "icon",
+      "value": [<Computer />, <Smartphone />]
     },
     {
       "title": "Has Replay",
@@ -119,7 +120,16 @@ const GameDetails = () => {
         {
           (
             item.type === 'text' && <Grid2 size={6}>
-              <Typography textAlign="right">{item.value}</Typography>
+              <Typography textAlign="right" >{item.value}</Typography>
+            </Grid2>
+          ) ||
+          (
+            item.type === 'icon' && typeof item.value === 'object' && <Grid2 size={6}>
+              <Typography textAlign="right" display="flex" gap={1} justifyContent='flex-end' color="#f09020">
+                {
+                  item.value
+                }
+              </Typography>
             </Grid2>
           ) ||
           (
@@ -142,15 +152,28 @@ const GameDetails = () => {
             item.type === 'video' &&
             typeof item.value === 'string' &&
             <Grid2 size={12}>
-              <iframe
-                src={item.value}
-                title="YouTube video player"
-                width="100%"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-
+              <Box sx={{
+                position: 'relative',
+                width: '100%',
+                paddingBottom: 'calc(9/16 * 100%)'
+              }}>
+                <iframe
+                  src={item.value}
+                  title="YouTube video player"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%'
+                  }}
+                />
+              </Box>
             </Grid2>
           )
         }

@@ -1,13 +1,16 @@
-import { Box, styled } from "@mui/material";
+import { Box, styled } from '@mui/material'
 
-const BoxMainStyled = styled(Box)(() => ({
-  backgroundColor: 'white',
-  '& .border-right': {
-    borderRight: '1px solid #e0e0e0',
-    '@media (max-width: 960px)': {
-      borderRight: 'none',
-    },
-  },
-}));
+const BoxMainStyled = styled(Box)(({ theme }) => ({
+	backgroundColor: 'white',
+	'& .border-right': {
+		borderRight: '1px solid #e0e0e0',
+		[theme.breakpoints.down('md')]: {
+			borderRight: 'none',
+		},
+		[theme.breakpoints.down('sm')]: {
+			borderRight: '1px solid #e0e0e0',
+		},
+	},
+}))
 
-export default BoxMainStyled;
+export { BoxMainStyled }
