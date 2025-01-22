@@ -1,14 +1,24 @@
-import { Computer, Smartphone, Square } from "@mui/icons-material";
-import { Grid2, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { Computer, Smartphone, Square, Tablet } from "@mui/icons-material";
+import { Button, Grid2, List, ListItem, ListItemIcon, ListItemText, styled, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
+const OrangeButtonStyled = styled(Button)(() => ({
+  backgroundColor: '#ff9801',
+  borderRadius: '10px',
+  padding: '4px 6px',
+  textTransform: 'none',
+  minWidth: '110px',
+  minHeight: '36px',
+  boxShadow: 'none',
+  color: '#fff',
+  '&:hover, &:focus': {
+    boxShadow: 'none',
+  }
+}));
+
 const GameDetails = () => {
+  const [isShowMiniMode, setIsShowMiniMode] = useState(false)
   const data = useMemo(() => ([
-    {
-      "title": "Mini Mode",
-      "type": "video",
-      "value": "https://www.youtube.com/embed/PFr6jO_RHb4?si=kXo46VNWVTHYKwwf"
-    },
     {
       "title": "Release Date",
       "type": "text",
@@ -94,7 +104,7 @@ const GameDetails = () => {
     {
       "title": "Available On",
       "type": "icon",
-      "value": [<Computer />, <Smartphone />]
+      "value": [<Computer />, <Smartphone />, <Tablet />]
     },
     {
       "title": "Has Replay",
@@ -113,7 +123,7 @@ const GameDetails = () => {
     return data.map((item) => (
       <Grid2 container columnSpacing={2} rowSpacing={1} key={item.title} size={12}>
         <Grid2 size={6}>
-          <Typography color="text.secondary" fontWeight={600}>
+          <Typography color="#000" fontWeight={600}>
             {item.title}
           </Typography>
         </Grid2>
@@ -147,34 +157,6 @@ const GameDetails = () => {
                 ))}
               </List>
             </Grid2>
-          ) ||
-          (
-            item.type === 'video' &&
-            typeof item.value === 'string' &&
-            <Grid2 size={12}>
-              <Box sx={{
-                position: 'relative',
-                width: '100%',
-                paddingBottom: 'calc(9/16 * 100%)'
-              }}>
-                <iframe
-                  src={item.value}
-                  title="YouTube video player"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%'
-                  }}
-                />
-              </Box>
-            </Grid2>
           )
         }
       </Grid2>
@@ -183,7 +165,78 @@ const GameDetails = () => {
 
   return (
     <Grid2 container sx={{ padding: '16px' }} gap={2}>
+      <Grid2 container columnSpacing={2} rowSpacing={1} size={12}>
+        <Grid2 size={12}>
+          <Grid2 container size={12} justifyContent='space-between' alignItems='center'>
+            <Typography component='span' color="#000" fontWeight={600}>
+              Mini mode
+            </Typography>
+            <OrangeButtonStyled onClick={() => setIsShowMiniMode(true)}>
+              Launch
+            </OrangeButtonStyled>
+          </Grid2>
+        </Grid2>
+        {
+          isShowMiniMode &&
+          <Grid2 size={12} marginTop={2}>
+            <Box sx={{
+              position: 'relative',
+              width: '100%',
+              paddingBottom: 'calc(9/16 * 100%)'
+            }}>
+              <iframe
+                src="https://www.youtube.com/embed/PFr6jO_RHb4?si=kXo46VNWVTHYKwwf"
+                title="YouTube video player"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%'
+                }}
+              />
+            </Box>
+          </Grid2>
+        }
+      </Grid2>
       {DetailInfoList}
+      <Grid2 container columnSpacing={2} rowSpacing={1} size={12}>
+        <Typography variant="h5" fontWeight={600} marginBottom={1}>
+          Downloads
+        </Typography>
+
+        <Grid2 container size={12} justifyContent='space-between' alignItems='center'>
+          <Typography component="span">
+            Game Overview
+          </Typography>
+          <OrangeButtonStyled onClick={() => setIsShowMiniMode(true)}>
+            Download
+          </OrangeButtonStyled>
+        </Grid2>
+
+        <Grid2 container size={12} justifyContent='space-between' alignItems='center'>
+          <Typography component="span">
+            Media Pack
+          </Typography>
+          <OrangeButtonStyled onClick={() => setIsShowMiniMode(true)}>
+            Download
+          </OrangeButtonStyled>
+        </Grid2>
+
+        <Grid2 container size={12} justifyContent='space-between' alignItems='center'>
+          <Typography component="span">
+            Game Data (XLSX)
+          </Typography>
+          <OrangeButtonStyled onClick={() => setIsShowMiniMode(true)}>
+            Download
+          </OrangeButtonStyled>
+        </Grid2>
+      </Grid2>
     </Grid2>
   );
 };

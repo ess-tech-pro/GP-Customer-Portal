@@ -1,4 +1,4 @@
-import DownloadIcon from "@mui/icons-material/Download";
+import { DownloadForOfflineOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 
@@ -131,7 +131,7 @@ const ResponsiveSwiper = () => {
               <Typography variant="body2">{item.title}</Typography>
               <Box>
                 <IconButton color="inherit">
-                  <DownloadIcon />
+                  <DownloadForOfflineOutlined />
                 </IconButton>
               </Box>
             </Box>
