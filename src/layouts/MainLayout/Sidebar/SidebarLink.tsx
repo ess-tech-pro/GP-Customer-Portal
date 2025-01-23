@@ -23,9 +23,13 @@ const SidebarLink = ({ text, icon, to }: Props) => {
     setSidebarOpen(false)
   }
   return (
-    <ListItem key={text} disablePadding>
+    <ListItem key={text} disablePadding sx={{
+      color: 'white',
+    }}>
       <ListItemButton href={to} onClick={() => handleCloseSidebar()}>
-        <ListItemIcon>{icon}</ListItemIcon>
+        <ListItemIcon sx={{
+          color: 'white',
+        }}>{icon}</ListItemIcon>
         <ListItemText primary={text} />
       </ListItemButton>
     </ListItem>

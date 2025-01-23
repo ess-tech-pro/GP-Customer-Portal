@@ -1,4 +1,4 @@
-import { Box, Divider, Drawer, List, Toolbar } from "@mui/material";
+import { Box, Divider, Drawer, List } from "@mui/material";
 import { Fragment, useEffect } from "react";
 
 import { SIDEBAR_WIDTH } from "../constants";
@@ -7,6 +7,8 @@ import SidebarSubmenu from "./SidebarSubmenu";
 import navigation from "@/routes/navigation";
 import useIsMobile from "@/hooks/useIsMobile";
 import { useLayoutContext } from "@/contexts/LayoutContext";
+import logoDemo from '../../../public/images/logo/react.svg';
+
 
 const Sidebar = () => {
   const isMobile = useIsMobile();
@@ -30,13 +32,24 @@ const Sidebar = () => {
       }}
       sx={{
         "& .MuiDrawer-paper": {
+          background: "#000",
           boxSizing: "border-box",
           width: SIDEBAR_WIDTH,
         },
       }}
     >
       <Box>
-        <Toolbar />
+        <Box sx={{
+          minHeight: '64px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <img src={logoDemo} alt="Logo Demo" />
+        </Box>
+
+
+        {/* <Toolbar /> */}
         {navigation.map((section) => (
           <Fragment key={section.title}>
             <Divider />

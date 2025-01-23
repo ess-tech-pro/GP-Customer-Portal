@@ -21,7 +21,12 @@ const SidebarSubmenu = ({ text, icon, children }: Props) => {
   };
   return (
     <>
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton onClick={handleClick} sx={{
+        color: 'white',
+        '& .MuiListItemIcon-root': {
+          color: 'white',
+        }
+      }}>
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={text} />
         {open ? <ExpandLess /> : <ExpandMore />}

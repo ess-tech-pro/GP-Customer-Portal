@@ -6,8 +6,8 @@ import Description from './components/Description';
 import DetailInfoSection from './components/DetailInfoSection';
 import GalleryList from './components/GalleryList'
 import GameDemoSection from './components/GameDemoSection';
-import { BoxMainStyled } from './styles';
 import { IGameDetail } from './types';
+import BoxMainStyled from './styles';
 
 const GameDetail = () => {
   // I need fake data gameDetail here

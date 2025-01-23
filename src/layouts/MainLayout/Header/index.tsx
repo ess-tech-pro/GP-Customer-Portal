@@ -20,6 +20,7 @@ const Header = () => {
       sx={{
         width: `calc(100% - ${sidebarOpen && !isMobile ? SIDEBAR_WIDTH : 0
           }px)`,
+        background: "#000",
         transition: (theme) =>
           theme.transitions.create(["width"], {
             easing: sidebarOpen

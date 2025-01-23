@@ -13,4 +13,4 @@ const BoxMainStyled = styled(Box)(({ theme }) => ({
 	},
 }))
 
-export { BoxMainStyled }
+export default BoxMainStyled

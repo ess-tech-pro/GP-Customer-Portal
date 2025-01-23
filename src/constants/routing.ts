@@ -3,6 +3,7 @@ export const ROUTE_PATH = {
 	REGISTER: '/register',
 	LOGIN: '/login',
 	GAME: {
+		LIST: '/game',
 		DETAIL: '/game/detail',
 	},
 }

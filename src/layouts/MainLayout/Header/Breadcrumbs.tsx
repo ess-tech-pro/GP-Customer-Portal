@@ -2,6 +2,7 @@ import { Link, Breadcrumbs as MuiBreadcrumbs, Typography } from "@mui/material";
 
 import navigation from "@/routes/navigation";
 import { useLocation } from "react-router-dom";
+import { Fragment } from "react/jsx-runtime";
 
 type NameMap = Record<string, { title: string; linkable: boolean }>;
 
@@ -38,14 +39,19 @@ const Breadcrumbs = () => {
         const to = `/${pathnames.slice(0, index + 1).join("/")}`;
         const link = nameMap[to];
 
-        return last || !link.linkable ? (
-          <Typography color="inherit" key={to}>
-            {link.title}
-          </Typography>
-        ) : (
-          <Link underline="hover" color="inherit" href={to} key={to}>
-            {link.title}
-          </Link>
+        return (
+          <Fragment key={to}>
+            {/* {index > 0 && <ArrowBackIosIcon fontSize="small" />} */}
+            {last || !link.linkable ? (
+              <Typography color="inherit">
+                {link.title}
+              </Typography>
+            ) : (
+              <Link underline="hover" color="inherit" href={to}>
+                {link.title}
+              </Link>
+            )}
+          </Fragment>
         );
       })}
     </MuiBreadcrumbs>
