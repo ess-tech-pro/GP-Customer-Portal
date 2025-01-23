@@ -1,29 +1,29 @@
-import Box from "@mui/material/Box";
-import Header from "./MainLayout/Header";
-import { ReactNode } from "react";
-import { SIDEBAR_WIDTH } from "./MainLayout/constants";
-import Sidebar from "./MainLayout/Sidebar/Sidebar";
-import Toolbar from "@mui/material/Toolbar";
-import useIsMobile from "@/hooks/useIsMobile";
-import { useLayoutContext } from "@/contexts/LayoutContext";
+import Box from '@mui/material/Box'
+import { ReactNode } from 'react'
+import Toolbar from '@mui/material/Toolbar'
+import Header from './MainLayout/Header'
+import { SIDEBAR_WIDTH } from './MainLayout/constants'
+import Sidebar from './MainLayout/Sidebar/Sidebar'
+import useIsMobile from '@/hooks/useIsMobile'
+import { useLayoutContext } from '@/contexts/LayoutContext'
 
 interface MainLayoutProps {
 	children: ReactNode
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
-	const { sidebarOpen } = useLayoutContext();
-	const isMobile = useIsMobile();
+	const { sidebarOpen } = useLayoutContext()
+	const isMobile = useIsMobile()
 
 	return (
 		<>
 			<Sidebar />
 			<Box
 				sx={{
-					display: "flex",
+					display: 'flex',
 					ml: !isMobile && sidebarOpen ? `${SIDEBAR_WIDTH}px` : 0,
 					transition: (theme) =>
-						theme.transitions.create(["margin"], {
+						theme.transitions.create(['margin'], {
 							easing: sidebarOpen
 								? theme.transitions.easing.easeOut
 								: theme.transitions.easing.sharp,
@@ -45,5 +45,5 @@ export default function MainLayout({ children }: MainLayoutProps) {
 				</Box>
 			</Box>
 		</>
-	);
+	)
 }

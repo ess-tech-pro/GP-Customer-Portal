@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 function Home() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
   const { products } = useSelector((state: RootState) => state.example);
