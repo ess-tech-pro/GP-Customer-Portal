@@ -1,7 +1,12 @@
 import { AppRouter } from './routes/AppRouter';
+import LayoutContextProvider from "@/contexts/LayoutContext";
 
 function App() {
-  return <AppRouter />;
+  return (
+    <LayoutContextProvider>
+      <AppRouter />
+    </LayoutContextProvider>
+  );
 }
 
 export default App;

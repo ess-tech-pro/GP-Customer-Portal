@@ -1,10 +1,11 @@
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchProducts, postCart } from '../../store/slices/exampleSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Button from "@mui/material/Button";
 import { styled } from "@mui/system";
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts, postCart } from '../../store/slices/exampleSlice';
-import { AppDispatch, RootState } from '../../store/store';
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -21,11 +22,6 @@ function Home() {
 
   const onAddMoreProduct = () => {
     dispatch(postCart({ title: 'this is testzxcxzc' }));
-  };
-
-
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
   };
 
   const CustomButton = styled(Button)`
@@ -77,18 +73,6 @@ function Home() {
       <h2 className="text-3xl font-semibold text-center my-8">{t('description')}</h2>
 
       <div className="flex justify-center py-3">
-        <button
-          onClick={() => changeLanguage('en')}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          English
-        </button>
-        <button
-          onClick={() => changeLanguage('vi')}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Tiếng Việt
-        </button>
         <CustomButton>Styled-Components Button</CustomButton>
       </div>
 

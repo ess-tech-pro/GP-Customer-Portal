@@ -1,31 +1,49 @@
-import { ReactNode } from 'react'
-import Navbar from '../components/Navbar'
+import Box from "@mui/material/Box";
+import Header from "./MainLayout/Header";
+import { ReactNode } from "react";
+import { SIDEBAR_WIDTH } from "./MainLayout/constants";
+import Sidebar from "./MainLayout/Sidebar/Sidebar";
+import Toolbar from "@mui/material/Toolbar";
+import useIsMobile from "@/hooks/useIsMobile";
+import { useLayoutContext } from "@/contexts/LayoutContext";
 
 interface MainLayoutProps {
 	children: ReactNode
 }
 
-function MainLayout({ children }: MainLayoutProps) {
+export default function MainLayout({ children }: MainLayoutProps) {
+	const { sidebarOpen } = useLayoutContext();
+	const isMobile = useIsMobile();
+
 	return (
-		<div className="flex flex-col min-h-screen bg-gray-100">
-			{/* Navbar */}
-			<header className="bg-blue-600 text-white shadow">
-				<div className="container mx-auto px-4 py-4">
-					<Navbar />
-				</div>
-			</header>
-
-			{/* Main Content */}
-			<main className="flex-1 container mx-auto px-4 py-6">{children}</main>
-
-			{/* Footer */}
-			<footer className="bg-blue-600 text-white">
-				<div className="container mx-auto px-4 py-4 text-center">
-					© {new Date().getFullYear()} My React App. All rights reserved.
-				</div>
-			</footer>
-		</div>
-	)
+		<>
+			<Sidebar />
+			<Box
+				sx={{
+					display: "flex",
+					ml: !isMobile && sidebarOpen ? `${SIDEBAR_WIDTH}px` : 0,
+					transition: (theme) =>
+						theme.transitions.create(["margin"], {
+							easing: sidebarOpen
+								? theme.transitions.easing.easeOut
+								: theme.transitions.easing.sharp,
+							duration: sidebarOpen
+								? theme.transitions.duration.enteringScreen
+								: theme.transitions.duration.leavingScreen,
+						}),
+				}}
+			>
+				<Header />
+				<Box
+					component="main"
+					sx={{
+						p: 3,
+					}}
+				>
+					<Toolbar />
+					<main className="flex-1 container mx-auto px-4 py-6">{children}</main>
+				</Box>
+			</Box>
+		</>
+	);
 }
-
-export default MainLayout
