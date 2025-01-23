@@ -70,4 +70,7 @@ module.exports = {
 		footer: 'Issues this commit closes, e.g #123:',
 		confirmCommit: 'Ready to commit ?\n',
 	},
+  "commitMessage": {
+    "skip": true
+  }
 }
