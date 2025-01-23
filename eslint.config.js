@@ -105,6 +105,7 @@ export default [
 			'@typescript-eslint/no-explicit-any': 'off',
 			'react/state-in-constructor': 'off',
 			'react/destructuring-assignment': 'off',
+			'no-unreachable': 'off',
 			quotes: 'off',
 		},
 	},
