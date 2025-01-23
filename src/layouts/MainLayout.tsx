@@ -1,11 +1,11 @@
-import Box from '@mui/material/Box'
-import { ReactNode } from 'react'
-import Toolbar from '@mui/material/Toolbar'
-import Header from './MainLayout/Header'
-import { SIDEBAR_WIDTH } from './MainLayout/constants'
-import Sidebar from './MainLayout/Sidebar/Sidebar'
-import useIsMobile from '@/hooks/useIsMobile'
 import { useLayoutContext } from '@/contexts/LayoutContext'
+import useIsMobile from '@/hooks/useIsMobile'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import { ReactNode } from 'react'
+import { SIDEBAR_WIDTH } from './MainLayout/constants'
+import Header from './MainLayout/Header'
+import Sidebar from './MainLayout/Sidebar/Sidebar'
 
 interface MainLayoutProps {
 	children: ReactNode

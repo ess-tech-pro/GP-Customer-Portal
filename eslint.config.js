@@ -19,7 +19,7 @@ const compat = new FlatCompat({
 
 export default [
 	...fixupConfigRules(
-		compat.extends('./configs/.eslintrc-auto-import.json', 'airbnb', 'prettier')
+		compat.extends('./configs/.eslintrc-auto-import.json', 'eslint:recommended','plugin:import/recommended', 'airbnb', 'prettier')
 	),
 	{
 		ignores: [
@@ -34,7 +34,7 @@ export default [
 		], // Bỏ qua thư mục "dist"
 	},
 	{
-		files: ['**/*.{js,jsx,ts,tsx}'], // Áp dụng cho các file JavaScript và TypeScript
+		files: ['src/**/*.{js,jsx,ts,tsx}'], // Áp dụng cho các file JavaScript và TypeScript
 		languageOptions: {
 			ecmaVersion: 2020, // Phiên bản ECMAScript
 			globals: globals.browser, // Biến toàn cục của môi trường trình duyệt
@@ -92,17 +92,33 @@ export default [
 			'react/jsx-one-expression-per-line': 'off',
 			'react/jsx-wrap-multilines': 'off',
 			'implicit-arrow-linebreak': 'off',
+      'react/jsx-no-constructed-context-values': 'off',
+      'import/order': 'off',
 			quotes: 'off',
 		},
-		settings: {
+	},
+  {
+    settings: {
 			'import/resolver': {
 				'eslint-import-resolver-custom-alias': {
 					alias: {
-						'': './src',
-					},
+            "@": "./src",
+            "assets": "./src/assets",
+            "layouts": "./src/layouts",
+            "hooks": "./src/hooks",
+            "pages": "./src/pages",
+            "components": "./src/components",
+            "schemas": "./src/schemas",
+            "utils": "./src/utils",
+            "services": "./src/services",
+            "store": "./src/store",
+            "styles": "./src/styles",
+            "types": "./src/types",
+            "routes": "./src/routes"
+          },
 					extensions: ['.js', '.jsx', '.ts', '.tsx'],
 				},
 			},
 		},
-	},
+  }
 ]
