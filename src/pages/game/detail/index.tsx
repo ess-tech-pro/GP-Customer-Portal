@@ -8,8 +8,13 @@ import GalleryList from './components/GalleryList'
 import GameDemoSection from './components/GameDemoSection';
 import { IGameDetail } from './types';
 import BoxMainStyled from './styles';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store/store';
+import { getGameDetail } from '@/store/slices/gameSlice';
 
 const GameDetail = () => {
+  const gameId = '0000';
+  const dispatch = useDispatch<AppDispatch>();
   // I need fake data gameDetail here
   const gameDetail: IGameDetail = {
     id: '1',
@@ -19,6 +24,28 @@ const GameDetail = () => {
     rating: 4,
     tags: ['action', 'adventure'],
   };
+  const fetchData = async ({
+    id
+  }) => {
+    dispatch(
+      getGameDetail({
+        id,
+      }),
+    )
+      .unwrap() // unwrap giúp bắt lỗi reject
+      .then(() => {
+        console.log('ok');
+      })
+      .catch((err) => {
+        console.error('Login failed:', err); // Có thể log lỗi nếu cần
+      });
+  };
+
+  useEffect(() => {
+    fetchData({
+      id: gameId,
+    });
+  }, [gameId]);
 
   return (
     <BoxMainStyled>

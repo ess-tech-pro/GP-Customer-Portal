@@ -4,8 +4,7 @@ import axios from 'axios'
 
 const axiosClient = axios.create({
 	//   baseURL: process.env.REACT_APP_API_BASE_URL || "https://api.example.com",
-	baseURL: 'https://dummyjson.com',
-
+	baseURL: 'https://gpcs.ex-integrationstd.xyz',
 	timeout: 10000, // Thời gian timeout
 })
 

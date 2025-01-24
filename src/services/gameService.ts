@@ -2,13 +2,18 @@ import {
 	// IGameDetailInfoRequest,
 	IGameDetailInfoResponse,
 } from '@/schemas/gameDetailInfo.schema'
-// import axiosClient from './axiosClient'
+import axiosClient from './axiosClient'
 import * as yup from 'yup'
 
-export const getGameDetailInfo = async (): // params: IGameDetailInfoRequest
+export const getGameDetailService = async ({
+	id,
+}: {
+	id: string
+}): // params: IGameDetailInfoRequest
 Promise<IGameDetailInfoResponse | any> => {
 	try {
-		return {}
+		const rep = await axiosClient.get(`/api/v1/game/game-detail-public/${id}`)
+		return rep
 	} catch (error) {
 		if (error instanceof yup.ValidationError) {
 			console.error('Validation Errors:', error.errors) // Log danh sách lỗi
