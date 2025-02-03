@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from 'react'
+import { Suspense } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ROUTE_PATH } from '../constants/routing'
 import AuthLayout from '../layouts/AuthLayout'
