@@ -3,14 +3,15 @@ import axiosClient from './axiosClient'
 
 const login = async (loginData: LoginRequest): Promise<LoginResponse> => {
 	console.log('loginData', loginData)
-	const rep = await axiosClient.post('/auth/login', {
+	const rep = (await axiosClient.post('/auth/login', {
 		username: 'emilys',
 		password: 'emilyspass',
-	})
+	})) as any
 
 	if (rep) {
 		// Format the response data to match the schema
 		const { accessToken, ...user } = rep
+
 		const dataValidate = {
 			accessToken,
 			user: {
