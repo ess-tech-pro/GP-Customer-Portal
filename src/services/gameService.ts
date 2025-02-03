@@ -10,7 +10,7 @@ export const getGameDetailService = async ({
 }: {
 	id: string
 }): // params: IGameDetailInfoRequest
-Promise<IGameDetailInfoResponse | any> => {
+	Promise<IGameDetailInfoResponse | any> => {
 	try {
 		const rep = await axiosClient.get(`/api/v1/game/game-detail-public/${id}`)
 		return rep
@@ -22,3 +22,27 @@ Promise<IGameDetailInfoResponse | any> => {
 		throw error // Ném lại lỗi khác (nếu không phải lỗi validate)
 	}
 } // getGameDetailInfo
+
+
+export const getGameListService = async (
+	filters: any
+): Promise<any> => {
+	try {
+		// await CreateProductRequestSchema.validate(cartData, { abortEarly: false })
+
+		const response = await axiosClient.post('/api/v1/game/list-game-public', filters)
+
+		// const validatedData = await CreateProductResponseSchema.validate(response, {
+		// 	abortEarly: false,
+		// })
+
+		// return validatedData
+
+		return response
+	} catch (error) {
+		if (error instanceof yup.ValidationError) {
+			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
+		}
+		throw error
+	}
+}

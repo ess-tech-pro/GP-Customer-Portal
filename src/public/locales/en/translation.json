@@ -1,4 +1,5 @@
 {
     "welcome": "Welcome to React",
-    "description": "This is an example of i18n integration."
+    "description": "This is an example of i18n integration.",
+    "gameList": "Game List Enghlish"
 }

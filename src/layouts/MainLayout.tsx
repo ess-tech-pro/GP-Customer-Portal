@@ -41,6 +41,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 						mt: 8,
 						background: 'white',
 						borderRadius: '16px 16px 0 0',
+						width: '100%'
 					}}
 				>
 					<main className="flex-1 container mx-auto">{children}</main>
