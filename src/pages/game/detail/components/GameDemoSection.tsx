@@ -33,7 +33,7 @@ const GameDemoSection = (props: IGameDetailProps) => {
         </Box>
       </Box>
 
-      <GameDemoAction id={gameDetail.id} />
+      <GameDemoAction gameDetail={gameDetail} />
     </BoxContentStyled>
   )
 }

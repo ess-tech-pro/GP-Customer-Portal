@@ -15,15 +15,8 @@ import { getGameDetail } from '@/store/slices/gameSlice';
 const GameDetail = () => {
   const gameId = '0000';
   const dispatch = useDispatch<AppDispatch>();
-  // I need fake data gameDetail here
-  const gameDetail: IGameDetail = {
-    id: '1',
-    name: 'Aztec Smash',
-    image: 'https://via.placeholder.com/300',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat ligula. Ut sodales enim at nisi tempor, quis luctus enim tempus. Nullam auctor, nunc nec ultricies bibendum, nunc dui fermentum nunc, nec tincidunt nunc turpis a libero. Nulla facilisi. Sed nec purus euismod, ultricies mi eget, ultricies turpis. Donec nec nunc sit amet urna aliquam lacinia. Nulla nec purus feugiat ligula. Ut sodales enim at nisi tempor, quis luctus enim tempus. Nullam auctor, nunc nec ultricies bibendum, nunc dui fermentum nunc, nec tincidunt nunc turpis a libero. Nulla facilisi. Sed nec purus euismod, ultricies mi eget, ultricies turpis. Donec nec nunc sit amet urna aliquam lacinia.',
-    rating: 4,
-    tags: ['action', 'adventure'],
-  };
+  const [gameDetail, setGameDetail] = useState<IGameDetail | null>(null);
+
   const fetchData = async ({
     id
   }) => {
@@ -33,8 +26,12 @@ const GameDetail = () => {
       }),
     )
       .unwrap() // unwrap giúp bắt lỗi reject
-      .then(() => {
-        console.log('ok');
+      .then((data) => {
+        // setGameDetail(data);
+        if (data) {
+          console.log('data', data);
+          setGameDetail(data);
+        }
       })
       .catch((err) => {
         console.error('Login failed:', err); // Có thể log lỗi nếu cần
@@ -51,8 +48,16 @@ const GameDetail = () => {
     <BoxMainStyled>
       <Grid container columns={12}>
         <Grid className="border-right" size={{ xs: 12, lg: 8 }}>
-          <GameDemoSection gameDetail={gameDetail} />
-          <Description gameDetail={gameDetail} />
+          {
+            gameDetail && (
+              <>
+                <GameDemoSection gameDetail={gameDetail} />
+                <Description gameDetail={gameDetail} />
+              </>
+            )
+          }
+
+
           <GalleryList />
         </Grid>
         <Grid size={{ xs: 12, lg: 4 }}>

@@ -13,7 +13,7 @@ export const getGameDetailService = async ({
 Promise<IGameDetailInfoResponse | any> => {
 	try {
 		const rep = await axiosClient.get(`/api/v1/game/game-detail-public/${id}`)
-		return rep
+		return rep.data
 	} catch (error) {
 		if (error instanceof yup.ValidationError) {
 			console.error('Validation Errors:', error.errors) // Log danh sách lỗi
