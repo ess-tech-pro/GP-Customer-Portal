@@ -8,6 +8,12 @@ export default (): UserConfig => {
 		plugins: [
 			NormalSplitChunks([
 				/node_modules\/([^/]+)/,
+				/constants\/([^/]+)/,
+				/contexts\/([^/]+)/,
+				/assets\/([^/]+)/,
+				/public\/([^/]+)/,
+				/schemas\/([^/]+)/,
+				/services\/([^/]+)/,
 				/utils\/([^/]+)/,
 				/hooks\/([^/]+)/,
 				/store\/([^/]+)/,
