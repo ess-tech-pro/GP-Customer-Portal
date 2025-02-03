@@ -50,6 +50,11 @@
     "useState": true,
     "useSyncExternalStore": true,
     "useTransition": true,
-    "yup": true
+    "yup": true,
+    "React": true,
+    "StrictMode": true,
+    "Suspense": true,
+    "componentDidCatch": true,
+    "createContext": true
   }
 }

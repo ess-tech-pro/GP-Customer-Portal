@@ -8,6 +8,8 @@ import RouterError from '@/components/RouterError'
 const Home = lazy(() => import('../pages/home'))
 const Login = lazy(() => import('../pages/login'))
 const GameDetail = lazy(() => import('../pages/game/detail'))
+const GameList = lazy(() => import('../pages/game-list'))
+const Examples = lazy(() => import('../pages/examples'))
 
 const routesConfig = [
   {
@@ -29,6 +31,16 @@ const routesConfig = [
     path: ROUTE_PATH.GAME.DETAIL,
     layout: MainLayout,
     component: GameDetail,
+  },
+  {
+    path: ROUTE_PATH.GAME.LIST,
+    layout: MainLayout,
+    component: GameList,
+  },
+  {
+    path: ROUTE_PATH.EXAMPLES,
+    layout: MainLayout,
+    component: Examples,
   },
 ]
 
