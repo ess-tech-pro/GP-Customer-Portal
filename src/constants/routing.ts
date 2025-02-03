@@ -6,4 +6,6 @@ export const ROUTE_PATH = {
 		LIST: '/game',
 		DETAIL: '/game/detail',
 	},
+	EXAMPLES: '/examples',
+
 }
