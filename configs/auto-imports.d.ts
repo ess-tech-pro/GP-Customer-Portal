@@ -11,15 +11,10 @@ declare global {
   const NavLink: typeof import('react-router-dom')['NavLink']
   const Navigate: typeof import('react-router-dom')['Navigate']
   const Outlet: typeof import('react-router-dom')['Outlet']
-  const React: typeof import('react')
   const Route: typeof import('react-router-dom')['Route']
   const RouterProvider: typeof import('react-router-dom')['RouterProvider']
   const Routes: typeof import('react-router-dom')['Routes']
-  const StrictMode: typeof import('react')['StrictMode']
-  const Suspense: typeof import('react')['Suspense']
-  const componentDidCatch: typeof import('react')['componentDidCatch']
   const createBrowserRouter: typeof import('react-router-dom')['createBrowserRouter']
-  const createContext: typeof import('react')['createContext']
   const createRef: typeof import('react')['createRef']
   const createRoot: typeof import('react-dom/client')['createRoot']
   const forwardRef: typeof import('react')['forwardRef']
@@ -55,9 +50,13 @@ declare global {
   const useState: typeof import('react')['useState']
   const useSyncExternalStore: typeof import('react')['useSyncExternalStore']
   const useTransition: typeof import('react')['useTransition']
+  const yup: typeof import('yup')
 }
 // for type re-export
 declare global {
+  // @ts-ignore
+  export type * as yup from 'yup'
+  import('yup')
   // @ts-ignore
   export type { Dispatch, SetStateAction, HTMLProps, HTMLAttributes, ComponentType, ReactNode } from 'react'
   import('react')

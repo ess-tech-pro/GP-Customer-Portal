@@ -9,17 +9,12 @@
     "NavLink": true,
     "Navigate": true,
     "Outlet": true,
-    "React": true,
     "ReactNode": true,
     "Route": true,
     "RouterProvider": true,
     "Routes": true,
     "SetStateAction": true,
-    "StrictMode": true,
-    "Suspense": true,
-    "componentDidCatch": true,
     "createBrowserRouter": true,
-    "createContext": true,
     "createRef": true,
     "createRoot": true,
     "forwardRef": true,
@@ -54,6 +49,7 @@
     "useSearchParams": true,
     "useState": true,
     "useSyncExternalStore": true,
-    "useTransition": true
+    "useTransition": true,
+    "yup": true
   }
 }

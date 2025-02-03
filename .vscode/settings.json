@@ -1,13 +1,13 @@
 {
 	"editor.wordWrap": "on",
 	"editor.suggest.showModules": false,
-	"editor.formatOnSave": false,
+	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	// "editor.codeActionsOnSave": [
-	// 	"source.formatDocument",
-	// 	"source.fixAll.tslint",
-	// 	"source.fixAll.eslint"
-	// ],
+	"editor.codeActionsOnSave": [
+		"source.formatDocument",
+		"source.fixAll.tslint",
+		"source.fixAll.eslint"
+	],
 	"editor.quickSuggestions": {
 		"other": true,
 		"comments": false,
