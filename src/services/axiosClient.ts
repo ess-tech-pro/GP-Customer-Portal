@@ -4,7 +4,19 @@ import axios from 'axios'
 
 const axiosClient = axios.create({
 	//   baseURL: process.env.REACT_APP_API_BASE_URL || "https://api.example.com",
-	baseURL: 'https://gpcs.ex-integrationstd.xyz',
+	/**
+	 * Bibi :
+	 *  IF mode = development => set baseURL
+	 *  ELSE => unset baseURL (domain BE and FE are the same)
+	 *
+	 * EX:
+	 * development => will call 'https://gpcs.ex-integrationstd.xyz/api/v1/game/game-detail-public/0000' (relative path)
+	 * other environments => will call '/api/v1/game/game-detail-public/0000' (absolute path)
+	 */
+	baseURL:
+		import.meta.env.MODE === 'development'
+			? 'https://gpcs.ex-integrationstd.xyz'
+			: '',
 	timeout: 10000, // Thời gian timeout
 })
 
