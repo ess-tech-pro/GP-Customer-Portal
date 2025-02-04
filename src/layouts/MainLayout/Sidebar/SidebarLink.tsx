@@ -5,6 +5,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { JSX } from "react";
+import { useNavigate } from "react-router-dom";
 
 import useIsMobile from "@/hooks/useIsMobile";
 import { useLayoutContext } from "@/contexts/LayoutContext";
@@ -17,8 +18,11 @@ interface Props {
 
 const SidebarLink = ({ text, icon, to }: Props) => {
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
+
   const { sidebarOpen, setSidebarOpen } = useLayoutContext();
-  function handleCloseSidebar() {
+  function handleClickRedirect() {
+    navigate(to)
     if (!isMobile || !sidebarOpen) return;
     setSidebarOpen(false)
   }
@@ -26,7 +30,7 @@ const SidebarLink = ({ text, icon, to }: Props) => {
     <ListItem key={text} disablePadding sx={{
       color: 'white',
     }}>
-      <ListItemButton href={to} onClick={() => handleCloseSidebar()}>
+      <ListItemButton onClick={() => handleClickRedirect()}>
         <ListItemIcon sx={{
           color: 'white',
         }}>{icon}</ListItemIcon>

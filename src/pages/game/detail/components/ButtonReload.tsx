@@ -2,14 +2,10 @@ import { Button } from '@mui/material'
 import { memo } from 'react'
 
 const ButtonReload = ({
-  id
+  onClick,
 }: {
-  id: string
+  onClick: () => void
 }) => {
-
-  const handleClick = () => {
-    console.log('Reload demo', id)
-  }
 
   return (
     <Button variant="contained" sx={{
@@ -23,7 +19,7 @@ const ButtonReload = ({
       '&:hover, &:focus': {
         boxShadow: 'none',
       }
-    }} onClick={handleClick}>
+    }} onClick={onClick}>
       Reload demo
     </Button>
   )

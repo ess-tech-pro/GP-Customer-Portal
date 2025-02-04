@@ -1,9 +1,8 @@
 import * as yup from 'yup'
 
 export const LoginRequestSchema = yup.object().shape({
-	email: yup
+	username: yup
 		.string()
-		.email('Invalid email address')
 		.required('Email is required'),
 	password: yup
 		.string()
@@ -14,9 +13,9 @@ export const LoginRequestSchema = yup.object().shape({
 export const LoginResponseSchema = yup.object().shape({
 	accessToken: yup.string().required('Access token is required'),
 	user: yup.object().shape({
-		id: yup.number().required('ID is required'),
-		username: yup.string().required('Username is required'),
-		email: yup.string().required('Email is required'),
+		id: yup.number(),
+		username: yup.string(),
+		email: yup.string(),
 		role: yup.string(),
 		firstName: yup.string(),
 		lastName: yup.string(),
