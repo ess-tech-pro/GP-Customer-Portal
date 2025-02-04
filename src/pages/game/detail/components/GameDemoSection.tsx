@@ -11,9 +11,9 @@ const BoxContentStyled = styled(Box)(() => ({
 
 const GameDemoSection = (props: IGameDetailProps) => {
   const { gameDetail } = props;
+  const currentLanguage = "en";
+  const [reloadDemo, setReloadDemo] = useState(false);
 
-
-  console.log('Game detail', gameDetail);
   return (
     <BoxContentStyled>
       <Box
@@ -23,7 +23,8 @@ const GameDemoSection = (props: IGameDetailProps) => {
       >
         <Box className="video-container">
           <iframe
-            src="https://www.youtube.com/embed/PFr6jO_RHb4?si=kXo46VNWVTHYKwwf"
+            key={`${reloadDemo}`}
+            src={gameDetail?.links[0].replace("{lang}", currentLanguage)}
             title="YouTube video player"
             width="100%"
             height="450"
@@ -33,7 +34,7 @@ const GameDemoSection = (props: IGameDetailProps) => {
         </Box>
       </Box>
 
-      <GameDemoAction id={gameDetail.id} />
+      <GameDemoAction gameDetail={gameDetail} setReloadDemo={setReloadDemo} />
     </BoxContentStyled>
   )
 }

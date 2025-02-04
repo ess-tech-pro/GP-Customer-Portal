@@ -1,6 +1,9 @@
 import { Computer, Smartphone, Square, Tablet } from "@mui/icons-material";
 import { Button, Grid2, List, ListItem, ListItemIcon, ListItemText, styled, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { IGameDetailProps } from "../types";
+import moment from "moment";
+import { GAME_DETAIL_VOLATILITY } from "../constants";
 
 const OrangeButtonStyled = styled(Button)(() => ({
   backgroundColor: '#ff9801',
@@ -16,108 +19,118 @@ const OrangeButtonStyled = styled(Button)(() => ({
   }
 }));
 
-const GameDetails = () => {
+const GameDetails = (props: IGameDetailProps) => {
   const [isShowMiniMode, setIsShowMiniMode] = useState(false)
-  const data = useMemo(() => ([
-    {
-      "title": "Release Date",
-      "type": "text",
-      "value": "2nd January 2025"
-    },
-    {
-      "title": "Game Symbol",
-      "type": "text",
-      "value": "vs20plsmcannon"
-    },
-    {
-      "title": "Numeric ID",
-      "type": "text",
-      "value": "1683039673"
-    },
-    {
-      "title": "Minimum Bet Per Line",
-      "type": "text",
-      "value": "0.01"
-    },
-    {
-      "title": "Minimum Total Bet",
-      "type": "text",
-      "value": "0.2"
-    },
-    {
-      "title": "Maximum Total Bet",
-      "type": "text",
-      "value": "240"
-    },
-    {
-      "title": "Reels",
-      "type": "text",
-      "value": "7"
-    },
-    {
-      "title": "Rows",
-      "type": "text",
-      "value": "7"
-    },
-    {
-      "title": "Pay Type",
-      "type": "text",
-      "value": "Cluster Pays"
-    },
-    {
-      "title": "Symbol Pays",
-      "type": "text",
-      "value": "5+"
-    },
-    {
-      "title": "Bet Multiplier",
-      "type": "text",
-      "value": "20"
-    },
-    {
-      "title": "Max Multiplier Win",
-      "type": "text",
-      "value": "9000"
-    },
-    {
-      "title": "RTPs",
-      "type": "list",
-      "value": [
-        "96.52%"
-      ]
-    },
-    {
-      "title": "Hit Frequency",
-      "type": "list",
-      "value": [
-        "Base game hit frequency 1 in 3.28",
-        "Free spins hit frequency 1 in 278",
-        "Odds for > x1000.00 hit frequency 1 in 33,100",
-        "Max win hit frequency 1 in 3,100,000"
-      ]
-    },
-    {
-      "title": "Volatility",
-      "type": "text",
-      "value": "Very High"
-    },
-    {
-      "title": "Available On",
-      "type": "icon",
-      "value": [<Computer />, <Smartphone />, <Tablet />]
-    },
-    {
-      "title": "Has Replay",
-      "type": "text",
-      "value": "Yes"
-    },
-    {
-      "title": "Has Buy Spins",
-      "type": "text",
-      "value": "Yes"
-    }
-  ]
-  ), [])
+  const { gameDetail } = props;
+
+  const DRIVE_ICONS = {
+    MOBILE: <Smartphone />,
+    DESKTOP: <Computer />,
+    TABLET: <Tablet />,
+  };
+
+  const getDriveIcons = (drives: string[]) => {
+    return drives.map(drive => DRIVE_ICONS[drive]);
+  };
+
+  const data = useMemo(() => {
+    const extraConfigData = gameDetail.extraConfig[0];
+
+    return [
+      {
+        "title": "Release Date",
+        "type": "text",
+        "value": moment(gameDetail.timeRunning).format('Do MMMM YYYY')
+      },
+      {
+        "title": "Game Symbol",
+        "type": "text",
+        "value": "vs20plsmcannon"
+      },
+      {
+        "title": "Numeric ID",
+        "type": "text",
+        "value": gameDetail.numId
+      },
+      {
+        "title": "Minimum Bet Per Line",
+        "type": "text",
+        "value": extraConfigData.minBetPerLine
+      },
+      {
+        "title": "Minimum Total Bet",
+        "type": "text",
+        "value": extraConfigData.totalBet
+      },
+      {
+        "title": "Maximum Total Bet",
+        "type": "text",
+        "value": extraConfigData.totalBet
+      },
+      {
+        "title": "Reels",
+        "type": "text",
+        "value": extraConfigData.reel
+      },
+      {
+        "title": "Rows",
+        "type": "text",
+        "value": extraConfigData.rows
+      },
+      {
+        "title": "Pay Type",
+        "type": "text",
+        "value": extraConfigData.type
+      },
+      {
+        "title": "Symbol Pays",
+        "type": "text",
+        "value": extraConfigData.symbolType
+      },
+      {
+        "title": "Bet Multiplier",
+        "type": "text",
+        "value": extraConfigData.betMul
+      },
+      {
+        "title": "Max Multiplier Win",
+        "type": "text",
+        "value": extraConfigData.maxMulWin
+      },
+      {
+        'key': 'rtps',
+        "title": "RTPs",
+        "type": "list",
+        "value": gameDetail.rtps.map((rtp) => `${rtp}%`)
+      },
+      {
+        "title": "Hit Frequency",
+        "type": "list",
+        "value": extraConfigData.hitFrequency
+      },
+      {
+        "title": "Volatility",
+        "type": "text",
+        "value": GAME_DETAIL_VOLATILITY[gameDetail.volatility]
+      },
+      {
+        "title": "Available On",
+        "type": "icon",
+        "value": getDriveIcons(gameDetail.drives)
+      },
+      {
+        "title": "Has Replay",
+        "type": "text",
+        "value": extraConfigData.hasReplay ? 'Yes' : 'No'
+      },
+      {
+        "title": "Has Buy Spins",
+        "type": "text",
+        "value": extraConfigData.hasBuySpin ? 'Yes' : 'No'
+      }
+    ]
+  }, [gameDetail]);
+
 
   const DetailInfoList = useMemo(() => {
     return data.map((item) => (

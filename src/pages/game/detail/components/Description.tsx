@@ -1,11 +1,28 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
-import { IGameDetailProps } from "../types";
+import DOMPurify from 'dompurify';
+import { IGameDetailProps, IMultiLang } from "../types";
+import parse from 'react-html-parser';
 
 const Description = (props: IGameDetailProps) => {
   const { gameDetail } = props;
+  const currentLanguage = 'vi';
 
-  console.log('Game detail:', gameDetail);
+  const getGameName = (gameName: IMultiLang<string> | IMultiLang<string>[]): string => {
+    if (Array.isArray(gameName)) {
+      return gameName.find((item) => item.lang === currentLanguage)?.value || '';
+    }
+    return gameName.value;
+  };
+
+  const getDescription = (description: IMultiLang<string> | IMultiLang<string>[]): string => {
+    if (Array.isArray(description)) {
+      return description.find((item) => item.lang === currentLanguage)?.value || '';
+    }
+    return description.value;
+  };
+
+  const sanitizedDescription = DOMPurify.sanitize(getDescription(gameDetail.description));
 
   return (
     <Box sx={{
@@ -18,10 +35,10 @@ const Description = (props: IGameDetailProps) => {
         marginBottom: '0.5rem',
         lineHeight: 1,
       }}>
-        {gameDetail.name}
+        {getGameName(gameDetail.gameName)}
       </Typography>
       <Box>
-        {gameDetail.description}
+        {parse(sanitizedDescription)}
       </Box>
     </Box>
   );
