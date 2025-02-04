@@ -23,7 +23,7 @@
     "lib": [
       "DOM",
       "DOM.Iterable",
-      "ESNext"
+      "ES2024"
     ],
     // NOTE - Set what module will be built for project (es, commonjs) (what is compile way will be chosen for import / export syntax)
     // https://www.typescriptlang.org/tsconfig#module
@@ -32,7 +32,7 @@
     // NOTE - Set what target ECMAScript target version (you can easy to think that the target option is used to setup for what compile way for script syntax that exclude import and export)
     // https://www.typescriptlang.org/tsconfig#target
     // https://stackoverflow.com/questions/39493003/typescript-compile-options-module-vs-target
-    "target": "ESNext",
+    "target": "ES2024",
     // NOTE - Set way to system try to find module
     // https://www.typescriptlang.org/tsconfig#moduleResolution
     // https://www.typescriptlang.org/tsconfig#moduleResolution
