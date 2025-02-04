@@ -12,6 +12,8 @@ export const ActionTypes = {
 	},
 	GAME: {
 		GAME_DETAIL: 'game/gameDetail',
+		GAME_LIST: 'game/gameList',
+
 	},
 	// Thêm các module khác nếu cần
 }

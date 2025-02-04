@@ -2,21 +2,15 @@ import { LoginRequest, LoginResponse, LoginResponseSchema } from '../schemas'
 import axiosClient from './axiosClient'
 
 const login = async (loginData: LoginRequest): Promise<LoginResponse> => {
-	console.log('loginData', loginData)
-	const rep = (await axiosClient.post('/auth/login', {
-		username: 'emilys',
-		password: 'emilyspass',
+	const rep = (await axiosClient.post('api/v1/auth/login', {
+		username: loginData.username,
+		password: loginData.password,
 	})) as any
 
 	if (rep) {
 		// Format the response data to match the schema
-		const { accessToken, ...user } = rep
-
 		const dataValidate = {
-			accessToken,
-			user: {
-				...user,
-			},
+			accessToken: rep.data.token,
 			error: '',
 		}
 
@@ -24,7 +18,6 @@ const login = async (loginData: LoginRequest): Promise<LoginResponse> => {
 		const validatedData = LoginResponseSchema.validate(dataValidate, {
 			abortEarly: false,
 		})
-
 		return validatedData
 	}
 

@@ -1,6 +1,16 @@
 {
-	"recommendations": [
-		"ionutvmi.path-autocomplete",
-		"rohit-gohri.format-code-action"
-	]
+  "recommendations": [
+    "ionutvmi.path-autocomplete",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "rohit-gohri.format-code-action",
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "oderwat.indent-rainbow",
+    "PKief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "YoavBls.pretty-ts-errors",
+    "bradlc.vscode-tailwindcss"
+  ]
 }

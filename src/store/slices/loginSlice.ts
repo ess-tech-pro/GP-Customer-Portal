@@ -6,10 +6,10 @@ import { LoginRequest, LoginResponse } from '../../schemas';
 
 export const login = createAsyncThunk<LoginResponse, LoginRequest>(
   ActionTypes.AUTH.LOGIN,
-  async ({ email, password }, thunkAPI) => {
+  async ({ username, password }, thunkAPI) => {
     try {
-      const response = await loginService({ email, password });
-
+      const response = await loginService({ username, password });
+      localStorage.setItem("accessToken", response.accessToken);
       return response;
     } catch (error: unknown) {
       if (error instanceof Error) {

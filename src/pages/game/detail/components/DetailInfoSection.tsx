@@ -145,7 +145,7 @@ const GameDetails = (props: IGameDetailProps) => {
             item.type === 'text' && <Grid2 size={6}>
               <Typography textAlign="right" >{item.value}</Typography>
             </Grid2>
-          ) ||
+          ) ??
           (
             item.type === 'icon' && typeof item.value === 'object' && <Grid2 size={6}>
               <Typography textAlign="right" display="flex" gap={1} justifyContent='flex-end' color="#f09020">
@@ -154,7 +154,7 @@ const GameDetails = (props: IGameDetailProps) => {
                 }
               </Typography>
             </Grid2>
-          ) ||
+          ) ??
           (
             item.type === 'list' &&
             typeof item.value === 'object' &&
