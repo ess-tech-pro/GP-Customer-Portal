@@ -36,15 +36,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@app/debug@workspace:*, @app/debug@workspace:packages/debug":
-  version: 0.0.0-use.local
-  resolution: "@app/debug@workspace:packages/debug"
-  dependencies:
-    "@types/debug": "npm:^4.1.12"
-    debug: "npm:^4.4.0"
-  languageName: unknown
-  linkType: soft
-
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.25.9, @babel/code-frame@npm:^7.26.2":
   version: 7.26.2
   resolution: "@babel/code-frame@npm:7.26.2"
@@ -2108,6 +2099,15 @@ __metadata:
   checksum: 10c0/ba9832b8409af618cf61791805fe201dd62f3c82c783adfcec0f5cd391e68b40beaecb47b9a3209e926dbcab65135f410cae405b69a559197795793399f61176
   languageName: node
   linkType: hard
+
+"@ess/debug@workspace:*, @ess/debug@workspace:packages/debug":
+  version: 0.0.0-use.local
+  resolution: "@ess/debug@workspace:packages/debug"
+  dependencies:
+    "@types/debug": "npm:^4.1.12"
+    debug: "npm:^4.4.0"
+  languageName: unknown
+  linkType: soft
 
 "@floating-ui/core@npm:^1.6.0":
   version: 1.6.9
@@ -9066,11 +9066,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "my-react-app@workspace:."
   dependencies:
-    "@app/debug": "workspace:*"
     "@babel/preset-env": "npm:^7.26.0"
     "@babel/preset-react": "npm:^7.26.3"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.0"
+    "@ess/debug": "workspace:*"
     "@headlessui/react": "npm:^2.2.0"
     "@heroicons/react": "npm:^2.2.0"
     "@hookform/resolvers": "npm:^3.10.0"
