@@ -1,4 +1,4 @@
-import { AppBar, IconButton, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Tooltip } from "@mui/material";
 
 import Breadcrumbs from "./Breadcrumbs";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -6,13 +6,22 @@ import { SIDEBAR_WIDTH } from "../constants";
 import SelectLanguage from './SelectLanguage';
 import useIsMobile from "@/hooks/useIsMobile";
 import { useLayoutContext } from "@/contexts/LayoutContext";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { sidebarOpen, setSidebarOpen } = useLayoutContext();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
+
   const handleDrawerToggle = () => {
     setSidebarOpen((current) => !current);
   };
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken')
+    navigate('/login')
+  }
+
   return (
     <AppBar
       elevation={0}
@@ -46,9 +55,20 @@ const Header = () => {
             </IconButton>
             <Breadcrumbs />
           </div>
-          <SelectLanguage />
+          <div className="flex">
+            <SelectLanguage />
+            <Tooltip title="Logout">
+              <IconButton
+                onClick={() => handleLogout()}
+                color="inherit"
+                size="large"
+                aria-label="logout"
+              >
+                <LogoutIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
         </div>
-
       </Toolbar>
     </AppBar>
   );
