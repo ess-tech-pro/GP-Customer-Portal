@@ -1,3 +1,3 @@
-# @app/debug
+# @ess/debug
 
 A common debug interface for packages in this repository.
