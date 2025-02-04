@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@4.6.0",
   "scripts": {
     "dev": "vite",
     "build": "./node_modules/.bin/tsc --b && ./node_modules/.bin/eslint src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --quiet && vite build",
@@ -27,6 +31,7 @@
     "not dead"
   ],
   "dependencies": {
+    "@app/debug": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@headlessui/react": "^2.2.0",
