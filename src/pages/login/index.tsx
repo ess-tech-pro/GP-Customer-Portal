@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/slices/loginSlice';
 import { AppDispatch, RootState } from '../../store/store';
 import { LoginRequest, LoginRequestSchema } from '../../schemas';
+import { toast } from 'react-toastify';
 
 function Login() {
   const {
@@ -21,15 +22,17 @@ function Login() {
   const onSubmit = async (data: LoginRequest) => {
     dispatch(
       login({
-        email: data.email,
+        username: data.username,
         password: data.password,
       }),
     )
       .unwrap() // unwrap giúp bắt lỗi reject
       .then(() => {
         navigate('/');
+        toast.success("Login successfully");
       })
       .catch((err) => {
+        toast.error('Login failed');
         console.error('Login failed:', err); // Có thể log lỗi nếu cần
       });
   };
@@ -52,20 +55,20 @@ function Login() {
             >
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="username"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your email
+                  Username
                 </label>
                 <input
-                  id="email"
-                  type="email"
-                  {...register('email')}
+                  id="username"
+                  type="text"
+                  {...register('username')}
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                 />
-                {errors.email && (
-                  <p className="text-sm text-red-600">{errors.email.message}</p>
+                {errors.username && (
+                  <p className="text-sm text-red-600">{errors.username.message}</p>
                 )}
               </div>
               <div>
