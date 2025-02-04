@@ -129,10 +129,40 @@ const GameDetails = (props: IGameDetailProps) => {
         "value": extraConfigData.hasBuySpin ? 'Yes' : 'No'
       }
     ]
-  }, [gameDetail]);
+  }, []);
 
 
   const DetailInfoList = useMemo(() => {
+
+    const renderTextItem = (item) => (
+      <Grid2 size={6}>
+        <Typography textAlign="right">{item.value}</Typography>
+      </Grid2>
+    );
+
+    const renderIconItem = (item) => (
+      <Grid2 size={6}>
+        <Typography textAlign="right" display="flex" gap={1} justifyContent="flex-end" color="#f09020">
+          {item.value}
+        </Typography>
+      </Grid2>
+    );
+
+    const renderListItem = (item) => (
+      <Grid2 size={12}>
+        <List disablePadding>
+          {item.value.map((value) => (
+            <ListItem key={value} alignItems="flex-start" disablePadding>
+              <ListItemIcon sx={{ minWidth: '24px', marginTop: '11px' }}>
+                <Square sx={{ color: '#f09020', fontSize: '10px' }} />
+              </ListItemIcon>
+              <ListItemText>{value}</ListItemText>
+            </ListItem>
+          ))}
+        </List>
+      </Grid2>
+    );
+
     return data.map((item) => (
       <Grid2 container columnSpacing={2} rowSpacing={1} key={item.title} size={12}>
         <Grid2 size={6}>
@@ -140,41 +170,12 @@ const GameDetails = (props: IGameDetailProps) => {
             {item.title}
           </Typography>
         </Grid2>
-        {
-          (
-            item.type === 'text' && <Grid2 size={6}>
-              <Typography textAlign="right" >{item.value}</Typography>
-            </Grid2>
-          ) ??
-          (
-            item.type === 'icon' && typeof item.value === 'object' && <Grid2 size={6}>
-              <Typography textAlign="right" display="flex" gap={1} justifyContent='flex-end' color="#f09020">
-                {
-                  item.value
-                }
-              </Typography>
-            </Grid2>
-          ) ??
-          (
-            item.type === 'list' &&
-            typeof item.value === 'object' &&
-            <Grid2 size={12}>
-              <List disablePadding>
-                {item.value.map((value) => (
-                  <ListItem key={value} alignItems="flex-start" disablePadding>
-                    <ListItemIcon sx={{ minWidth: '24px', marginTop: '11px' }}>
-                      <Square sx={{ color: '#f09020', fontSize: '10px' }} />
-                    </ListItemIcon>
-                    <ListItemText>{value}</ListItemText>
-                  </ListItem>
-                ))}
-              </List>
-            </Grid2>
-          )
-        }
+        {item.type === 'text' && renderTextItem(item)}
+        {item.type === 'icon' && typeof item.value === 'object' && renderIconItem(item)}
+        {item.type === 'list' && typeof item.value === 'object' && renderListItem(item)}
       </Grid2>
-    ))
-  }, [data])
+    ));
+  }, [data]);
 
   return (
     <Grid2 container sx={{ padding: '16px' }} gap={2}>

@@ -6,7 +6,7 @@ import parse from 'react-html-parser';
 
 const Description = (props: IGameDetailProps) => {
   const { gameDetail } = props;
-  const currentLanguage = 'vi';
+  const currentLanguage = 'en';
 
   const getGameName = (gameName: IMultiLang<string> | IMultiLang<string>[]): string => {
     if (Array.isArray(gameName)) {
