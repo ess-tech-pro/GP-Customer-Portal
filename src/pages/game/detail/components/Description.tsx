@@ -23,22 +23,6 @@ const Description = (props: IGameDetailProps) => {
   };
 
   const sanitizedDescription = DOMPurify.sanitize(getDescription(gameDetail.description));
-  // const [detailData, setDetailData] = useState<IGameDetail | null>(null);
-
-  // I need check currentLanguage here
-  // useEffect(() => {
-  //   if (!gameDetail) return;
-
-  //   // const name = gameDetail.gameName.find((item) => item.lang === currentLanguage);
-  //   setDetailData({
-  //     ...gameDetail,
-  //     gameName: gameDetail.gameName.find((item) => item.lang === currentLanguage),
-  //     description: gameDetail.description.find((item) => item.lang === currentLanguage),
-  //   });
-  // }, [currentLanguage]);
-
-
-  console.log('gameName:', getGameName(gameDetail.gameName));
 
   return (
     <Box sx={{
@@ -56,11 +40,6 @@ const Description = (props: IGameDetailProps) => {
       <Box>
         {parse(sanitizedDescription)}
       </Box>
-      {/* <Box>
-        {
-          getDescription(gameDetail.description)
-        }
-      </Box> */}
     </Box>
   );
 };

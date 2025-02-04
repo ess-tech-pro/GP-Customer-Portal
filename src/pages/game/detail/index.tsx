@@ -6,7 +6,7 @@ import Description from './components/Description';
 import DetailInfoSection from './components/DetailInfoSection';
 import GalleryList from './components/GalleryList'
 import GameDemoSection from './components/GameDemoSection';
-import { IGameDetail } from './types';
+import { IGalleryItem, IGameDetail } from './types';
 import BoxMainStyled from './styles';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store/store';
@@ -16,6 +16,7 @@ const GameDetail = () => {
   const gameId = '0000';
   const dispatch = useDispatch<AppDispatch>();
   const [gameDetail, setGameDetail] = useState<IGameDetail | null>(null);
+  const [galleryList, setGalleryList] = useState<IGalleryItem[]>();
 
   const fetchData = async ({
     id
@@ -27,10 +28,15 @@ const GameDetail = () => {
     )
       .unwrap() // unwrap giúp bắt lỗi reject
       .then((data) => {
-        // setGameDetail(data);
         if (data) {
-          console.log('data', data);
           setGameDetail(data);
+          const galleryData: IGalleryItem[] = data.videoRef.map((item: string, index: number) => ({
+            id: index + 1,
+            title: `Item ${index + 1}`,
+            value: item,
+          }));
+
+          setGalleryList(galleryData);
         }
       })
       .catch((err) => {
@@ -53,16 +59,25 @@ const GameDetail = () => {
               <>
                 <GameDemoSection gameDetail={gameDetail} />
                 <Description gameDetail={gameDetail} />
+
               </>
             )
           }
 
-
-          <GalleryList />
+          {
+            galleryList && (
+              <GalleryList galleryList={galleryList} />
+            )
+          }
         </Grid>
         <Grid size={{ xs: 12, lg: 4 }}>
           <Stack gap={2} direction={{ xs: 'column', sm: 'row', lg: 'column' }}>
-            <DetailInfoSection />
+            {
+              gameDetail && (
+                <DetailInfoSection gameDetail={gameDetail} />
+              )
+            }
+
           </Stack>
         </Grid>
       </Grid>

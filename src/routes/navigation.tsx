@@ -6,43 +6,43 @@ import PeopleIcon from '@mui/icons-material/People'
 import SettingsIcon from '@mui/icons-material/Settings'
 
 const navigation = [
-  {
-    title: 'Main',
-    links: [
-      {
-        path: '/',
-        title: 'Daily Win',
-        icon: <DashboardIcon />,
-      },
-      {
-        title: 'Games',
-        path: ROUTE_PATH.GAME.LIST,
-        icon: <SettingsIcon />,
-        children: [
-          {
-            path: ROUTE_PATH.GAME.LIST,
-            title: 'Game list',
-            icon: <DnsIcon />,
-          },
-          {
-            path: ROUTE_PATH.GAME.DETAIL,
-            title: 'Game detail',
-            icon: <PeopleIcon />,
-          }
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Info',
-    links: [
-      {
-        path: '/about',
-        title: 'About',
-        icon: <InfoIcon />,
-      },
-    ],
-  },
+	{
+		title: 'Main',
+		links: [
+			{
+				path: '/',
+				title: 'Daily Win',
+				icon: <DashboardIcon />,
+			},
+			{
+				title: 'Games',
+				path: ROUTE_PATH.GAME.LIST,
+				icon: <SettingsIcon />,
+				children: [
+					{
+						path: ROUTE_PATH.GAME.LIST,
+						title: 'Game list',
+						icon: <DnsIcon />,
+					},
+					{
+						path: ROUTE_PATH.GAME.DETAIL,
+						title: 'Game detail',
+						icon: <PeopleIcon />,
+					},
+				],
+			},
+		],
+	},
+	{
+		title: 'Info',
+		links: [
+			{
+				path: '/about',
+				title: 'About',
+				icon: <InfoIcon />,
+			},
+		],
+	},
 ]
 
 export default navigation

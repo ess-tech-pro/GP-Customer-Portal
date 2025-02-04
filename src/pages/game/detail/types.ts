@@ -12,23 +12,33 @@ export interface IGameDetail {
 	description: IMultiLang<string> | IMultiLang<string>[]
 	rating: number
 	tags: string[]
+	links: string[]
+	timeRunning: string
+	numId: string
+	rtps: number[]
+	extraConfig: {
+		minBetPerLine: string
+		totalBet: number
+		reel: number
+		rows: number
+		type: string
+		symbolType: string
+		betMul: number
+		maxMulWin: number
+		hitFrequency: string[]
+		hasReplay: boolean
+		hasBuySpin: boolean
+	}[]
+	volatility: string
+	drives: string[]
 }
-
-// export interface IGameDetailResponse {
-// 	id: string
-// 	gameName: {
-// 		lang: string
-// 		name: string
-// 	}[]
-// 	image: string
-// 	description: {
-// 		lang: string
-// 		name: string
-// 	}[]
-// 	rating: number
-// 	tags: string[]
-// }
 
 export interface IGameDetailProps {
 	gameDetail: IGameDetail
+}
+
+export interface IGalleryItem {
+	id: number
+	title: string
+	value: string
 }

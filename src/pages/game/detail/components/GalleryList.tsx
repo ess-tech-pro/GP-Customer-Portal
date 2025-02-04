@@ -1,14 +1,12 @@
-import { DownloadForOfflineOutlined } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useRef, useState } from "react";
+import { IGalleryItem } from "../types";
 
-const items = Array.from({ length: 12 }, (_, index) => ({
-  id: index + 1,
-  title: `Item ${index + 1}`,
-  value: "https://www.youtube.com/embed/PFr6jO_RHb4?si=kXo46VNWVTHYKwwf", // Thay bằng URL ảnh/video
-}));
-
-const ResponsiveSwiper = () => {
+const ResponsiveSwiper = ({
+  galleryList,
+}: {
+  galleryList: IGalleryItem[];
+}) => {
   const swiperRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -85,7 +83,7 @@ const ResponsiveSwiper = () => {
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
       >
-        {items.map((item) => (
+        {galleryList.map((item) => (
           <Box
             key={item.id}
             sx={{
@@ -108,12 +106,14 @@ const ResponsiveSwiper = () => {
           >
             <iframe
               src={item.value}
+              // src='https://drive.google.com/file/d/1LsNtwxyDA8EML3zrdpbJHqMR0QNruGxn/preview'
               title="YouTube video player"
               width="100%"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
+
             <Box
               sx={{
                 position: "absolute",
@@ -129,11 +129,11 @@ const ResponsiveSwiper = () => {
               }}
             >
               <Typography variant="body2">{item.title}</Typography>
-              <Box>
+              {/* <Box>
                 <IconButton color="inherit">
                   <DownloadForOfflineOutlined />
                 </IconButton>
-              </Box>
+              </Box> */}
             </Box>
           </Box>
         ))}

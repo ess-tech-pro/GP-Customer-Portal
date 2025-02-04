@@ -11,6 +11,11 @@ interface IRenderButtonProps {
   onClick: () => void;
 }
 
+interface IGameDetailActionProps {
+  gameDetail: IGameDetailProps['gameDetail'];
+  setReloadDemo: (value: boolean | ((prev: boolean) => boolean)) => void;
+}
+
 const RenderButton = ({ icon, onClick }: IRenderButtonProps) => {
   return (
     <Button
@@ -31,10 +36,21 @@ const RenderButton = ({ icon, onClick }: IRenderButtonProps) => {
 };
 
 const GameDemoAction = (
-  props: IGameDetailProps
+  props: IGameDetailActionProps
 ) => {
-  const { gameDetail } = props;
-  console.log('Id game:', gameDetail.gameId);
+  const { gameDetail, setReloadDemo } = props;
+  const currentLanguage = 'en';
+
+  const handleOpenGameDetail = () => {
+    const url = gameDetail?.links[0].replace("{lang}", currentLanguage)
+    window.open(url, '_blank');
+  };
+
+  const handleReloadDemo = () => {
+    setReloadDemo(
+      (prev) => !prev
+    );
+  };
 
   return (
     gameDetail.gameId && (
@@ -53,10 +69,10 @@ const GameDemoAction = (
 
         <Stack direction="row" gap={2} alignItems='center'>
           {/* Button Reload */}
-          <ButtonReload id={gameDetail.gameId} />
+          <ButtonReload onClick={handleReloadDemo} />
 
           {/* Button Launch Game */}
-          <RenderButton icon={<LaunchIcon />} onClick={() => console.log('Launch Game')} />
+          <RenderButton icon={<LaunchIcon />} onClick={handleOpenGameDetail} />
 
           {/* Button filter */}
           <RenderButton icon={<FilterNoneIcon />} onClick={() => console.log('Filter')} />
