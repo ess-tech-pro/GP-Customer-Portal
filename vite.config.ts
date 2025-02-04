@@ -14,7 +14,6 @@ import viteProductionConfig, {
 } from './configs/vite.production.config'
 
 const resolve = resolveTsconfigPathsToAlias()
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 	const ViteConfigWithMode = getViteConfigWithMode(mode)
