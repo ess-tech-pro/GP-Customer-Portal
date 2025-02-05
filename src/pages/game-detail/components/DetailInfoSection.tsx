@@ -20,8 +20,9 @@ const OrangeButtonStyled = styled(Button)(() => ({
 }));
 
 const GameDetails = (props: IGameDetailProps) => {
-  const [isShowMiniMode, setIsShowMiniMode] = useState(false)
   const { gameDetail } = props;
+  const [isShowMiniMode, setIsShowMiniMode] = useState(false)
+  const currentLanguage = "en";
 
   const DRIVE_ICONS = {
     MOBILE: <Smartphone />,
@@ -45,78 +46,78 @@ const GameDetails = (props: IGameDetailProps) => {
       {
         "title": "Game Symbol",
         "type": "text",
-        "value": "vs20plsmcannon"
+        "value": gameDetail?.symbol
       },
       {
         "title": "Numeric ID",
         "type": "text",
-        "value": gameDetail.numId
+        "value": gameDetail?.numId
       },
       {
         "title": "Minimum Bet Per Line",
         "type": "text",
-        "value": extraConfigData.minBetPerLine
+        "value": extraConfigData?.minBetPerLine
       },
       {
         "title": "Minimum Total Bet",
         "type": "text",
-        "value": extraConfigData.totalBet
+        "value": extraConfigData?.totalBet
       },
       {
         "title": "Maximum Total Bet",
         "type": "text",
-        "value": extraConfigData.totalBet
+        "value": extraConfigData?.totalBet
       },
       {
         "title": "Reels",
         "type": "text",
-        "value": extraConfigData.reel
+        "value": extraConfigData?.reel
       },
       {
         "title": "Rows",
         "type": "text",
-        "value": extraConfigData.rows
+        "value": extraConfigData?.rows
       },
       {
         "title": "Pay Type",
         "type": "text",
-        "value": extraConfigData.type
+        "value": extraConfigData?.type
       },
       {
         "title": "Symbol Pays",
         "type": "text",
-        "value": extraConfigData.symbolType
+        "value": extraConfigData?.symbolType
       },
       {
         "title": "Bet Multiplier",
         "type": "text",
-        "value": extraConfigData.betMul
+        "value": extraConfigData?.betMul
       },
       {
         "title": "Max Multiplier Win",
         "type": "text",
-        "value": extraConfigData.maxMulWin
+        "value": extraConfigData?.maxMulWin
       },
       {
         'key': 'rtps',
         "title": "RTPs",
         "type": "list",
-        "value": gameDetail.rtps.map((rtp) => `${rtp}%`)
+        "value": gameDetail?.rtps.map((rtp) => `${rtp}%`)
       },
       {
         "title": "Hit Frequency",
         "type": "list",
-        "value": extraConfigData.hitFrequency
+        "value": extraConfigData?.hitFrequency
       },
       {
         "title": "Volatility",
         "type": "text",
-        "value": GAME_DETAIL_VOLATILITY[gameDetail.volatility]
+        "value": GAME_DETAIL_VOLATILITY[gameDetail?.volatility]
       },
       {
         "title": "Available On",
         "type": "icon",
-        "value": getDriveIcons(gameDetail.drives)
+        "value": getDriveIcons(gameDetail?.drives)
       },
       {
         "title": "Has Replay",
@@ -185,7 +186,9 @@ const GameDetails = (props: IGameDetailProps) => {
             <Typography component='span' color="#000" fontWeight={600}>
               Mini mode
             </Typography>
-            <OrangeButtonStyled onClick={() => setIsShowMiniMode(true)}>
+            <OrangeButtonStyled onClick={() => setIsShowMiniMode(
+              !isShowMiniMode
+            )}>
               Launch
             </OrangeButtonStyled>
           </Grid2>
@@ -196,23 +199,14 @@ const GameDetails = (props: IGameDetailProps) => {
             <Box sx={{
               position: 'relative',
               width: '100%',
-              paddingBottom: 'calc(9/16 * 100%)'
             }}>
               <iframe
-                src="https://www.youtube.com/embed/PFr6jO_RHb4?si=kXo46VNWVTHYKwwf"
+                src={gameDetail?.links[0].replace("{lang}", currentLanguage)}
                 title="YouTube video player"
                 width="100%"
-                height="100%"
-                frameBorder="0"
+                height="200"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%'
-                }}
               />
             </Box>
           </Grid2>
