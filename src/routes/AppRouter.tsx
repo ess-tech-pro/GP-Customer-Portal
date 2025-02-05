@@ -12,7 +12,7 @@ interface IProctedRoute {
 
 const Home = lazy(() => import('../pages/home'))
 const Login = lazy(() => import('../pages/login'))
-const GameDetail = lazy(() => import('../pages/game/detail'))
+const GameDetail = lazy(() => import('../pages/game-detail'))
 const GameList = lazy(() => import('../pages/game-list'))
 
 const routesConfig = [
@@ -29,13 +29,13 @@ const routesConfig = [
     requireAuth: true,
   },
   {
-    path: ROUTE_PATH.GAME.DETAIL,
+    path: ROUTE_PATH.GAME_DETAIL,
     layout: MainLayout,
     component: GameDetail,
     requireAuth: true,
   },
   {
-    path: ROUTE_PATH.GAME.LIST,
+    path: ROUTE_PATH.GAME,
     layout: MainLayout,
     component: GameList,
     requireAuth: true,

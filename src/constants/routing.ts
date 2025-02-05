@@ -1,11 +1,8 @@
 export const ROUTE_PATH = {
-	HOME: '/',
-	REGISTER: '/register',
-	LOGIN: '/login',
-	GAME: {
-		LIST: '/game',
-		DETAIL: '/game/detail',
-	},
-	EXAMPLES: '/examples',
-
+  HOME: '/',
+  REGISTER: '/register',
+  LOGIN: '/login',
+  GAME: '/game',
+  GAME_DETAIL: '/game/:id',
+  EXAMPLES: '/examples',
 }
