@@ -16,16 +16,16 @@ const navigation = [
 			},
 			{
 				title: 'Games',
-				path: ROUTE_PATH.GAME.LIST,
+				path: ROUTE_PATH.GAME,
 				icon: <SettingsIcon />,
 				children: [
 					{
-						path: ROUTE_PATH.GAME.LIST,
+						path: ROUTE_PATH.GAME,
 						title: 'Game list',
 						icon: <DnsIcon />,
 					},
 					{
-						path: ROUTE_PATH.GAME.DETAIL,
+						path: ROUTE_PATH.GAME_DETAIL,
 						title: 'Game detail',
 						icon: <PeopleIcon />,
 					},
