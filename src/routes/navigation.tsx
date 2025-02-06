@@ -31,6 +31,18 @@ const navigation = [
 					},
 				],
 			},
+			{
+				title: 'Game Management',
+				path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
+				icon: <SettingsIcon />,
+				children: [
+					{
+						path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
+						title: 'Create Game',
+						icon: <DnsIcon />,
+					},
+				],
+			},
 		],
 	},
 	{
