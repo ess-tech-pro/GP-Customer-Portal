@@ -7,4 +7,5 @@ export const ROUTE_PATH = {
   EXAMPLES: '/examples',
   MANAGEMENT_USER: '/management-user',
   MANAGEMENT_USER_DETAIL: '/management-user/:id',
+  MANAGEMENT_USER_CREATE: '/management-user/create'
 }
