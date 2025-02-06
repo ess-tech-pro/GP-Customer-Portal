@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useMemo } from 'react'
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { RouterProvider, Navigate, createHashRouter } from 'react-router-dom'
 import { ROUTE_PATH } from '../constants/routing'
 import AuthLayout from '../layouts/AuthLayout'
 import MainLayout from '../layouts/MainLayout'
@@ -61,7 +61,7 @@ const ProtectedRoute = ({ children, requireAuth }: IProctedRoute) => {
 };
 
 const createAppRouter = () =>
-  createBrowserRouter(
+  createHashRouter(
     routesConfig.map(({ path, layout: Layout, component: Component, requireAuth = false }) => ({
       path,
       errorElement: <RouterError />,
