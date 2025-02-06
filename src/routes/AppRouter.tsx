@@ -14,6 +14,7 @@ const Home = lazy(() => import('../pages/home'))
 const Login = lazy(() => import('../pages/login'))
 const GameDetail = lazy(() => import('../pages/game-detail'))
 const GameList = lazy(() => import('../pages/game-list'))
+const ManagementUserList = lazy(() => import('../pages/management-user/user-list'))
 
 const routesConfig = [
   {
@@ -38,6 +39,12 @@ const routesConfig = [
     path: ROUTE_PATH.GAME,
     layout: MainLayout,
     component: GameList,
+    requireAuth: true,
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_USER,
+    layout: MainLayout,
+    component: ManagementUserList,
     requireAuth: true,
   },
 ]
