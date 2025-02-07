@@ -268,10 +268,20 @@ const CreateEditUser = () => {
               </Grid>
               {error && <FormHelperText error>{error}</FormHelperText>}
               <Grid size={{ xs: 12 }} className='flex gap-4' justifyContent='center'>
-                <Button variant='outlined' type='reset' onClick={() => reset()}>
+                <Button
+                  variant='outlined'
+                  type='reset'
+                  style={{ textTransform: 'capitalize' }}
+                  onClick={() => reset()}
+                >
                   {t('cancel')}
                 </Button>
-                <Button variant='contained' type='submit' className='gap-2'>
+                <Button
+                  variant='contained'
+                  type='submit'
+                  className='gap-2'
+                  style={{ textTransform: 'capitalize' }}
+                >
                   {loading && <CircularProgress size={20} color='inherit' />}
                   {t('create')}
                 </Button>
