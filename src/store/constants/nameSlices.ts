@@ -1,5 +1,5 @@
 export const NameSlices = {
   EXAMPLE: 'example',
   LOGIN: 'login',
-  USER: 'user',
+  CREATE_USER: 'create_user',
 };

@@ -13,18 +13,18 @@ function App() {
           light: {
             palette: {
               primary: {
-                main: '#000000',
-                light: lighten('#000000', 0.2),
-                dark: darken('#000000', 0.1)
+                main: '#0073e6',
+                light: lighten('#0073e6', 0.2),
+                dark: darken('#0073e6', 0.1)
               }
             }
           },
           dark: {
             palette: {
               primary: {
-                main: '#000000',
-                light: lighten('#000000', 0.2),
-                dark: darken('#000000', 0.1)
+                main: '#0073e6',
+                light: lighten('#0073e6', 0.2),
+                dark: darken('#0073e6', 0.1)
               }
             }
           }

@@ -21,7 +21,7 @@ export const createUser = createAsyncThunk<CreateUserResponse, CreateUserRequest
 );
 
 const createUserReducer = createSlice({
-  name: NameSlices.USER,
+  name: NameSlices.CREATE_USER,
   initialState: {
     id: 0,
     username: '',
