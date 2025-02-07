@@ -76,7 +76,7 @@ const CreateEditUser = () => {
         <Typography variant="h4">{t('createUser')}</Typography>
       </Box>
 
-      <Card>
+      <Card variant="outlined">
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className='p-5'>
             <Grid container spacing={3}>
