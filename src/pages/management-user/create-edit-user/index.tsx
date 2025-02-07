@@ -92,7 +92,7 @@ const CreateEditUser = () => {
                   textAlign={{ md: 'right', xs: 'left' }}
                 >
                   <FormControl>
-                    <FormLabel htmlFor='username'>
+                    <FormLabel htmlFor='username' required>
                       {t('userName')}
                     </FormLabel>
                   </FormControl>
@@ -120,7 +120,7 @@ const CreateEditUser = () => {
                   textAlign={{ md: 'right', xs: 'left' }}
                 >
                   <FormControl>
-                    <FormLabel htmlFor='role'>
+                    <FormLabel htmlFor='role' required>
                       {t('role')}
                     </FormLabel>
                   </FormControl>
@@ -130,6 +130,7 @@ const CreateEditUser = () => {
                     select
                     fullWidth
                     id='role'
+                    placeholder='Select role'
                     defaultValue=''
                     {...register('role')}
                     error={Boolean(errors.role)}>
@@ -153,7 +154,7 @@ const CreateEditUser = () => {
                   textAlign={{ md: 'right', xs: 'left' }}
                 >
                   <FormControl>
-                    <FormLabel htmlFor='password'>
+                    <FormLabel htmlFor='password' required>
                       {t('password')}
                     </FormLabel>
                   </FormControl>
@@ -165,6 +166,7 @@ const CreateEditUser = () => {
                     {...register('password')}
                     placeholder='············'
                     type={isPasswordShown ? 'text' : 'password'}
+                    autoComplete="new-password"
                     slotProps={{
                       input: {
                         endAdornment: (
@@ -198,7 +200,7 @@ const CreateEditUser = () => {
                   textAlign={{ md: 'right', xs: 'left' }}
                 >
                   <FormControl>
-                    <FormLabel htmlFor='confirm-password'>
+                    <FormLabel htmlFor='confirm-password' required>
                       {t('confirmPassword')}
                     </FormLabel>
                   </FormControl>
@@ -211,6 +213,7 @@ const CreateEditUser = () => {
                     placeholder='············'
                     type={isConfirmPasswordShown ? 'text' : 'password'}
                     error={Boolean(errors.confirmPassword)}
+                    autoComplete="new-password"
                     slotProps={{
                       input: {
                         endAdornment: (
@@ -243,7 +246,7 @@ const CreateEditUser = () => {
                   textAlign={{ md: 'right', xs: 'left' }}
                 >
                   <FormControl>
-                    <FormLabel htmlFor='status'>
+                    <FormLabel htmlFor='status' required>
                       {t('status')}
                     </FormLabel>
                   </FormControl>
@@ -253,6 +256,7 @@ const CreateEditUser = () => {
                     select
                     fullWidth
                     defaultValue='active'
+                    placeholder='Select status'
                     id="status"
                     {...register('status')}
                     error={Boolean(errors.status)}>
