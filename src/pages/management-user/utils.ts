@@ -4,8 +4,8 @@ export const statusOptions = [
 ]
 
 export const roleOptions = [
-  { label: 'Admin', value: 0 },
-  { label: 'Studio', value: 1 },
-  { label: 'Sale', value: 2 },
-  { label: 'Brand', value: 3 },
+  { label: 'Admin', value: 1 },
+  { label: 'Studio', value: 2 },
+  { label: 'Sale', value: 3 },
+  { label: 'Brand', value: 4 },
 ]
