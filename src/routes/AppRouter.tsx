@@ -43,15 +43,15 @@ const routesConfig = [
     requireAuth: true,
   },
   {
-    path: ROUTE_PATH.MANAGEMENT_USER_CREATE,
-    layout: MainLayout,
-    component: ManagementUserCreate,
-    requireAuth: true,
-  },
-  {
     path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
     layout: MainLayout,
     component: CreateGame,
+    requireAuth: true,
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_USER_CREATE,
+    layout: MainLayout,
+    component: ManagementUserCreate,
     requireAuth: true,
   },
 ]
