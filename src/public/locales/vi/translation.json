@@ -7,5 +7,7 @@
   "role": "Vai Trò",
   "password": "Mật Khẩu",
   "confirmPassword": "Xác Nhận Mật Khẩu",
-  "status": "Trạng Thái"
+  "status": "Trạng Thái",
+  "create": "Tạo",
+  "cancel": "Hủy"
 }

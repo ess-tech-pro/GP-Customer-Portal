@@ -21,6 +21,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useForm } from 'react-hook-form'
 import CustomTextField from '@/components/mui/TextField';
+import { statusOptions, roleOptions } from '../utils';
 
 
 const CreateEditUser = () => {
@@ -39,6 +40,13 @@ const CreateEditUser = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
+    defaultValues: {
+      username: '',
+      password: '',
+      confirmPassword: '',
+      role: '',
+      status: ''
+    },
     resolver: yupResolver(CreateUserRequestSchema)
   })
 
@@ -131,13 +139,30 @@ const CreateEditUser = () => {
                     fullWidth
                     id='role'
                     placeholder='Select role'
-                    defaultValue=''
                     {...register('role')}
-                    error={Boolean(errors.role)}>
-                    <MenuItem value='admin'>Admin</MenuItem>
-                    <MenuItem value='studio'>Studio</MenuItem>
-                    <MenuItem value='sale'>Sale</MenuItem>
-                    <MenuItem value='brand'>Brand</MenuItem>
+                    error={Boolean(errors.role)}
+                    slotProps={{
+                      select: {
+                        displayEmpty: true, // Ensure placeholder shows when no selection
+                        renderValue: selected => {
+                          if (!selected) {
+                            return <em>Placeholder</em>; // Placeholder for empty selection
+                          }
+                          // Find the label corresponding to the selected value
+                          const selectedOption = roleOptions.find(option => option.value === selected);
+                          return selectedOption ? selectedOption.label : selected as string; // Show label
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem disabled value=''>
+                      <em>Placeholder</em>
+                    </MenuItem>
+                    {roleOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
                   </CustomTextField>
                   {errors.role && <FormHelperText error>{errors.role.message}</FormHelperText>}
                 </Grid>
@@ -255,13 +280,32 @@ const CreateEditUser = () => {
                   <CustomTextField
                     select
                     fullWidth
-                    defaultValue='active'
                     placeholder='Select status'
                     id="status"
                     {...register('status')}
-                    error={Boolean(errors.status)}>
-                    <MenuItem value='active'>Active</MenuItem>
-                    <MenuItem value='inactive'>Inactive</MenuItem>
+                    error={Boolean(errors.status)}
+                    slotProps={{
+                      select: {
+                        displayEmpty: true, // Ensure placeholder shows when no selection
+                        renderValue: selected => {
+                          if (!selected) {
+                            return <em>Placeholder</em>; // Placeholder for empty selection
+                          }
+                          // Find the label corresponding to the selected value
+                          const selectedOption = statusOptions.find(option => option.value === selected);
+                          return selectedOption ? selectedOption.label : selected as string; // Show label
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem disabled value=''>
+                      <em>Placeholder</em>
+                    </MenuItem>
+                    {statusOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
                   </CustomTextField>
                   {errors.status && <FormHelperText error>{errors.status.message}</FormHelperText>}
                 </Grid>

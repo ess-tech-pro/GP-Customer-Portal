@@ -7,5 +7,7 @@
   "role": "Role",
   "password": "Password",
   "confirmPassword": "Confirm Password",
-  "status": "Status"
+  "status": "Status",
+  "create": "Create",
+  "cancel": "Cancel"
 }
