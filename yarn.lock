@@ -5047,7 +5047,7 @@ __metadata:
 
 "commit-packages@file:./configs/commit-packages::locator=my-react-app%40workspace%3A.":
   version: 1.0.0
-  resolution: "commit-packages@file:./configs/commit-packages#./configs/commit-packages::hash=32b87b&locator=my-react-app%40workspace%3A."
+  resolution: "commit-packages@file:./configs/commit-packages#./configs/commit-packages::hash=a440ad&locator=my-react-app%40workspace%3A."
   dependencies:
     "@commitlint/config-conventional": "npm:17.6.6"
     commitizen: "npm:4.3.0"
@@ -5056,7 +5056,7 @@ __metadata:
     husky: "npm:8.0.3"
     lint-staged: "npm:13.2.3"
     prettier: "npm:2.8.8"
-  checksum: 10c0/07937607726f64bb8f25f2af867f32ca4b8ec9cfc50f6bfe429c80f012cc70668dcb2b53aaca862127c7ffbae45cdf7bbbd4c1043b039f741e6a7fe542fcfda1
+  checksum: 10c0/f5d283c9eed31fe05f356d8ebd18617fee520499fd7882f3f2b45b178b5eaae61641f05ba5527f798d3a7e188e2bb90ce76f939ae31d82e9812a40b18e50386d
   languageName: node
   linkType: hard
 
@@ -8764,7 +8764,7 @@ __metadata:
 
 "lint-and-format-packages@file:./configs/lint-and-format-packages::locator=my-react-app%40workspace%3A.":
   version: 1.0.0
-  resolution: "lint-and-format-packages@file:./configs/lint-and-format-packages#./configs/lint-and-format-packages::hash=a46baa&locator=my-react-app%40workspace%3A."
+  resolution: "lint-and-format-packages@file:./configs/lint-and-format-packages#./configs/lint-and-format-packages::hash=832f17&locator=my-react-app%40workspace%3A."
   dependencies:
     "@eslint/compat": "npm:1.2.4"
     "@eslint/eslintrc": "npm:3.2.0"
@@ -8782,7 +8782,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:5.1.0"
     eslint-plugin-react-refresh: "npm:0.4.16"
     typescript-eslint: "npm:8.18.2"
-  checksum: 10c0/93855d50224e47dabbfc477bd5cdb78a6add434b5684b8a16b7e9bcdd23b04cf8373081e5efc1e631d42e64c8d5652fc22eb5c33404560dbd23aea9702eeb721
+  checksum: 10c0/d5e8b596ff2841be1bc391d606e7a37a4735873248ad3c2e58d805dde72b29484e685f7964f7b993fcc904e76d1742f7c6ff25ea6783a87d60a8f4aaf6c1f6f0
   languageName: node
   linkType: hard
 
