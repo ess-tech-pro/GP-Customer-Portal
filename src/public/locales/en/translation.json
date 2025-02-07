@@ -1,5 +1,13 @@
 {
-    "welcome": "Welcome to React",
-    "description": "This is an example of i18n integration.",
-    "gameList": "Game List Enghlish"
+  "welcome": "Welcome to React",
+  "description": "This is an example of i18n integration.",
+  "gameList": "Game List Enghlish",
+  "createUser": "Create User",
+  "userName": "User Name",
+  "role": "Role",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "status": "Status",
+  "create": "Create",
+  "cancel": "Cancel"
 }
