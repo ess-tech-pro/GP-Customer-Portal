@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useMemo } from 'react'
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { RouterProvider, Navigate, createHashRouter } from 'react-router-dom'
 import { ROUTE_PATH } from '../constants/routing'
 import AuthLayout from '../layouts/AuthLayout'
 import MainLayout from '../layouts/MainLayout'
@@ -15,6 +15,7 @@ const Login = lazy(() => import('../pages/login'))
 const GameDetail = lazy(() => import('../pages/game-detail'))
 const GameList = lazy(() => import('../pages/game-list'))
 const ManagementUserCreate = lazy(() => import('../pages/management-user/create-edit-user'))
+const CreateGame = lazy(() => import('../pages/create-game'))
 
 const routesConfig = [
   {
@@ -47,6 +48,12 @@ const routesConfig = [
     component: ManagementUserCreate,
     requireAuth: true,
   },
+  {
+    path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
+    layout: MainLayout,
+    component: CreateGame,
+    requireAuth: true,
+  },
 ]
 
 const ProtectedRoute = ({ children, requireAuth }: IProctedRoute) => {
@@ -61,7 +68,7 @@ const ProtectedRoute = ({ children, requireAuth }: IProctedRoute) => {
 };
 
 const createAppRouter = () =>
-  createBrowserRouter(
+  createHashRouter(
     routesConfig.map(({ path, layout: Layout, component: Component, requireAuth = false }) => ({
       path,
       errorElement: <RouterError />,

@@ -2,7 +2,6 @@ import { ROUTE_PATH } from '@/constants/routing'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import DnsIcon from '@mui/icons-material/Dns'
 import InfoIcon from '@mui/icons-material/Info'
-import PeopleIcon from '@mui/icons-material/People'
 import SettingsIcon from '@mui/icons-material/Settings'
 
 const navigation = [
@@ -24,10 +23,17 @@ const navigation = [
             title: 'Game list',
             icon: <DnsIcon />,
           },
+        ],
+      },
+      {
+        title: 'Game Management',
+        path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
+        icon: <SettingsIcon />,
+        children: [
           {
-            path: ROUTE_PATH.GAME_DETAIL,
-            title: 'Game detail',
-            icon: <PeopleIcon />,
+            path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
+            title: 'Create Game',
+            icon: <DnsIcon />,
           },
         ],
       },
