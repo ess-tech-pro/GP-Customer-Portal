@@ -13,7 +13,8 @@ import { AppDispatch } from '@/store/store';
 import { getGameDetail } from '@/store/slices/gameSlice';
 
 const GameDetail = () => {
-  const gameId = '0000';
+  const { id: gameId } = useParams();
+
   const dispatch = useDispatch<AppDispatch>();
   const [gameDetail, setGameDetail] = useState<IGameDetail | null>(null);
   const [galleryList, setGalleryList] = useState<IGalleryItem[]>();
@@ -45,6 +46,8 @@ const GameDetail = () => {
   };
 
   useEffect(() => {
+    if (!gameId) return;
+
     fetchData({
       id: gameId,
     });

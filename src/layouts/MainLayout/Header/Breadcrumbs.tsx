@@ -9,7 +9,7 @@ type NameMap = Record<string, { title: string; linkable: boolean }>;
 const nameMap = navigation.reduce<NameMap>((acc, section) => {
   section.links.forEach((link) => {
     if (link.children) {
-      acc[link.path] = { title: link.title, linkable: false };
+      acc[link?.path] = { title: link?.title, linkable: false };
       link.children.forEach((nestedLink) => {
         acc[nestedLink.path] = {
           title: nestedLink.title,
@@ -26,29 +26,30 @@ const nameMap = navigation.reduce<NameMap>((acc, section) => {
 const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
+
   return (
     <MuiBreadcrumbs
       aria-label="breadcrumb"
       sx={{ color: "primary.contrastText" }}
     >
-      <Link href="/" underline="hover" color="inherit">
+      <Link href="#/" underline="hover" color="inherit">
         Daily Wins
       </Link>
       {pathnames.map((_, index) => {
         const last = index === pathnames.length - 1;
-        const to = `/${pathnames.slice(0, index + 1).join("/")}`;
-        const link = nameMap[to];
+        const to = `#/${pathnames.slice(0, index + 1).join("/")}`;
+        const link = nameMap[to.replace("#", "")];
 
         return (
           <Fragment key={to}>
             {/* {index > 0 && <ArrowBackIosIcon fontSize="small" />} */}
-            {last || !link.linkable ? (
+            {last || !link?.linkable ? (
               <Typography color="inherit">
-                {link.title}
+                {link?.title}
               </Typography>
             ) : (
               <Link underline="hover" color="inherit" href={to}>
-                {link.title}
+                {link?.title}
               </Link>
             )}
           </Fragment>

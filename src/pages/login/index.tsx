@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +7,7 @@ import { login } from '../../store/slices/loginSlice';
 import { AppDispatch, RootState } from '../../store/store';
 import { LoginRequest, LoginRequestSchema } from '../../schemas';
 import { toast } from 'react-toastify';
+import { Button } from '@mui/material';
 
 function Login() {
   const {
@@ -18,8 +20,10 @@ function Login() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const error = useSelector((state: RootState) => state.login.error); // Lấy lỗi từ Redux state
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data: LoginRequest) => {
+    setIsLoading(true)
     dispatch(
       login({
         username: data.username,
@@ -34,7 +38,10 @@ function Login() {
       .catch((err) => {
         toast.error('Login failed');
         console.error('Login failed:', err); // Có thể log lỗi nếu cần
-      });
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   };
 
   return (
@@ -121,23 +128,27 @@ function Login() {
                 </button>
               </div>
               {error && <p style={{ color: 'red' }}>{error}</p>}
-              <button
+              <Button
+                loading={isLoading}
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                fullWidth
+                variant="outlined"
+                loadingPosition="start"
+                className="hover:cursor-pointer w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Sign in
-              </button>
+              </Button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?
-                <button
+                <Button
                   type="button"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  className="font-medium hover:cursor-pointer text-primary-600 hover:underline dark:text-primary-500"
                   onClick={() => {
                     // Add your sign-up logic here
                   }}
                 >
                   Sign up
-                </button>
+                </Button>
               </p>
             </form>
           </div>
