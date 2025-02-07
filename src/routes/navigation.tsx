@@ -37,6 +37,18 @@ const navigation = [
           },
         ],
       },
+      {
+        title: 'Mng User',
+        path: ROUTE_PATH.MANAGEMENT_USER,
+        icon: <SettingsIcon />,
+        children: [
+          {
+            path: ROUTE_PATH.MANAGEMENT_USER,
+            title: 'User list',
+            icon: <DnsIcon />,
+          }
+        ],
+      },
     ],
   },
   {
