@@ -139,6 +139,7 @@ const CreateEditUser = () => {
                     fullWidth
                     id='role'
                     placeholder='Select role'
+                    defaultValue=''
                     {...register('role')}
                     error={Boolean(errors.role)}
                     slotProps={{
@@ -281,6 +282,7 @@ const CreateEditUser = () => {
                     select
                     fullWidth
                     placeholder='Select status'
+                    defaultValue=''
                     id="status"
                     {...register('status')}
                     error={Boolean(errors.status)}
