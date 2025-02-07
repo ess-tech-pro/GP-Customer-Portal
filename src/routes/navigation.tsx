@@ -3,7 +3,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 import DnsIcon from '@mui/icons-material/Dns'
 import InfoIcon from '@mui/icons-material/Info'
 import SettingsIcon from '@mui/icons-material/Settings'
-import PeopleIcon from '@mui/icons-material/People'
 
 const navigation = [
   {
@@ -47,12 +46,7 @@ const navigation = [
             path: ROUTE_PATH.MANAGEMENT_USER,
             title: 'User list',
             icon: <DnsIcon />,
-          },
-          {
-            path: ROUTE_PATH.MANAGEMENT_USER_DETAIL,
-            title: 'User detail',
-            icon: <PeopleIcon />,
-          },
+          }
         ],
       },
     ],
