@@ -1,5 +1,3 @@
-'use client'
-
 // React Imports
 import { forwardRef } from 'react'
 
