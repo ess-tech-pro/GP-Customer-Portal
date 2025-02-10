@@ -1,12 +1,10 @@
-// React Imports
-import type { ReactNode } from 'react'
-
 // Third-party Imports
 import { Provider } from 'react-redux'
 
 import { store } from '@/store/store'
+import type { ChildrenType } from '@/types/base';
 
-const ReduxProvider = ({ children }: { children: ReactNode }) => {
+const ReduxProvider = ({ children }: ChildrenType) => {
   return <Provider store={store}>{children}</Provider>
 }
 
