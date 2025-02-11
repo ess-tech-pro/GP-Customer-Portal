@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'path'
 import tailwind from '@tailwindcss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { codeInspectorPlugin } from 'code-inspector-plugin';
 import { ConfigEnv, defineConfig } from 'vite'
 import ViteDevelopmentConfig from './configs/vite.development.config'
 import viteProductionConfig, {
@@ -21,6 +22,8 @@ export default defineConfig(({ mode }) => {
   return {
     publicDir: 'src/assets/static',
     plugins: [
+      // code-inspector-plugin should be used before @vitejs/plugin-react
+      codeInspectorPlugin({ bundler: 'vite' }),
       react(),
       tailwind(),
       AutoImport({
