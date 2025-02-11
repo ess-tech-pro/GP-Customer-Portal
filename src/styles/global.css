@@ -1,4 +1,4 @@
-@config '../../tailwind.config.js';
+@config '../../tailwind.config.ts';
 @import 'tailwindcss';
 
 :root {
@@ -29,9 +29,20 @@
 	box-sizing: border-box;
 	border-width: 0;
 	border-style: solid;
+	border-color: theme('borderColor.DEFAULT', currentColor);
 }
 
 html {
 	inline-size: 100%;
 	min-block-size: 100%;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul:not([class]) {
+	margin-block: 1rem;
+	padding-inline-start: 40px;
 }
