@@ -1,12 +1,18 @@
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button, TextField, Typography } from "@mui/material"
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { RootState } from "@/store/store";
+import { useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
 
-const CreateGame = () => {
+const RegisterGame = () => {
+    const { t } = useTranslation('registerGame');
+    const optionsRegisterGame = useSelector((state: RootState) => state.options.optionsRegisterGame);
+    console.log(optionsRegisterGame)
     const [content, setContent] = useState("");
     const [fileName, setFileName] = useState("");
 
@@ -17,9 +23,10 @@ const CreateGame = () => {
         }
     };
 
-
     return (
         <Box sx={{ width: '100%' }}>
+            <Typography variant="h3">{t('title')}</Typography>
+
             <Box className="flex flex-row items-center mb-2">
                 <Box className="flex-[1]">
                     <label htmlFor="username">*Category</label>
@@ -155,4 +162,4 @@ const CreateGame = () => {
     )
 }
 
-export default CreateGame
+export default RegisterGame

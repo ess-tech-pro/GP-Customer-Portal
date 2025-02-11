@@ -27,12 +27,12 @@ const navigation = [
       },
       {
         title: 'Game Management',
-        path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
+        path: ROUTE_PATH.GAME_MANAGEMENT.REGISTER_GAME,
         icon: <SettingsIcon />,
         children: [
           {
-            path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
-            title: 'Create Game',
+            path: ROUTE_PATH.GAME_MANAGEMENT.REGISTER_GAME,
+            title: 'Register Game',
             icon: <DnsIcon />,
           },
         ],
