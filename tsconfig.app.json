@@ -16,7 +16,8 @@
     "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.jsx",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "tailwind.config.ts"
   ],
   "compilerOptions": {
     "useDefineForClassFields": true,
