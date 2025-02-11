@@ -12,7 +12,7 @@
     "test:watch": "./node_modules/.bin/jest --watch",
     "test:coverage": "./node_modules/.bin/jest --coverage",
     "prettier": "./node_modules/.bin/tsc --noEmit && ./node_modules/.bin/prettier src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --check",
-    "lint": "./node_modules/.bin/tsc --noEmit && ./node_modules/.bin/eslint src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --no-warn-ignored",
+    "lint": "./node_modules/.bin/tsc -b && ./node_modules/.bin/eslint src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --no-warn-ignored",
     "lint:fix": "npm run lint -- --fix",
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
