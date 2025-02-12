@@ -98,8 +98,4 @@ const AppReactToastify = (props: Props) => {
   )
 }
 
-AppReactToastify.defaultProps = {
-  boxProps: {},
-}
-
 export default AppReactToastify

@@ -1,4 +1,4 @@
-import { Box, Button, FormHelperText } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -8,10 +8,10 @@ import "react-quill/dist/quill.snow.css";
 import { RootState } from "@/store/store";
 import { useSelector } from 'react-redux';
 import * as yup from "yup";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formattedOptionTypes } from "@/utils/utils";
-import CustomTextField from "@/components/mui/TextField";
+import CustomTextFieldWithValidation from "@/components/mui/TextFieldWithValidation";
 
 const schema = yup.object().shape({
   category: yup.string().required("Category is required"),
@@ -20,7 +20,6 @@ const schema = yup.object().shape({
 
 const RegisterGame = () => {
   const optionsRegisterGame: any = useSelector((state: RootState) => state.options.optionsRegisterGame);
-  console.log(optionsRegisterGame)
   const [content, setContent] = useState("");
   const [fileName, setFileName] = useState("");
 
@@ -34,7 +33,6 @@ const RegisterGame = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
   } = useForm({
     defaultValues: {
       category: "",
@@ -57,25 +55,18 @@ const RegisterGame = () => {
           </Box>
           <Box className="flex-[9]">
             <FormControl className="w-120">
-              <Controller
-                name='category'
+              <CustomTextFieldWithValidation
+                name="category"
+                select
+                fullWidth
                 control={control}
-                render={({ field }) => (
-                  <CustomTextField
-                    select
-                    fullWidth
-                    {...field}
-                    error={Boolean(errors.category)}
-                  >
-                    {formattedOptionTypes(optionsRegisterGame.categories).map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </CustomTextField>
-                )}
-              />
-              {errors.category && <FormHelperText error>{errors.category.message}</FormHelperText>}
+              >
+                {formattedOptionTypes(optionsRegisterGame.categories).map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </CustomTextFieldWithValidation>
             </FormControl>
           </Box>
         </Box>
@@ -85,18 +76,11 @@ const RegisterGame = () => {
           </Box>
           <Box className="flex-[9]">
             <FormControl className="w-120">
-              <Controller
-                name='gameName'
+              <CustomTextFieldWithValidation
+                name="gameName"
                 control={control}
-                render={({ field }) => (
-                  <CustomTextField
-                    {...field}
-                    id='gameName'
-                    fullWidth
-                    placeholder='Game Name'
-                    {...(errors.gameName && { error: true, helperText: errors.gameName?.message })}
-                  />
-                )}
+                fullWidth
+                placeholder='Game Name'
               />
             </FormControl>
           </Box>
