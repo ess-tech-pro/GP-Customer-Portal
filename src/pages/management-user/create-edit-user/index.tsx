@@ -19,7 +19,7 @@ import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { createUser, updateUser, fetchDetailUser } from '@/store/slices/userSlice';
+import { createUser, updateUser, fetchDetailUser } from '@/store/slices/manageUserSlice';
 import { AppDispatch, RootState } from '@/store/store';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CreateUserRequest, CreateUserRequestSchema } from '@/schemas';
