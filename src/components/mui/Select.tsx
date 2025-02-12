@@ -1,5 +1,6 @@
 import { FormControl, MenuItem, Select, SelectProps, FormHelperText } from "@mui/material";
 import { Controller, Control, FieldError, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 interface CustomSelectProps<T> extends Omit<SelectProps<T>, "error"> {
     name: Path<T>;
@@ -17,6 +18,8 @@ const CustomSelect = <T,>({
     variant = "outlined",
     ...rest
 }: CustomSelectProps<T>) => {
+    const { t } = useTranslation('registerGame');
+
     return (
         <FormControl fullWidth error={!!error}>
             <Controller
@@ -26,7 +29,7 @@ const CustomSelect = <T,>({
                     <Select {...field} {...rest} variant={variant}>
                         {options.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
-                                {option.label}
+                                {t(option.label)}
                             </MenuItem>
                         ))}
                     </Select>

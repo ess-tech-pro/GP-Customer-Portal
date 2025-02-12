@@ -13,7 +13,7 @@ export const ActionTypes = {
 	GAME: {
 		GAME_DETAIL: 'game/gameDetail',
 		GAME_LIST: 'game/gameList',
-
+		REGISTER_GAME: 'game/register'
 	},
 	OPTIONS: {
 		REGISTER_GAME: 'options/getOptionsRegisterGame'

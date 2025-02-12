@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ActionTypes } from '../constants/actionTypes'
-import { getGameDetailService, getGameListService, getOptionsService } from '@/services/gameService'
+import { getGameDetailService, getGameListService, getOptionsService, registerGameService } from '@/services/gameService'
 
 export const getGameDetail = createAsyncThunk<any, any>(
 	ActionTypes.GAME.GAME_DETAIL,
@@ -48,3 +48,18 @@ export const getOptions = createAsyncThunk<any>(
 		}
 	}
 )
+
+export const registerGame = createAsyncThunk<any, any>(
+	ActionTypes.GAME.REGISTER_GAME,
+	async (data, thunkAPI) => {
+		try {
+			const response = await registerGameService(data);
+			return response;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return thunkAPI.rejectWithValue(error.message);
+			}
+			return thunkAPI.rejectWithValue('An unknown error occurred');
+		}
+	},
+);
