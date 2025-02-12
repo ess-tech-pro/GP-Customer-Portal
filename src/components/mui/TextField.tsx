@@ -265,4 +265,4 @@ const CustomTextField = forwardRef((props: TextFieldProps, ref) => {
   )
 })
 
-export default CustomTextField
+export default CustomTextField;

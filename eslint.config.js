@@ -107,6 +107,7 @@ export default [
 			'react/destructuring-assignment': 'off',
 			'no-unreachable': 'off',
 			quotes: 'off',
+			'react/require-default-props': 'off',
 		},
 	},
 	{

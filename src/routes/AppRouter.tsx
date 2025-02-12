@@ -14,7 +14,7 @@ const Home = lazy(() => import('../pages/home'))
 const Login = lazy(() => import('../pages/login'))
 const GameDetail = lazy(() => import('../pages/game-detail'))
 const GameList = lazy(() => import('../pages/game-list'))
-const CreateGame = lazy(() => import('../pages/create-game'))
+const RegisterGame = lazy(() => import('../pages/register-game'))
 const ManagementUserList = lazy(() => import('../pages/management-user/user-list'))
 const ManagementUserCreate = lazy(() => import('../pages/management-user/create-edit-user'))
 const ManagementUserEdit = lazy(() => import('../pages/management-user/create-edit-user'))
@@ -46,9 +46,9 @@ const routesConfig = [
     requireAuth: true,
   },
   {
-    path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_GAME,
+    path: ROUTE_PATH.GAME_MANAGEMENT.REGISTER_GAME,
     layout: MainLayout,
-    component: CreateGame,
+    component: RegisterGame,
     requireAuth: true,
   },
   {

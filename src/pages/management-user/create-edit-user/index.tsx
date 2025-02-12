@@ -1,6 +1,20 @@
 import React from 'react';
-import { useForm } from 'react-hook-form'
-import { FormControl, FormLabel, FormHelperText, Switch, Button, Card, CardContent, CircularProgress, InputAdornment, IconButton, Typography, Box, MenuItem } from '@mui/material';
+import { useForm, Controller } from 'react-hook-form'
+import {
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Switch,
+  Button,
+  Card,
+  CardContent,
+  CircularProgress,
+  InputAdornment,
+  IconButton,
+  Typography,
+  Box,
+  MenuItem
+} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +28,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CustomTextField from '@/components/mui/TextField';
 import { roleOptions } from '../utils';
 
+
 const CreateEditUser = () => {
   const { id: userId } = useParams();
   // States
@@ -26,7 +41,7 @@ const CreateEditUser = () => {
 
   // Hooks
   const {
-    register,
+    control,
     reset,
     handleSubmit,
     setValue,
@@ -137,14 +152,19 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
-                    fullWidth
-                    placeholder={t('userName')}
-                    id='username'
-                    {...register('username')}
-                    error={Boolean(errors.username)}
+                  <Controller
+                    name='username'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        {...field}
+                        id='username'
+                        fullWidth
+                        placeholder={t('userName')}
+                        {...(errors.username && { error: true, helperText: errors.username?.message })}
+                      />
+                    )}
                   />
-                  {errors.username && <FormHelperText error>{errors.username.message}</FormHelperText>}
                 </Grid>
               </Grid>
               <Grid
@@ -165,37 +185,43 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
-                    select
-                    fullWidth
-                    id='role'
-                    placeholder='Select role'
-                    defaultValue=''
-                    {...register('role')}
-                    error={Boolean(errors.role)}
-                    slotProps={{
-                      select: {
-                        displayEmpty: true, // Ensure placeholder shows when no selection
-                        renderValue: selected => {
-                          if (!selected) {
-                            return <em>Placeholder</em>; // Placeholder for empty selection
-                          }
-                          // Find the label corresponding to the selected value
-                          const selectedOption = roleOptions.find(option => option.value === selected);
-                          return selectedOption ? selectedOption.label : selected as string; // Show label
-                        },
-                      },
-                    }}
-                  >
-                    <MenuItem disabled value=''>
-                      <em>Placeholder</em>
-                    </MenuItem>
-                    {roleOptions.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </CustomTextField>
+                  <Controller
+                    name='role'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        select
+                        fullWidth
+                        id='role'
+                        placeholder='Select role'
+                        defaultValue=''
+                        {...field}
+                        error={Boolean(errors.role)}
+                        slotProps={{
+                          select: {
+                            displayEmpty: true, // Ensure placeholder shows when no selection
+                            renderValue: selected => {
+                              if (!selected) {
+                                return <em>Placeholder</em>; // Placeholder for empty selection
+                              }
+                              // Find the label corresponding to the selected value
+                              const selectedOption = roleOptions.find(option => option.value === selected);
+                              return selectedOption ? selectedOption.label : selected as string; // Show label
+                            },
+                          },
+                        }}
+                      >
+                        <MenuItem disabled value=''>
+                          <em>Placeholder</em>
+                        </MenuItem>
+                        {roleOptions.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </CustomTextField>
+                    )}
+                  />
                   {errors.role && <FormHelperText error>{errors.role.message}</FormHelperText>}
                 </Grid>
               </Grid>
@@ -217,32 +243,37 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
-                    fullWidth
-                    id='password'
-                    {...register('password')}
-                    placeholder='············'
-                    type={isPasswordShown ? 'text' : 'password'}
-                    autoComplete="new-password"
-                    slotProps={{
-                      input: {
-                        endAdornment: (
-                          <InputAdornment position='end'>
-                            <IconButton
-                              edge='end'
-                              onClick={handleClickShowPassword}
-                              onMouseDown={e => e.preventDefault()}
-                              aria-label='toggle password visibility'
-                            >
-                              {isPasswordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                            </IconButton>
-                          </InputAdornment>
-                        )
-                      }
-                    }}
-                    error={Boolean(errors.password)}
+                  <Controller
+                    name='password'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        {...field}
+                        fullWidth
+                        id='password'
+                        placeholder='············'
+                        type={isPasswordShown ? 'text' : 'password'}
+                        autoComplete="new-password"
+                        slotProps={{
+                          input: {
+                            endAdornment: (
+                              <InputAdornment position='end'>
+                                <IconButton
+                                  edge='end'
+                                  onClick={handleClickShowPassword}
+                                  onMouseDown={e => e.preventDefault()}
+                                  aria-label='toggle password visibility'
+                                >
+                                  {isPasswordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                </IconButton>
+                              </InputAdornment>
+                            )
+                          }
+                        }}
+                        {...(errors.password && { error: true, helperText: errors.password?.message })}
+                      />
+                    )}
                   />
-                  {errors.password && <FormHelperText error>{errors.password.message}</FormHelperText>}
                 </Grid>
               </Grid>
               <Grid
@@ -263,32 +294,38 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
-                    fullWidth
-                    id='confirm-password'
-                    {...register('confirmPassword')}
-                    placeholder='············'
-                    type={isConfirmPasswordShown ? 'text' : 'password'}
-                    error={Boolean(errors.confirmPassword)}
-                    autoComplete="new-password"
-                    slotProps={{
-                      input: {
-                        endAdornment: (
-                          <InputAdornment position='end'>
-                            <IconButton
-                              edge='end'
-                              onClick={handleClickShowConfirmPassword}
-                              onMouseDown={e => e.preventDefault()}
-                              aria-label='toggle password visibility'
-                            >
-                              {isConfirmPasswordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                            </IconButton>
-                          </InputAdornment>
-                        )
-                      }
-                    }}
+                  <Controller
+                    name='confirmPassword'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        {...field}
+                        fullWidth
+                        id='confirm-password'
+                        placeholder='············'
+                        type={isConfirmPasswordShown ? 'text' : 'password'}
+                        error={Boolean(errors.confirmPassword)}
+                        autoComplete="new-password"
+                        slotProps={{
+                          input: {
+                            endAdornment: (
+                              <InputAdornment position='end'>
+                                <IconButton
+                                  edge='end'
+                                  onClick={handleClickShowConfirmPassword}
+                                  onMouseDown={e => e.preventDefault()}
+                                  aria-label='toggle password visibility'
+                                >
+                                  {isConfirmPasswordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                </IconButton>
+                              </InputAdornment>
+                            )
+                          }
+                        }}
+                        {...(errors.confirmPassword && { error: true, helperText: errors.confirmPassword?.message })}
+                      />
+                    )}
                   />
-                  {errors.confirmPassword && <FormHelperText error>{errors.confirmPassword.message}</FormHelperText>}
                 </Grid>
               </Grid>
               <Grid

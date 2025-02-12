@@ -14,7 +14,9 @@ export const ActionTypes = {
   GAME: {
     GAME_DETAIL: 'game/gameDetail',
     GAME_LIST: 'game/gameList',
-
   },
+  OPTIONS: {
+    REGISTER_GAME: 'options/getOptionsRegisterGame'
+  }
   // Thêm các module khác nếu cần
 }
