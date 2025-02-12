@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material"
+import { Box, Button, FormHelperText, MenuItem } from "@mui/material"
 import FormControl from '@mui/material/FormControl';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -7,10 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import CustomSelect from "@/components/mui/Select";
 import { formattedOptionTypes } from "@/utils/utils";
 import { registerGame } from "@/store/slices/gameSlice";
-import CustomTextFieldWithValidation from "@/components/mui/TextFieldWithValidation";
+import CustomTextField from "@/components/mui/TextField";
 
 const FILE_SIZE = 5 * 1024 * 1024; // 5MB
 // const SUPPORTED_FORMATS = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"];
@@ -45,7 +44,7 @@ const RegisterGame = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            status: "DRAFT",
+            status: "draft",
             category: "",
             gameName: "",
             gameType: "",
@@ -90,13 +89,26 @@ const RegisterGame = () => {
                             </Box>
                             <Box className="flex-[9]">
                                 <FormControl className="w-120">
-                                    <CustomSelect
-                                        name="category"
+                                    <Controller
+                                        name='category'
                                         control={control}
-                                        options={formattedOptionTypes(optionsRegisterGame.categories)}
-                                        error={errors.category}
-                                        variant="outlined"
+                                        render={({ field }) => (
+                                            <CustomTextField
+                                                select
+                                                fullWidth
+                                                id='category'
+                                                {...field}
+                                                error={Boolean(errors.category)}
+                                            >
+                                                {formattedOptionTypes(optionsRegisterGame.categories).map((option) => (
+                                                    <MenuItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </MenuItem>
+                                                ))}
+                                            </CustomTextField>
+                                        )}
                                     />
+                                    {errors.category && <FormHelperText error>{errors.category.message}</FormHelperText>}
                                 </FormControl>
                             </Box>
                         </Box>
@@ -106,7 +118,18 @@ const RegisterGame = () => {
                             </Box>
                             <Box className="flex-[9]">
                                 <FormControl className="w-120">
-                                    <CustomTextFieldWithValidation name="gameName" control={control} type="text" />
+                                    <Controller
+                                        name='gameName'
+                                        control={control}
+                                        render={({ field }) => (
+                                            <CustomTextField
+                                                {...field}
+                                                id='gameName'
+                                                fullWidth
+                                                {...(errors.gameName && { error: true, helperText: errors.gameName?.message })}
+                                            />
+                                        )}
+                                    />
                                 </FormControl>
                             </Box>
                         </Box>
@@ -116,13 +139,26 @@ const RegisterGame = () => {
                             </Box>
                             <Box className="flex-[9]">
                                 <FormControl className="w-120">
-                                    <CustomSelect
-                                        name="gameType"
+                                    <Controller
+                                        name='gameType'
                                         control={control}
-                                        options={formattedOptionTypes(optionsRegisterGame.gameType)}
-                                        error={errors.gameType}
-                                        variant="outlined"
+                                        render={({ field }) => (
+                                            <CustomTextField
+                                                select
+                                                fullWidth
+                                                id='gameType'
+                                                {...field}
+                                                error={Boolean(errors.gameType)}
+                                            >
+                                                {formattedOptionTypes(optionsRegisterGame.gameType).map((option) => (
+                                                    <MenuItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </MenuItem>
+                                                ))}
+                                            </CustomTextField>
+                                        )}
                                     />
+                                    {errors.gameType && <FormHelperText error>{errors.gameType.message}</FormHelperText>}
                                 </FormControl>
                             </Box>
                         </Box>
@@ -132,13 +168,26 @@ const RegisterGame = () => {
                             </Box>
                             <Box className="flex-[9]">
                                 <FormControl className="w-120">
-                                    <CustomSelect
-                                        name="gameEngine"
+                                    <Controller
+                                        name='gameEngine'
                                         control={control}
-                                        options={formattedOptionTypes(optionsRegisterGame.gameEngine)}
-                                        error={errors.gameEngine}
-                                        variant="outlined"
+                                        render={({ field }) => (
+                                            <CustomTextField
+                                                select
+                                                fullWidth
+                                                id='gameEngine'
+                                                {...field}
+                                                error={Boolean(errors.gameEngine)}
+                                            >
+                                                {formattedOptionTypes(optionsRegisterGame.gameEngine).map((option) => (
+                                                    <MenuItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </MenuItem>
+                                                ))}
+                                            </CustomTextField>
+                                        )}
                                     />
+                                    {errors.gameEngine && <FormHelperText error>{errors.gameEngine.message}</FormHelperText>}
                                 </FormControl>
                             </Box>
                         </Box>
@@ -148,13 +197,26 @@ const RegisterGame = () => {
                             </Box>
                             <Box className="flex-[9]">
                                 <FormControl className="w-120">
-                                    <CustomSelect
-                                        name="orientation"
+                                    <Controller
+                                        name='orientation'
                                         control={control}
-                                        options={formattedOptionTypes(optionsRegisterGame.orientation)}
-                                        error={errors.orientation}
-                                        variant="outlined"
+                                        render={({ field }) => (
+                                            <CustomTextField
+                                                select
+                                                fullWidth
+                                                id='orientation'
+                                                {...field}
+                                                error={Boolean(errors.orientation)}
+                                            >
+                                                {formattedOptionTypes(optionsRegisterGame.orientation).map((option) => (
+                                                    <MenuItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </MenuItem>
+                                                ))}
+                                            </CustomTextField>
+                                        )}
                                     />
+                                    {errors.orientation && <FormHelperText error>{errors.orientation.message}</FormHelperText>}
                                 </FormControl>
                             </Box>
                         </Box>
@@ -164,13 +226,31 @@ const RegisterGame = () => {
                             </Box>
                             <Box className="flex-[9]">
                                 <FormControl className="w-120">
-                                    <CustomSelect
-                                        multiple
-                                        name="events"
+                                    <Controller
+                                        name='events'
                                         control={control}
-                                        options={formattedOptionTypes(optionsRegisterGame.event)}
-                                        error={Array.isArray(errors.events) ? errors.events[0] : errors.events} variant="outlined"
+                                        render={({ field }) => (
+                                            <CustomTextField
+                                                select
+                                                fullWidth
+                                                id='events'
+                                                {...field}
+                                                slotProps={{
+                                                    select: {
+                                                        multiple: true,
+                                                    }
+                                                }}
+                                                error={Boolean(errors.events)}
+                                            >
+                                                {formattedOptionTypes(optionsRegisterGame.event).map((option) => (
+                                                    <MenuItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </MenuItem>
+                                                ))}
+                                            </CustomTextField>
+                                        )}
                                     />
+                                    {errors.events && <FormHelperText error>{errors.events.message}</FormHelperText>}
                                 </FormControl>
                             </Box>
                         </Box>

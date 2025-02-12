@@ -1,5 +1,8 @@
+// import CustomTextField from "@/components/mui/TextField";
 // import { AppDispatch } from "@/store/store";
-import { Box, Button, Divider, Typography } from "@mui/material"
+// import { yupResolver } from "@hookform/resolvers/yup";
+import { Box, Button, Divider, FormControl, Typography } from "@mui/material"
+// import { useForm } from "react-hook-form";
 // import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 // import * as yup from "yup";
@@ -11,12 +14,32 @@ import { useNavigate } from 'react-router-dom';
 //     gameType: yup.string(),
 //     gameEngine: yup.string(),
 //     orientation: yup.string(),
+//     studio: yup.string(),
 //     events: yup.array(),
 // });
 
 const RegisterGameList = () => {
     const navigate = useNavigate();
     // const dispatch = useDispatch<AppDispatch>();
+
+    // const {
+    //     control,
+    //     handleSubmit,
+    //     formState: { errors },
+    // } = useForm({
+    //     defaultValues: {
+    //         status: "DRAFT",
+    //         category: "",
+    //         gameName: "",
+    //         gameType: "",
+    //         gameEngine: "",
+    //         orientation: "",
+    //         studio: "",
+    //         events: [],
+
+    //     },
+    //     resolver: yupResolver(schema),
+    // });
 
     return (
         <Box>
@@ -27,6 +50,18 @@ const RegisterGameList = () => {
                 </Button>
             </Box>
             <Divider />
+            <Box>
+                <Box className="flex flex-col">
+                    <Box className="flex-[1]">
+                        <label htmlFor="username">*Game Name</label>
+                    </Box>
+                    <Box className="flex-[9]">
+                        <FormControl className="w-100">
+                            zxczxc
+                        </FormControl>
+                    </Box>
+                </Box>
+            </Box>
         </Box>
     )
 }
