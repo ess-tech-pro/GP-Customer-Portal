@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { getValueByLang } from '@/utils/getValueByLang';
+import { getValueByLang } from '@/utils/utils';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
