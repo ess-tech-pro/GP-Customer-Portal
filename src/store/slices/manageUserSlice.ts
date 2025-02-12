@@ -7,7 +7,7 @@ import {
   fetchListUser as fetchListUserService,
   createUser as createUserService,
   updateUser as updateUserService
-} from '@/services/userService';
+} from '@/services/manageUserService';
 
 export const fetchListUser = createAsyncThunk<any, any>(
   ActionTypes.USERS.LIST_USER,
