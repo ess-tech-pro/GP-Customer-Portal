@@ -6,6 +6,7 @@ export const ActionTypes = {
 	USERS: {
 		FETCH_USERS: 'users/fetchUsers',
 		CREATE_USER: 'users/createUser',
+		INFOR_USER: 'users/me'
 	},
 	AUTH: {
 		LOGIN: 'auth/login',

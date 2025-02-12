@@ -32,8 +32,9 @@ function Login() {
     )
       .unwrap() // unwrap giúp bắt lỗi reject
       .then(() => {
-        navigate('/');
         toast.success("Login successfully");
+        navigate('/')
+        // window.location.href = '/'; // Redirect đến trang chính
       })
       .catch((err) => {
         toast.error('Login failed');
