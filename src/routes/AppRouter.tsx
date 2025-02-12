@@ -17,6 +17,8 @@ const GameList = lazy(() => import('../pages/game-list'))
 const RegisterGame = lazy(() => import('../pages/register-game'))
 const ManagementUserList = lazy(() => import('../pages/management-user/user-list'))
 const ManagementUserCreate = lazy(() => import('../pages/management-user/create-edit-user'))
+const ManagementUserEdit = lazy(() => import('../pages/management-user/create-edit-user'))
+const ManagementUserDetail = lazy(() => import('../pages/management-user/user-detail'))
 
 const routesConfig = [
   {
@@ -61,6 +63,18 @@ const routesConfig = [
     component: ManagementUserCreate,
     requireAuth: true,
   },
+  {
+    path: ROUTE_PATH.MANAGEMENT_USER_EDIT,
+    layout: MainLayout,
+    component: ManagementUserEdit,
+    requireAuth: true,
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_USER_DETAIL,
+    layout: MainLayout,
+    component: ManagementUserDetail,
+    requireAuth: true,
+  }
 ]
 
 const ProtectedRoute = ({ children, requireAuth }: IProctedRoute) => {
