@@ -2,14 +2,14 @@ import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid2';
 import { Box, Typography } from "@mui/material"
-import InputAdornment from '@mui/material/InputAdornment'
+// import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 import FormHelperText from '@mui/material/FormHelperText'
 import CircularProgress from '@mui/material/CircularProgress'
 import CardContent from '@mui/material/CardContent'
-import MenuItem from '@mui/material/MenuItem'
-import IconButton from '@mui/material/IconButton'
+// import MenuItem from '@mui/material/MenuItem'
+// import IconButton from '@mui/material/IconButton'
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '@/store/slices/userSlice';
@@ -17,25 +17,24 @@ import { AppDispatch, RootState } from '@/store/store';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CreateUserRequest, CreateUserRequestSchema } from '@/schemas';
 import { toast } from 'react-toastify';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+// import VisibilityIcon from '@mui/icons-material/Visibility';
+// import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useForm } from 'react-hook-form'
-import CustomTextField from '@/components/mui/TextField';
-import { statusOptions, roleOptions } from '../utils';
+// import CustomTextField from '@/components/mui/TextField';
+// import { statusOptions, roleOptions } from '../utils';
 
 
 const CreateEditUser = () => {
   // States
   const [loading, setLoading] = useState(false)
-  const [isPasswordShown, setIsPasswordShown] = useState(false)
-  const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false)
+  // const [isPasswordShown, setIsPasswordShown] = useState(false)
+  // const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector((state: RootState) => state.login.error); // Lấy lỗi từ Redux state
 
   // Hooks
   const {
-    register,
     reset,
     handleSubmit,
     formState: { errors }
@@ -52,8 +51,8 @@ const CreateEditUser = () => {
 
   const { t } = useTranslation();
 
-  const handleClickShowPassword = () => setIsPasswordShown(show => !show)
-  const handleClickShowConfirmPassword = () => setIsConfirmPasswordShown(show => !show)
+  // const handleClickShowPassword = () => setIsPasswordShown(show => !show)
+  // const handleClickShowConfirmPassword = () => setIsConfirmPasswordShown(show => !show)
 
   const onSubmit = async (data: CreateUserRequest) => {
     setLoading(true)
@@ -106,13 +105,13 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
+                  {/* <CustomTextField
                     fullWidth
                     placeholder={t('userName')}
                     id='username'
                     {...register('username')}
                     error={Boolean(errors.username)}
-                  />
+                  /> */}
                   {errors.username && <FormHelperText error>{errors.username.message}</FormHelperText>}
                 </Grid>
               </Grid>
@@ -134,7 +133,7 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
+                  {/* <CustomTextField
                     select
                     fullWidth
                     id='role'
@@ -164,7 +163,7 @@ const CreateEditUser = () => {
                         {option.label}
                       </MenuItem>
                     ))}
-                  </CustomTextField>
+                  </CustomTextField> */}
                   {errors.role && <FormHelperText error>{errors.role.message}</FormHelperText>}
                 </Grid>
               </Grid>
@@ -186,7 +185,7 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
+                  {/* <CustomTextField
                     fullWidth
                     id='password'
                     {...register('password')}
@@ -210,7 +209,7 @@ const CreateEditUser = () => {
                       }
                     }}
                     error={Boolean(errors.password)}
-                  />
+                  /> */}
                   {errors.password && <FormHelperText error>{errors.password.message}</FormHelperText>}
                 </Grid>
               </Grid>
@@ -232,7 +231,7 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
+                  {/* <CustomTextField
                     fullWidth
                     id='confirm-password'
                     {...register('confirmPassword')}
@@ -256,7 +255,7 @@ const CreateEditUser = () => {
                         )
                       }
                     }}
-                  />
+                  /> */}
                   {errors.confirmPassword && <FormHelperText error>{errors.confirmPassword.message}</FormHelperText>}
                 </Grid>
               </Grid>
@@ -278,7 +277,7 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
+                  {/* <CustomTextField
                     select
                     fullWidth
                     placeholder='Select status'
@@ -308,7 +307,7 @@ const CreateEditUser = () => {
                         {option.label}
                       </MenuItem>
                     ))}
-                  </CustomTextField>
+                  </CustomTextField> */}
                   {errors.status && <FormHelperText error>{errors.status.message}</FormHelperText>}
                 </Grid>
               </Grid>

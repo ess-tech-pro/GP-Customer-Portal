@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,9 +12,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomSelect from "@/components/mui/Select";
 import { formattedOptionTypes } from "@/utils/utils";
+import CustomTextField from "@/components/mui/TextField";
 
 const schema = yup.object().shape({
     category: yup.string().required("Category is required"),
+    gameName: yup.string().required("Game Name is required"),
 });
 
 const RegisterGame = () => {
@@ -37,6 +39,7 @@ const RegisterGame = () => {
     } = useForm({
         defaultValues: {
             category: "",
+            gameName: ""
         },
         resolver: yupResolver(schema),
     });
@@ -71,7 +74,7 @@ const RegisterGame = () => {
                     </Box>
                     <Box className="flex-[9]">
                         <FormControl className="w-120">
-                            <TextField />
+                            <CustomTextField name="gameName" control={control} type="text" />
                         </FormControl>
                     </Box>
                 </Box>
