@@ -1,30 +1,21 @@
-import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
+import React from 'react';
+import { useForm } from 'react-hook-form'
+import { FormControl, FormLabel, FormHelperText, Switch, Button, Card, CardContent, CircularProgress, InputAdornment, IconButton, Typography, Box, MenuItem } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { Box, Typography } from "@mui/material"
-import InputAdornment from '@mui/material/InputAdornment'
-import FormControl from '@mui/material/FormControl'
-import FormLabel from '@mui/material/FormLabel'
-import FormHelperText from '@mui/material/FormHelperText'
-import CircularProgress from '@mui/material/CircularProgress'
-import CardContent from '@mui/material/CardContent'
-import MenuItem from '@mui/material/MenuItem'
-import IconButton from '@mui/material/IconButton'
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUser } from '@/store/slices/userSlice';
+import { toast } from 'react-toastify';
+import { createUser, updateUser, fetchDetailUser } from '@/store/slices/userSlice';
 import { AppDispatch, RootState } from '@/store/store';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CreateUserRequest, CreateUserRequestSchema } from '@/schemas';
-import { toast } from 'react-toastify';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useForm } from 'react-hook-form'
 import CustomTextField from '@/components/mui/TextField';
-import { statusOptions, roleOptions } from '../utils';
-
+import { roleOptions } from '../utils';
 
 const CreateEditUser = () => {
+  const { id: userId } = useParams();
   // States
   const [loading, setLoading] = useState(false)
   const [isPasswordShown, setIsPasswordShown] = useState(false)
@@ -38,6 +29,7 @@ const CreateEditUser = () => {
     register,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -45,37 +37,76 @@ const CreateEditUser = () => {
       password: '',
       confirmPassword: '',
       role: '',
-      status: ''
+      status: false
     },
     resolver: yupResolver(CreateUserRequestSchema)
   })
 
   const { t } = useTranslation();
 
+  useEffect(() => {
+    if (userId) {
+      // If editing an existing user, fetch user data and set it in the form
+      dispatch(fetchDetailUser(userId)) // Dispatch an action to fetch the user data by ID
+        .unwrap()
+        .then((userData) => {
+          // Set form fields based on user data
+          setValue('username', userData.username);
+          setValue('role', userData.role);
+          setValue('status', userData.status);
+        })
+        .catch((err) => {
+          toast.error('Failed to load user data');
+          console.error('Error loading user data:', err);
+        });
+    } else {
+      reset(); // Reset the form if no user is selected for editing
+    }
+  }, [userId, dispatch, setValue, reset]);
+
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
   const handleClickShowConfirmPassword = () => setIsConfirmPasswordShown(show => !show)
 
+  const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('status', event.target.checked);
+  };
+
   const onSubmit = async (data: CreateUserRequest) => {
     setLoading(true)
-    dispatch(
-      createUser({
-        username: data.username,
-        password: data.password,
-        role: data.role,
-        status: data.status,
-      })
-    )
-      .unwrap() // unwrap giúp bắt lỗi reject
-      .then(() => {
-        toast.success("Create user successfully");
-      })
-      .catch((err) => {
-        toast.error('Create user failed');
-        console.error('Create user failed:', err); // Có thể log lỗi nếu cần
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    if (userId) {
+      dispatch(updateUser({ userId, ...data }))
+        .unwrap()
+        .then(() => {
+          toast.success('User updated successfully');
+        })
+        .catch((err) => {
+          toast.error('Update user failed');
+          console.error('Update user failed:', err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      dispatch(
+        createUser({
+          username: data.username,
+          password: data.password,
+          role: data.role,
+          status: data.status,
+        })
+      )
+        .unwrap() // unwrap giúp bắt lỗi reject
+        .then(() => {
+          toast.success("Create user successfully");
+        })
+        .catch((err) => {
+          toast.error('Create user failed');
+          console.error('Create user failed:', err); // Có thể log lỗi nếu cần
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    }
   };
 
   return (
@@ -278,37 +309,7 @@ const CreateEditUser = () => {
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
-                  <CustomTextField
-                    select
-                    fullWidth
-                    placeholder='Select status'
-                    defaultValue=''
-                    id="status"
-                    {...register('status')}
-                    error={Boolean(errors.status)}
-                    slotProps={{
-                      select: {
-                        displayEmpty: true, // Ensure placeholder shows when no selection
-                        renderValue: selected => {
-                          if (!selected) {
-                            return <em>Placeholder</em>; // Placeholder for empty selection
-                          }
-                          // Find the label corresponding to the selected value
-                          const selectedOption = statusOptions.find(option => option.value === selected);
-                          return selectedOption ? selectedOption.label : selected as string; // Show label
-                        },
-                      },
-                    }}
-                  >
-                    <MenuItem disabled value=''>
-                      <em>Placeholder</em>
-                    </MenuItem>
-                    {statusOptions.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </CustomTextField>
+                  <Switch id='status' onChange={handleStatusChange} />
                   {errors.status && <FormHelperText error>{errors.status.message}</FormHelperText>}
                 </Grid>
               </Grid>
