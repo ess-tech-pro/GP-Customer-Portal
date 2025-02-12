@@ -196,7 +196,7 @@ const CreateEditUser = () => {
                         placeholder='Select role'
                         defaultValue=''
                         {...field}
-                        error={Boolean(errors.role)}
+                        {...(errors.role && { error: true, helperText: errors.role?.message })}
                         slotProps={{
                           select: {
                             displayEmpty: true, // Ensure placeholder shows when no selection
@@ -222,7 +222,6 @@ const CreateEditUser = () => {
                       </CustomTextField>
                     )}
                   />
-                  {errors.role && <FormHelperText error>{errors.role.message}</FormHelperText>}
                 </Grid>
               </Grid>
               <Grid
