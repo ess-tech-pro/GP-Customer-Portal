@@ -9,8 +9,8 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomSelect from "@/components/mui/Select";
 import { formattedOptionTypes } from "@/utils/utils";
-import CustomTextField from "@/components/mui/TextField";
 import { registerGame } from "@/store/slices/gameSlice";
+import CustomTextFieldWithValidation from "@/components/mui/TextFieldWithValidation";
 
 const FILE_SIZE = 5 * 1024 * 1024; // 5MB
 // const SUPPORTED_FORMATS = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"];
@@ -106,7 +106,7 @@ const RegisterGame = () => {
                             </Box>
                             <Box className="flex-[9]">
                                 <FormControl className="w-120">
-                                    <CustomTextField name="gameName" control={control} type="text" />
+                                    <CustomTextFieldWithValidation name="gameName" control={control} type="text" />
                                 </FormControl>
                             </Box>
                         </Box>
