@@ -4,7 +4,7 @@ import type { TextFieldProps } from "@mui/material/TextField";
 import CustomTextField from "./TextField";
 
 interface CustomTextFieldWithValidationProps
-  extends Omit<TextFieldProps, "name" | "control" | "rules" | "error" | "helperText"> {
+  extends Omit<TextFieldProps, "name" | "control" | "rules"> {
   name: string;
   control: Control<FieldValues>;
   rules?: Record<string, unknown>; // Ensures proper rules typing
