@@ -1,13 +1,13 @@
 import alias from '@rollup/plugin-alias'
+import tailwind from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
 import autoprefixer from 'autoprefixer'
 import fs from 'fs'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
-import tailwind from '@tailwindcss/vite'
-import AutoImport from 'unplugin-auto-import/vite'
 import { ConfigEnv, defineConfig } from 'vite'
 import ViteDevelopmentConfig from './configs/vite.development.config'
+import vitePrepareConfig from './configs/vite.prepare.config'
 import viteProductionConfig, {
   aliasExternal,
 } from './configs/vite.production.config'
@@ -15,68 +15,15 @@ import viteProductionConfig, {
 const resolve = resolveTsconfigPathsToAlias()
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const ViteConfigWithMode = getViteConfigWithMode(mode)
-  const config = ViteConfigWithMode?.()
+  const viteConfigWithMode = getViteConfigWithMode(mode)
+  const config = viteConfigWithMode?.()
 
   return {
     publicDir: 'src/assets/static',
     plugins: [
       react(),
       tailwind(),
-      AutoImport({
-        // targets to transform
-        include: [
-          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-          /\.md$/, // .md
-        ],
-        imports: [
-          'react',
-          // {
-          // 	react: [
-          // 		['*', 'React'],
-          // 		'Suspense',
-          // 		'componentDidCatch',
-          // 		'StrictMode',
-          // 		'createContext',
-          // 	],
-          // },
-          {
-            from: 'yup',
-            imports: [['*', 'yup']],
-            type: true,
-          },
-          {
-            from: 'react',
-            imports: [
-              'Dispatch',
-              'SetStateAction',
-              'HTMLProps',
-              'HTMLAttributes',
-              'ComponentType',
-              'ReactNode',
-            ],
-            type: true,
-          },
-          {
-            'react-dom/client': ['createRoot'],
-          },
-          'react-router-dom',
-          {
-            'react-router-dom': [
-              'createBrowserRouter',
-              'RouterProvider',
-              'BrowserRouter',
-              'useMatches',
-              'generatePath',
-            ],
-          },
-        ],
-        dts: './configs/auto-imports.d.ts',
-        eslintrc: {
-          enabled: true,
-          filepath: './configs/.eslintrc-auto-import.json',
-        },
-      }),
+      ...vitePrepareConfig.plugins,
       ...(mode === 'development'
         ? [
           alias({

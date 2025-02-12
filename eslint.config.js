@@ -21,6 +21,7 @@ export default [
 	...fixupConfigRules(
 		compat.extends(
 			'./configs/.eslintrc-auto-import.json',
+			'./configs/.eslintrc-auto-import-type.json',
 			'eslint:recommended',
 			'plugin:import/recommended',
 			'airbnb',

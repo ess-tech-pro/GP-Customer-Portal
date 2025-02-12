@@ -6,7 +6,7 @@
   "packageManager": "yarn@4.6.0",
   "scripts": {
     "dev": "vite",
-    "build": "./node_modules/.bin/tsc --b && ./node_modules/.bin/eslint src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --quiet && vite build",
+    "build": "NODE_ENV=production node ./configs/vite.prepare.config.js && ./node_modules/.bin/tsc -b && ./node_modules/.bin/eslint src/**/*.{t,j}s{,x} --no-error-on-unmatched-pattern --quiet && vite build",
     "preview": "vite preview",
     "test": "./node_modules/.bin/jest",
     "test:watch": "./node_modules/.bin/jest --watch",
@@ -17,7 +17,7 @@
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
     "prepare": "git config core.autocrlf false && npx husky install",
-    "pre-commit": "lint-staged --allow-empty"
+    "pre-commit": "./node_modules/.bin/lint-staged --allow-empty"
   },
   "engines": {
     "node": ">=22.x"
