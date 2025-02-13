@@ -1,5 +1,6 @@
 // MUI Imports
 import type { Theme } from '@mui/material/styles'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const autocomplete = (): Theme['components'] => ({
   MuiAutocomplete: {
@@ -12,7 +13,7 @@ const autocomplete = (): Theme['components'] => ({
       ChipProps: {
         size: 'small'
       },
-      popupIcon: <i className='tabler-chevron-down' />
+      popupIcon: <KeyboardArrowDownIcon />
     },
     styleOverrides: {
       root: {
