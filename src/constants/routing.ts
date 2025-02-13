@@ -7,6 +7,7 @@ export const ROUTE_PATH = {
   EXAMPLES: '/examples',
   GAME_MANAGEMENT: {
     CREATE_REGISTER_GAME: '/create-register-game',
+    EDIT_REGISTER_GAME: '/edit-register-game/:id',
     REGISTER_GAME_LIST: '/register-game-list',
   },
   MANAGEMENT_USER: '/management-user',
