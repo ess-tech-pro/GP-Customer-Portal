@@ -10,6 +10,7 @@ import pagination from './pagination'
 import radio from './radio'
 import select from './select'
 import switchOverrides from './switch'
+import tablePagination from './table-pagination'
 import typography from './typography'
 
 const overrides = () => {
@@ -25,6 +26,7 @@ const overrides = () => {
     ...radio,
     ...select,
     ...switchOverrides,
+    ...tablePagination,
     ...typography
   }
 }
