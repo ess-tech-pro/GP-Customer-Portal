@@ -1,6 +1,5 @@
 {
 	"welcome": "Chào mừng bạn đến với React",
-	"description": "Đây là một ví dụ về tích hợp i18n.",
 	"gameList": "Game List Vietnam",
 	"createUser": "Tạo Mới Người Dùng",
 	"userName": "Tên Người Dùng",
@@ -14,5 +13,21 @@
 	"clear": "Huỷ",
 	"edit": "Sửa",
 	"delete": "Xoá",
-	"save": "Lưu"
+	"save": "Lưu",
+	"active": "Đang hoạt động",
+	"inactive": "Inactive",
+	"branch": "Branch",
+	"studio": "Studio",
+	"game_provider": "Game Provider",
+	"ok": "Đồng ý",
+	"action": "Hành Động",
+	"user": "Người Dùng",
+	"description": "Mô tả",
+	"type": "Loại",
+	"username": "Tên Đăng Nhập",
+	"organization_management": "Quản Lý Tổ Chức",
+	"create_organization": "Tạo Tổ Chức",
+	"name": "Tên",
+	"rows_per_page": "Số dòng mỗi trang",
+	"no_rows": "Không có dữ liệu"
 }

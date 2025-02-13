@@ -7,6 +7,7 @@ export const ActionTypes = {
     LIST_USER: 'users/fetchListUser',
     CREATE_USER: 'users/createUser',
     UPDATE_USER: 'users/updateUser',
+    INFOR_USER: 'users/me'
   },
   AUTH: {
     LOGIN: 'auth/login',
@@ -19,6 +20,11 @@ export const ActionTypes = {
   },
   OPTIONS: {
     REGISTER_GAME: 'options/getOptionsRegisterGame'
-  }
-  // Thêm các module khác nếu cần
+  },
+  ORGANIZATIONS: {
+    ORGANIZATION_LIST: 'organizations/organizationList',
+    CREATE_ORGANIZATION: 'organizations/createOrganization',
+    DELETE_ORGANIZATION: 'organizations/deleteOrganization',
+  },
+  REGISTER_GAME: 'game/register'
 }

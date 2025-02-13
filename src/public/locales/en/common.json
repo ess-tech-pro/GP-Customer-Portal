@@ -1,6 +1,5 @@
 {
 	"welcome": "Welcome to React",
-	"description": "This is an example of i18n integration.",
 	"gameList": "Game List Enghlish",
 	"createUser": "Create User",
 	"userName": "User Name",
@@ -14,5 +13,21 @@
 	"clear": "Clear",
 	"edit": "Edit",
 	"delete": "Delete",
-	"save": "Save"
+	"save": "Save",
+	"active": "Active",
+	"inactive": "Inactive",
+	"branch": "Branch",
+	"studio": "Studio",
+	"game_provider": "Game Provider",
+	"ok": "OK",
+	"action": "Action",
+	"user": "User",
+	"description": "Description",
+	"type": "Type",
+	"username": "Username",
+	"organization_management": "Organization Management",
+	"create_organization": "Create Organization",
+	"name": "Name",
+	"rows_per_page": "Rows per page",
+	"no_rows": "No rows"
 }

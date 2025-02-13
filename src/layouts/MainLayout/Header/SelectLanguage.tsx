@@ -19,6 +19,7 @@ const SelectLanguage: React.FC = () => {
   const handleLanguageChange = (event: SelectChangeEvent) => {
     const newLanguage = event.target.value as string;
     i18n.changeLanguage(newLanguage);
+    localStorage.setItem("currentLanguage", newLanguage);
   };
 
   return (

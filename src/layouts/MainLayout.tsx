@@ -46,8 +46,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <Box
           component="div"
           sx={{
-            p: 2,
-            mt: 8,
+            p: 4,
+            mt: 16,
             background: 'white',
             borderRadius: '16px 16px 0 0',
             width: '100%'
