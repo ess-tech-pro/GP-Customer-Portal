@@ -1,9 +1,13 @@
+import { initStore } from '../store'
 import splitChunkHanler from './splitChunkHandler'
 
 const splitChunkSchemasRegex = /schemas\/([^/]+)/
 const splitChunkSchemasRegexToIgnore = /components\/([^/]+)/
 
-const splitChunk = splitChunkHanler().init()
+const routesStore = initStore({
+  prefix: 'schemas',
+})
+const splitChunk = splitChunkHanler().init(routesStore)
 
 const splitChunkSchemas = (pathName: string): boolean | string => {
   if (

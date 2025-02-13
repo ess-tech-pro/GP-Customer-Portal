@@ -22,7 +22,7 @@ export interface IStore {
 export const initStore = (initState?: IStateOptional): IStore => ({
   state: {
     totalVendorFiles: 0,
-    maxSize: 500,
+    maxSize: 200000,
     prefix: 'global',
     chunkList: {},
     ...(initState || {})

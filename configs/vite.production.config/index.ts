@@ -1,6 +1,7 @@
 import type { RollupAliasOptions } from '@rollup/plugin-alias'
 import type { UserConfig } from 'vite'
 import NormalSplitChunks from '../plugins/NormalSplitChunks'
+import splitChunkComponents from './utils/splitChunkComponents'
 import splitChunkConstants from './utils/splitChunkConstants'
 import splitChunkContexts from './utils/splitChunkContexts'
 import splitChunkHooks from './utils/splitChunkHooks'
@@ -23,7 +24,8 @@ export default (): UserConfig => {
         splitChunkUtils,
         splitChunkHooks,
         splitChunkStore,
-        splitChunkRoutes
+        splitChunkRoutes,
+        splitChunkComponents
       ]),
     ],
   }
