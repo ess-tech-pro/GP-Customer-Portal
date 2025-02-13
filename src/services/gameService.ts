@@ -60,3 +60,12 @@ export const getOptionsService = async ():
 		throw error
 	}
 }
+
+export const registerGameService = async (data: any): Promise<any> => {
+	const rep = (await axiosClient.post('/config-service/api/v1/game-register/create', data,
+		{
+			headers: { "Content-Type": "multipart/form-data" },
+		}
+	)) as any
+	return rep
+}

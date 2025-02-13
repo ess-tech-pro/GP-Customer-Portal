@@ -4,8 +4,9 @@ export const ActionTypes = {
     POST_CART: 'products/postCart',
   },
   USERS: {
-    FETCH_USERS: 'users/fetchUsers',
+    LIST_USER: 'users/fetchListUser',
     CREATE_USER: 'users/createUser',
+    UPDATE_USER: 'users/updateUser',
   },
   AUTH: {
     LOGIN: 'auth/login',
@@ -13,7 +14,7 @@ export const ActionTypes = {
   GAME: {
     GAME_DETAIL: 'game/gameDetail',
     GAME_LIST: 'game/gameList',
-
+    REGISTER_GAME: 'game/register'
   },
   OPTIONS: {
     REGISTER_GAME: 'options/getOptionsRegisterGame'
@@ -23,5 +24,5 @@ export const ActionTypes = {
     CREATE_ORGANIZATION: 'organizations/createOrganization',
     DELETE_ORGANIZATION: 'organizations/deleteOrganization',
   },
-  // Thêm các module khác nếu cần
+  REGISTER_GAME: 'game/register'
 }

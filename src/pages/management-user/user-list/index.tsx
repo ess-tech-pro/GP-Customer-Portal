@@ -22,7 +22,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
 
   const handleEditUser = (id: number) => {
-    console.log("Edit User", id);
+    navigate(`edit/${id}`);
   };
 
   const handleDeleteUser = (id: number) => {
@@ -112,7 +112,7 @@ const UserList = () => {
     },
   ];
 
-  const fetchUsers = async () => {
+  const fetchListUser = async () => {
     setLoading(true);
     try {
       // const response = await api.get('/users', { params: filters });
@@ -137,7 +137,7 @@ const UserList = () => {
   };
 
   const handleSearchFilter = () => {
-    fetchUsers();
+    fetchListUser();
   };
 
   const handleClearFilter = () => {
@@ -145,7 +145,7 @@ const UserList = () => {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchListUser();
   }, []);
 
   return (

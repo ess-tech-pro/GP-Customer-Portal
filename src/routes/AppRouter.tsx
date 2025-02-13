@@ -14,12 +14,14 @@ const Home = lazy(() => import('../pages/home'))
 const Login = lazy(() => import('../pages/login'))
 const GameDetail = lazy(() => import('../pages/game-detail'))
 const GameList = lazy(() => import('../pages/game-list'))
-const RegisterGame = lazy(() => import('../pages/register-game'))
+const CreateRegisterGame = lazy(() => import('../pages/create-edit-register-game'))
+const RegisterGameList = lazy(() => import('../pages/register-game-list'))
 const ManagementUserList = lazy(() => import('../pages/management-user/user-list'))
 const ManagementUserCreate = lazy(() => import('../pages/management-user/create-edit-user'))
+const ManagementUserEdit = lazy(() => import('../pages/management-user/create-edit-user'))
+const ManagementUserDetail = lazy(() => import('../pages/management-user/user-detail'))
 const ManagementOrganizationList = lazy(() => import('../pages/management-organization/organization-list'))
 const ManagementOrganizationCreate = lazy(() => import('../pages/management-organization/create-edit-organization'))
-
 
 const routesConfig = [
   {
@@ -47,9 +49,15 @@ const routesConfig = [
     requireAuth: true,
   },
   {
-    path: ROUTE_PATH.GAME_MANAGEMENT.REGISTER_GAME,
+    path: ROUTE_PATH.GAME_MANAGEMENT.CREATE_REGISTER_GAME,
     layout: MainLayout,
-    component: RegisterGame,
+    component: CreateRegisterGame,
+    requireAuth: true,
+  },
+  {
+    path: ROUTE_PATH.GAME_MANAGEMENT.REGISTER_GAME_LIST,
+    layout: MainLayout,
+    component: RegisterGameList,
     requireAuth: true,
   },
   {
@@ -62,6 +70,18 @@ const routesConfig = [
     path: ROUTE_PATH.MANAGEMENT_USER_CREATE,
     layout: MainLayout,
     component: ManagementUserCreate,
+    requireAuth: true,
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_USER_EDIT,
+    layout: MainLayout,
+    component: ManagementUserEdit,
+    requireAuth: true,
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_USER_DETAIL,
+    layout: MainLayout,
+    component: ManagementUserDetail,
     requireAuth: true,
   },
   {
