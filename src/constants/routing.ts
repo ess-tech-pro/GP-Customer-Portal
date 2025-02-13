@@ -10,5 +10,9 @@ export const ROUTE_PATH = {
   },
   MANAGEMENT_USER: '/management-user',
   MANAGEMENT_USER_DETAIL: '/management-user/:id',
-  MANAGEMENT_USER_CREATE: '/management-user/create'
+  MANAGEMENT_USER_CREATE: '/management-user/create',
+  MANAGEMENT_ORGANIZATION: {
+    ORGANIZATION_LIST: '/organization-list',
+    ORGANIZATION_CREATE: '/management-organization/create',
+  }
 }
