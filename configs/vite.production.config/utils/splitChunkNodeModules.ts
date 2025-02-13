@@ -49,7 +49,7 @@ const splitChunkNodeModules = (pathName: string): boolean | string => {
     case name.includes('@mui'):
       return pathName.match(/@mui\/([^/]+)/g)?.[0] ?? '@mui'
     default: {
-      if (name.includes('react') && !/node_modules\/(react-transition-group|react-i18next|react-router|react-redux|react-toastify|react-html-parser|react-hook-form)$/g.test(name)) return name
+      if (name.includes('react') && !/node_modules\/(react-transition-group|react-i18next|react-router|react-redux|react-toastify|react-html-parser|react-hook-form|react-dom)$/g.test(name)) return name
 
       // if (/node_modules\/(@emotion|@headlessui|@heroicons|@hookform|@reduxjs|@testing-library|axios|dompurify|i18next|moment|styled-components|yup|react-transition-group|hoist-non-react-statics|react-is)$/g.test(name)) return name
       // if (/node_modules\/(react|react-dom|react-transition-group|hoist-non-react-statics|react-is)$/g.test(name)) return name
