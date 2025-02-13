@@ -1,6 +1,6 @@
 import { Computer, Smartphone, Square, Tablet } from "@mui/icons-material";
 import { Button, Grid2, List, ListItem, ListItemIcon, ListItemText, styled, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import Box from "@mui/material/Box";
 import { IGameDetailProps } from "../types";
 import moment from "moment";
 import { GAME_DETAIL_VOLATILITY } from "../constants";

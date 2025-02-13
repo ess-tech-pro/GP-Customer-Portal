@@ -32,13 +32,13 @@ const Breadcrumbs = () => {
       aria-label="breadcrumb"
       sx={{ color: "primary.contrastText" }}
     >
-      <Link href="/" underline="hover" color="inherit">
+      <Link href="#/" underline="hover" color="inherit">
         Daily Wins
       </Link>
       {pathnames.map((_, index) => {
         const last = index === pathnames.length - 1;
-        const to = `/${pathnames.slice(0, index + 1).join("/")}`;
-        const link = nameMap[to];
+        const to = `#/${pathnames.slice(0, index + 1).join("/")}`;
+        const link = nameMap[to.replace("#", "")];
 
         return (
           <Fragment key={to}>

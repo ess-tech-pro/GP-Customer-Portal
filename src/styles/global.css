@@ -1,2 +1,48 @@
-@config '../../tailwind.config.js';
+@config '../../tailwind.config.ts';
 @import 'tailwindcss';
+
+:root {
+	--border-radius: var(--mui-shape-borderRadius);
+	--border-color: var(--mui-palette-divider);
+	--primary-color: var(--mui-palette-primary-main);
+	--background-color: var(--mui-palette-background-default);
+	--background-color-rgb: var(--mui-palette-background-paperChannel);
+	--header-height: 54px;
+	--header-z-index: var(--mui-zIndex-appBar);
+	--footer-z-index: 10;
+	--customizer-z-index: var(--mui-zIndex-drawer);
+	--search-z-index: var(--mui-zIndex-tooltip);
+	--drawer-z-index: var(--mui-zIndex-drawer);
+	--backdrop-color: rgb(var(--mui-mainColorChannels-light) / 0.5);
+	--mui-mainColorChannels-shadow: var(--mui-mainColorChannels-lightShadow);
+	--mui-palette-customColors-inputBorder: var(--mui-palette-divider);
+}
+
+[data-dark] {
+	--backdrop-color: rgb(23 25 37 / 0.6);
+	--mui-mainColorChannels-shadow: var(--mui-mainColorChannels-darkShadow);
+}
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+	border-width: 0;
+	border-style: solid;
+	border-color: theme('borderColor.DEFAULT', currentColor);
+}
+
+html {
+	inline-size: 100%;
+	min-block-size: 100%;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul:not([class]) {
+	margin-block: 1rem;
+	padding-inline-start: 40px;
+}

@@ -21,6 +21,7 @@ export default [
 	...fixupConfigRules(
 		compat.extends(
 			'./configs/.eslintrc-auto-import.json',
+			'./configs/.eslintrc-auto-import-type.json',
 			'eslint:recommended',
 			'plugin:import/recommended',
 			'airbnb',
@@ -107,6 +108,7 @@ export default [
 			'react/destructuring-assignment': 'off',
 			'no-unreachable': 'off',
 			quotes: 'off',
+			'react/require-default-props': 'off',
 		},
 	},
 	{
