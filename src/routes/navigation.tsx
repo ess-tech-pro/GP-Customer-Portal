@@ -54,6 +54,18 @@ const navigation = [
           }
         ],
       },
+      {
+        title: 'Mng Organization',
+        path: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST,
+        icon: <SettingsIcon />,
+        children: [
+          {
+            path: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST,
+            title: 'Organization list',
+            icon: <DnsIcon />,
+          }
+        ],
+      },
     ],
   },
   {

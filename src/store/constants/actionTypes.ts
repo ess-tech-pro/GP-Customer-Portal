@@ -18,6 +18,11 @@ export const ActionTypes = {
   },
   OPTIONS: {
     REGISTER_GAME: 'options/getOptionsRegisterGame'
-  }
-  // Thêm các module khác nếu cần
+  },
+  ORGANIZATIONS: {
+    ORGANIZATION_LIST: 'organizations/organizationList',
+    CREATE_ORGANIZATION: 'organizations/createOrganization',
+    DELETE_ORGANIZATION: 'organizations/deleteOrganization',
+  },
+  REGISTER_GAME: 'game/register'
 }

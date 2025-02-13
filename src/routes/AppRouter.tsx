@@ -20,6 +20,8 @@ const ManagementUserList = lazy(() => import('../pages/management-user/user-list
 const ManagementUserCreate = lazy(() => import('../pages/management-user/create-edit-user'))
 const ManagementUserEdit = lazy(() => import('../pages/management-user/create-edit-user'))
 const ManagementUserDetail = lazy(() => import('../pages/management-user/user-detail'))
+const ManagementOrganizationList = lazy(() => import('../pages/management-organization/organization-list'))
+const ManagementOrganizationCreate = lazy(() => import('../pages/management-organization/create-edit-organization'))
 
 const routesConfig = [
   {
@@ -81,7 +83,19 @@ const routesConfig = [
     layout: MainLayout,
     component: ManagementUserDetail,
     requireAuth: true,
-  }
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST,
+    layout: MainLayout,
+    component: ManagementOrganizationList,
+    requireAuth: true,
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_CREATE,
+    layout: MainLayout,
+    component: ManagementOrganizationCreate,
+    requireAuth: true,
+  },
 ]
 
 const ProtectedRoute = ({ children, requireAuth }: IProctedRoute) => {
