@@ -1,0 +1,11 @@
+{
+  "globals": {
+    "ComponentType": true,
+    "Dispatch": true,
+    "HTMLAttributes": true,
+    "HTMLProps": true,
+    "ReactNode": true,
+    "SetStateAction": true,
+    "yup": true
+  }
+}

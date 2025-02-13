@@ -7,19 +7,17 @@ import SelectLanguage from './SelectLanguage';
 import useIsMobile from "@/hooks/useIsMobile";
 import { useLayoutContext } from "@/contexts/LayoutContext";
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { sidebarOpen, setSidebarOpen } = useLayoutContext();
   const isMobile = useIsMobile();
-  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setSidebarOpen((current) => !current);
   };
   const handleLogout = () => {
     localStorage.removeItem('accessToken')
-    navigate('/login')
+    window.location.reload()
   }
 
   return (
