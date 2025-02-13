@@ -3,10 +3,17 @@ import type { Theme } from '@mui/material/styles'
 
 // Theme Options Imports
 import shadows from './shadows'
+import colorSchemes from './colorSchemes'
 import customShadows from './customShadows'
+import spacing from './spacing'
+import typography from './typography'
+import overrides from './overrides'
 
 const theme = (): Theme => {
   return {
+    components: overrides(),
+    colorSchemes: colorSchemes(),
+    ...spacing,
     shape: {
       borderRadius: 6,
       customBorderRadius: {
@@ -17,8 +24,9 @@ const theme = (): Theme => {
         xl: 10
       }
     },
-    shadows: shadows('light'),
-    customShadows: customShadows('light'),
+    shadows: shadows(),
+    customShadows: customShadows(),
+    typography: typography(),
     mainColorChannels: {
       light: '47 43 61',
       dark: '225 222 245',
