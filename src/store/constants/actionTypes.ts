@@ -7,6 +7,7 @@ export const ActionTypes = {
     LIST_USER: 'users/fetchListUser',
     CREATE_USER: 'users/createUser',
     UPDATE_USER: 'users/updateUser',
+    INFOR_USER: 'users/me'
   },
   AUTH: {
     LOGIN: 'auth/login',
