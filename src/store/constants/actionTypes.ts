@@ -23,6 +23,5 @@ export const ActionTypes = {
     CREATE_ORGANIZATION: 'organizations/createOrganization',
     DELETE_ORGANIZATION: 'organizations/deleteOrganization',
   },
-  TRANSLATION_CONFIG: 'translationConfig/getTranslationConfig',
   // Thêm các module khác nếu cần
 }
