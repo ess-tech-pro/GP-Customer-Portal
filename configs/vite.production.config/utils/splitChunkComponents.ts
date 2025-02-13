@@ -1,14 +1,6 @@
-import { initStore } from '../store'
-import splitChunkHanler from './splitChunkHandler'
-
 const splitChunkComponentsRegex = /components\/([^/]+)/
 const pagesRegex = /pages\/([^/]+)/
 const nodeModulesRegex = /node_modules\/([^/]+)/
-
-const routesStore = initStore({
-  prefix: 'components',
-})
-const splitChunk = splitChunkHanler().init(routesStore)
 
 const splitChunkComponents = (pathName: string): boolean | string => {
   if (
@@ -20,7 +12,7 @@ const splitChunkComponents = (pathName: string): boolean | string => {
     return false
   }
 
-  const chunkName = splitChunk(pathName, splitChunkComponentsRegex) || pathName
+  const chunkName = pathName.match(splitChunkComponentsRegex)?.[0] ?? pathName
 
   return chunkName
 } // splitChunkComponents

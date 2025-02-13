@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 import type { OutputOptions } from 'rollup'
-// import crypto from 'crypto'
+import crypto from 'crypto'
 
 export default (splitChunkConfig: Array<string | RegExp | ((pathName: string) => boolean | string)>): Plugin => {
   return {
@@ -36,12 +36,12 @@ export default (splitChunkConfig: Array<string | RegExp | ((pathName: string) =>
 
           if (!name) continue
 
-          // return crypto
-          //   .createHash('sha1')
-          //   .update(name)
-          //   .digest('hex')
-          //   .slice(0, 8)
-          return name
+          return crypto
+            .createHash('sha1')
+            .update(name)
+            .digest('hex')
+            .slice(0, 8)
+          // return name
         }
       }
     },
