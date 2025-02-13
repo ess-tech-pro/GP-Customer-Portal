@@ -6,9 +6,9 @@ __metadata:
   cacheKey: 10c0
 
 "@adobe/css-tools@npm:^4.4.0":
-  version: 4.4.1
-  resolution: "@adobe/css-tools@npm:4.4.1"
-  checksum: 10c0/1a68ad9af490f45fce7b6e50dd2d8ac0c546d74431649c0d42ee4ceb1a9fa057fae0a7ef1e148effa12d84ec00ed71869ebfe0fb1dcdcc80bfcb6048c12abcc0
+  version: 4.4.2
+  resolution: "@adobe/css-tools@npm:4.4.2"
+  checksum: 10c0/19433666ad18536b0ed05d4b53fbb3dd6ede266996796462023ec77a90b484890ad28a3e528cdf3ab8a65cb2fcdff5d8feb04db6bc6eed6ca307c40974239c94
   languageName: node
   linkType: hard
 
@@ -2484,18 +2484,18 @@ __metadata:
   linkType: hard
 
 "@mui/icons-material@npm:^6.4.0":
-  version: 6.4.3
-  resolution: "@mui/icons-material@npm:6.4.3"
+  version: 6.4.4
+  resolution: "@mui/icons-material@npm:6.4.4"
   dependencies:
     "@babel/runtime": "npm:^7.26.0"
   peerDependencies:
-    "@mui/material": ^6.4.3
+    "@mui/material": ^6.4.4
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/d010088fe6c11a863be5ec35b12c6d8e3d423e50877b07d471cc62f07ca7aac7928cb6a1e41b782d67c44aaf682fe3eaf1d12de2c2d3cb71ed28df2c8ff2b965
+  checksum: 10c0/c8118db2650f588e9b551317794138df8232638b1a03ec1ec5078431109d33a1b21195b4d5e1aa92d812cc64ca669ac2e53983d0ed3789f6f8bd3ee003bd9da8
   languageName: node
   linkType: hard
 
@@ -4519,12 +4519,12 @@ __metadata:
   linkType: hard
 
 "call-bind-apply-helpers@npm:^1.0.0, call-bind-apply-helpers@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "call-bind-apply-helpers@npm:1.0.1"
+  version: 1.0.2
+  resolution: "call-bind-apply-helpers@npm:1.0.2"
   dependencies:
     es-errors: "npm:^1.3.0"
     function-bind: "npm:^1.1.2"
-  checksum: 10c0/acb2ab68bf2718e68a3e895f0d0b73ccc9e45b9b6f210f163512ba76f91dab409eb8792f6dae188356f9095747512a3101646b3dea9d37fb8c7c6bf37796d18c
+  checksum: 10c0/47bd9901d57b857590431243fea704ff18078b16890a6b3e021e12d279bbf211d039155e27d7566b374d49ee1f8189344bac9833dec7a20cdec370506361c938
   languageName: node
   linkType: hard
 
@@ -5575,9 +5575,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.73":
-  version: 1.5.97
-  resolution: "electron-to-chromium@npm:1.5.97"
-  checksum: 10c0/79080e3fea02158d2a05c881d84711d940817782179f08911f42ad10569832f402e7a612024ebf8c195439f713a4d913689b713f06f010f4cadccf9cf63cd3ad
+  version: 1.5.98
+  resolution: "electron-to-chromium@npm:1.5.98"
+  checksum: 10c0/bc362b7f385addaa9832235d7288cdd5edfe74a59464ba61cf5ca8aec0f7980541e5495cf52f9b8049a258c80c408cc4b87fea747542386e22e85fc7a7308ae7
   languageName: node
   linkType: hard
 
@@ -5784,11 +5784,11 @@ __metadata:
   linkType: hard
 
 "es-shim-unscopables@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "es-shim-unscopables@npm:1.0.2"
+  version: 1.1.0
+  resolution: "es-shim-unscopables@npm:1.1.0"
   dependencies:
-    hasown: "npm:^2.0.0"
-  checksum: 10c0/f495af7b4b7601a4c0cfb893581c352636e5c08654d129590386a33a0432cf13a7bdc7b6493801cadd990d838e2839b9013d1de3b880440cb537825e834fe783
+    hasown: "npm:^2.0.2"
+  checksum: 10c0/1b9702c8a1823fc3ef39035a4e958802cf294dd21e917397c561d0b3e195f383b978359816b1732d02b255ccf63e1e4815da0065b95db8d7c992037be3bbbcdb
   languageName: node
   linkType: hard
 
@@ -6554,11 +6554,11 @@ __metadata:
   linkType: hard
 
 "for-each@npm:^0.3.3":
-  version: 0.3.4
-  resolution: "for-each@npm:0.3.4"
+  version: 0.3.5
+  resolution: "for-each@npm:0.3.5"
   dependencies:
     is-callable: "npm:^1.2.7"
-  checksum: 10c0/6b2016c0a0fe3107c70a233923cac74f07bedb5a1847636039fa6bcc3df09aefa554cfec23c3342ad365acac1f95e799d9f8e220cb82a4c7b8a84f969234302f
+  checksum: 10c0/0e0b50f6a843a282637d43674d1fb278dda1dd85f4f99b640024cfb10b85058aac0cc781bf689d5fe50b4b7f638e91e548560723a4e76e04fe96ae35ef039cee
   languageName: node
   linkType: hard
 
@@ -6863,9 +6863,9 @@ __metadata:
   linkType: hard
 
 "globals@npm:^15.14.0":
-  version: 15.14.0
-  resolution: "globals@npm:15.14.0"
-  checksum: 10c0/039deb8648bd373b7940c15df9f96ab7508fe92b31bbd39cbd1c1a740bd26db12457aa3e5d211553b234f30e9b1db2fee3683012f543a01a6942c9062857facb
+  version: 15.15.0
+  resolution: "globals@npm:15.15.0"
+  checksum: 10c0/f9ae80996392ca71316495a39bec88ac43ae3525a438b5626cd9d5ce9d5500d0a98a266409605f8cd7241c7acf57c354a48111ea02a767ba4f374b806d6861fe
   languageName: node
   linkType: hard
 
@@ -6962,7 +6962,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hasown@npm:^2.0.0, hasown@npm:^2.0.2":
+"hasown@npm:^2.0.2":
   version: 2.0.2
   resolution: "hasown@npm:2.0.2"
   dependencies:
@@ -9722,9 +9722,9 @@ __metadata:
   linkType: hard
 
 "pathe@npm:^2.0.1":
-  version: 2.0.2
-  resolution: "pathe@npm:2.0.2"
-  checksum: 10c0/21fce96ca9cebf037b075de8e5cc4ac6aa1009bce57946a72695f47ded84cf4b29f03bed721ea0f6e39b69eb1a0620bcee1f72eca46086765214a2965399b83a
+  version: 2.0.3
+  resolution: "pathe@npm:2.0.3"
+  checksum: 10c0/c118dc5a8b5c4166011b2b70608762e260085180bb9e33e80a50dcdb1e78c010b1624f4280c492c92b05fc276715a4c357d1f9edc570f8f1b3d90b6839ebaca1
   languageName: node
   linkType: hard
 
@@ -11345,8 +11345,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.37.0":
-  version: 5.38.1
-  resolution: "terser@npm:5.38.1"
+  version: 5.38.2
+  resolution: "terser@npm:5.38.2"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.8.2"
@@ -11354,7 +11354,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 10c0/7e96239ff94ca8f653c359d8825d0a98a3afc3f2f0f06c80b97785671ed5ca821cc280ce198576b08db7d4c0d08ae349619903f8213555a635eebee0786b7b63
+  checksum: 10c0/4b7b550483ed0998af503e1c9414c8d33eb8976f0606b5df511809b7a4b7a40a4834b3aa1ace5ce76f2f93918bc4b5272262832f8680c9f1ffbf68738e1e76bb
   languageName: node
   linkType: hard
 
@@ -11838,12 +11838,12 @@ __metadata:
   linkType: hard
 
 "unplugin@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "unplugin@npm:2.1.2"
+  version: 2.2.0
+  resolution: "unplugin@npm:2.2.0"
   dependencies:
     acorn: "npm:^8.14.0"
     webpack-virtual-modules: "npm:^0.6.2"
-  checksum: 10c0/ae24ee275de96a700df416c3241f910ac964011c2e23dc726feb768fe10fc40bef3dbe2d0d8d267ed988c6c3393c3a9782d5b7b30df4a27e8dab244d86b4d4be
+  checksum: 10c0/265896fb541ffaad9da7e8f73e24aaa5d0d1f8161cb66445caf0962d2c357de0f17d208020b59b0fb1c68843e6307966f91706fba34ccaba30480881f37887ae
   languageName: node
   linkType: hard
 

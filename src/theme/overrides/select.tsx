@@ -1,8 +1,9 @@
 // MUI Imports
 import type { Theme } from '@mui/material/styles'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const SelectIcon = () => {
-  return <i className='tabler-chevron-down' />
+  return <KeyboardArrowDownIcon />
 }
 
 const iconStyles = (theme: Theme) => ({
