@@ -4,4 +4,5 @@ export const NameSlices = {
   CREATE_USER: 'create_user',
   REGISTER_GAME: 'register_game',
   USER: 'user',
+  ORGANIZATION_LIST: 'organization_list',
 };
