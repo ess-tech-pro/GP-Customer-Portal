@@ -50,13 +50,5 @@ declare global {
   const useState: typeof import('react')['useState']
   const useSyncExternalStore: typeof import('react')['useSyncExternalStore']
   const useTransition: typeof import('react')['useTransition']
-}
-// for type re-export
-declare global {
-  // @ts-ignore
-  export type * as yup from 'yup'
-  import('yup')
-  // @ts-ignore
-  export type { Dispatch, SetStateAction, HTMLProps, HTMLAttributes, ComponentType, ReactNode } from 'react'
-  import('react')
+  const yup: typeof import('yup')
 }
