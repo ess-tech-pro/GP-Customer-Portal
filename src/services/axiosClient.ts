@@ -61,7 +61,8 @@ axiosClient.interceptors.response.use(
 			if (error.response.status === 401) {
 				console.error('Unauthorized! Redirecting to login...')
 				// Ví dụ: Redirect đến trang login
-				window.location.href = '/login'
+				localStorage.removeItem('accessToken')
+				window.location.reload()
 			} else if (error.response.status === 403) {
 				console.error(
 					"Forbidden! You don't have permission to access this resource."
