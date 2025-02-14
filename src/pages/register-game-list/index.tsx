@@ -37,6 +37,7 @@ const RegisterGameList = () => {
 
     const {
         getValues,
+        reset,
         control,
         handleSubmit,
         formState: { errors, isDirty },
@@ -55,9 +56,7 @@ const RegisterGameList = () => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = async (data) => {
-        console.log(data)
-    }
+
 
     const fetchData = async () => {
         const body = {
@@ -67,15 +66,20 @@ const RegisterGameList = () => {
         const { payload } = await dispatch(getRegisterGameList(body))
         setList(payload.data.data)
     }
+    const onSubmit = async (data) => {
+        console.log(data)
+        fetchData()
+    }
+
     useEffect(() => {
         fetchData()
     }, [])
 
     const onDelete = async (id: string) => {
         const res: any = await dispatch(deleteRegisterGame(id))
-        console.log(res)
-        if (res.payload.data) {
+        if (res.payload) {
             toast.success('Delete Game Successfully');
+            fetchData()
         }
         if (res.error.message) {
             toast.error(res.error.message);
@@ -142,7 +146,7 @@ const RegisterGameList = () => {
             width: 200,
             renderCell: (params) => (
                 <Box className="flex gap-3">
-                    <Button variant="contained" color="primary">
+                    <Button onClick={() => navigate(`/edit-register-game/${params.row.id}`)} variant="contained" color="primary">
                         {t('common:edit')}
                     </Button>
                     <Button onClick={() => onDelete(params.row.id)} variant="contained" color="error">
@@ -152,6 +156,11 @@ const RegisterGameList = () => {
             ),
         },
     ];
+
+    const onClearFilter = () => {
+        reset()
+        fetchData()
+    }
 
     return (
         <Box>
@@ -382,7 +391,7 @@ const RegisterGameList = () => {
                     <Button type="submit" variant="contained" color="primary">
                         {t('common:search')}
                     </Button>
-                    <Button disabled={!isDirty} variant="contained" color="primary">
+                    <Button onClick={() => onClearFilter()} disabled={!isDirty} variant="contained" color="primary">
                         {t('common:clear')}
                     </Button>
                 </Box>

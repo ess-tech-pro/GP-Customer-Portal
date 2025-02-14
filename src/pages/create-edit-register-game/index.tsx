@@ -8,13 +8,13 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formattedOptionTypes } from "@/utils/utils";
-import { registerGame } from "@/store/slices/gameSlice";
+import { getRegisterGameDetail, registerGame, updateRegisterGame } from "@/store/slices/gameSlice";
 import CustomTextField from "@/components/mui/TextField";
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const FILE_SIZE = 5 * 1024 * 1024; // 5MB
+// const FILE_SIZE = 5 * 1024 * 1024; // 5MB
 // const SUPPORTED_FORMATS = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"];
 
 
@@ -27,11 +27,13 @@ const schema = yup.object().shape({
     orientation: yup.string().required("Orientation is required"),
     events: yup.array().min(1, "Events is required").required("Events is required"),
     description: yup.string(),
-    gameDocuments: yup.mixed()
-        .required("File is required")
-        .test("fileSize", "File size is too large (max 5MB)", (value) => {
-            return value && value[0]?.size <= FILE_SIZE;
-        })
+    gameDocuments: yup.mixed(),
+
+    // gameDocuments: yup.mixed()
+    //     .required("File is required")
+    //     .test("fileSize", "File size is too large (max 5MB)", (value) => {
+    //         return value && value[0]?.size <= FILE_SIZE;
+    //     })
     // .test("fileType", "Unsupported file format", (value) => {
     //     return value && SUPPORTED_FORMATS.includes(value[0]?.type);
     // }),
@@ -39,13 +41,15 @@ const schema = yup.object().shape({
 
 const RegisterGame = () => {
     const { t } = useTranslation('registerGame')
+    const { id } = useParams();
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
     const optionsRegisterGame: any = useSelector((state: RootState) => state.options.optionsRegisterGame);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedFile, setSelectedFile] = useState<any | null>(null);
     const {
         control,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -75,19 +79,41 @@ const RegisterGame = () => {
             gameType: data.gameType,
             gameEngine: data.gameEngine,
             orientation: data.orientation,
-            events: data.events
+            events: data.events,
+            description: data.description
         }));
 
-        const res: any = await dispatch(registerGame(formData))
+        const res: any = id ? await dispatch(updateRegisterGame({ id, data: formData })) : await dispatch(registerGame(formData))
+        console.log(res)
         if (res.payload.data) {
-            toast.success('Register Game Successfully');
+            toast.success(`${id ? 'Edit' : 'Register'} Game Successfully`);
             navigate(-1)
         }
         if (res.error.message) {
             toast.error(res.error.message);
         }
-
     };
+
+    useEffect(() => {
+        if (!id) return;
+
+        const getDetail = async () => {
+            const { payload } = await dispatch(getRegisterGameDetail(id))
+            if (payload) {
+                setValue('status', payload.status)
+                setValue('category', payload.category)
+                setValue('gameName', payload.gameName)
+                setValue('gameType', payload.gameType)
+                setValue('gameEngine', payload.gameEngine)
+                setValue('orientation', payload.orientation)
+                setValue('events', payload.events)
+                setValue('description', payload.description)
+                setSelectedFile({ name: payload.gameDocuments })
+            }
+        };
+
+        getDetail();
+    }, [id]);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -290,7 +316,7 @@ const RegisterGame = () => {
                                         </Button>
                                     </label>
                                     {selectedFile && <p>Selected File: {selectedFile.name}</p>}
-                                    {errors.gameDocuments && <p style={{ color: "red" }}>{errors.gameDocuments.message}</p>}
+                                    {/* {errors.gameDocuments && <p style={{ color: "red" }}>{errors.gameDocuments.message}</p>} */}
                                 </Box>
                             </Box>
                         </Box>

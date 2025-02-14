@@ -100,3 +100,33 @@ export const deleteRegisterGameService = async (id: string):
 		throw error
 	}
 }
+
+export const getRegisterGameDetailService = async (id: string):
+	Promise<any> => {
+	try {
+		const rep = await axiosClient.get(`/config-service/api/v1/game-register/detail/${id}`)
+		return rep.data
+	} catch (error) {
+		if (error instanceof yup.ValidationError) {
+			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
+		}
+		throw error
+	}
+}
+
+export const updateRegisterGameService = async (id: string, data: any):
+	Promise<any> => {
+	try {
+		const rep = await axiosClient.put(`/config-service/api/v1/game-register/update/${id}`, data,
+			{
+				headers: { "Content-Type": "multipart/form-data" },
+			}
+		)
+		return rep
+	} catch (error) {
+		if (error instanceof yup.ValidationError) {
+			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
+		}
+		throw error
+	}
+}
