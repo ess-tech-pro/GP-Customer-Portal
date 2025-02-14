@@ -9,5 +9,18 @@
 	"live-casino": "live casino",
 	"game-pvp": "game pvp",
 	"new": "New",
-	"reskin": "Reskin"
+	"reskin": "Reskin",
+	"gameName": "Game Name",
+	"category": "Category",
+	"status": "Status",
+	"gameType": "Game Type",
+	"event": "Event",
+	"gameEngine": "Game Engine",
+	"orientation": "Orientation",
+	"studio": "Studio",
+	"gameInfo": "Game Info",
+	"gameDocuments": "Game Documents",
+	"lastUpdate": "Last Update",
+	"description": "Description",
+	"actions": "Actions"
 }
