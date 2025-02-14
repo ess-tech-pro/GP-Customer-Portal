@@ -1,4 +1,4 @@
-const activeOptions = [
+const statusOptions = [
   { value: 0, label: 'All' },
   { value: 1, label: 'Active' },
   { value: 2, label: 'Inactive' },
@@ -11,10 +11,23 @@ const roleOptions = [
   { value: 3, label: 'Member' },
 ];
 
+const organizationOptions = [
+  { value: 'all', label: 'All' },
+  { value: 'brand', label: 'Brand' },
+  { value: 'studio', label: 'Studio' },
+];
+
+const typeOptions = [
+  { value: 'all', label: 'All' },
+  { value: 'brand', label: 'Brand' },
+];
+
 const initialFilter = {
   username: '',
-  active: activeOptions[0].value,
+  organization: organizationOptions[0].value,
+  type: typeOptions[0].value,
   role: roleOptions[0].value,
+  status: statusOptions[0].value,
 };
 
 
@@ -31,65 +44,65 @@ const fakeUsers = [
   {
     id: 1,
     username: 'Snow',
-    telegramId: 'Jon',
-    active: 35,
+    organization: 'Jon',
+    status: 'active',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 2, username: 'Lannister', telegramId: 'Jon',
-    active: 35,
+    id: 2, username: 'Lannister', organization: 'Jon',
+    status: 'active',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 3, username: 'Lannister', telegramId: 'Jon',
-    active: 35,
+    id: 3, username: 'Lannister', organization: 'Jon',
+    status: 'active',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 4, username: 'Stark', telegramId: 'Jon',
-    active: 35,
+    id: 4, username: 'Stark', organization: 'Jon',
+    status: 'active',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 5, username: 'Targaryen', telegramId: 'Jon',
-    active: 35,
+    id: 5, username: 'Targaryen', organization: 'Jon',
+    status: 'active',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 6, username: 'Melisandre', telegramId: 'Jon',
-    active: 35,
+    id: 6, username: 'Melisandre', organization: 'Jon',
+    status: 'active',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 7, username: 'Clifford', telegramId: 'Jon',
-    active: 35,
+    id: 7, username: 'Clifford', organization: 'Jon',
+    status: 'active',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 8, username: 'Frances', telegramId: 'Jon',
-    active: 35,
+    id: 8, username: 'Frances', organization: 'Jon',
+    status: 'inactive',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 9, username: 'Roxie', telegramId: 'Jon',
-    active: 35,
+    id: 9, username: 'Roxie', organization: 'Jon',
+    status: 'inactive',
     role: 'Admin',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
   {
-    id: 10, username: 'Roxie 2', telegramId: 'Jon 2',
-    active: 35,
+    id: 10, username: 'Roxie 2', organization: 'Jon 2',
+    status: 'inactive',
     role: 'Leader',
-    lastLogin: '2021-10-10',
+    type: 'Admin',
   },
 ];
 
-export { activeOptions, roleOptions, initialFilter, initialStateDataGrid, fakeUsers };
+export { typeOptions, organizationOptions, statusOptions, roleOptions, initialFilter, initialStateDataGrid, fakeUsers };
