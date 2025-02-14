@@ -12,6 +12,8 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
+import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS } from "@/constants";
+import PopupConfirm from "@/components/popup/PopupConfirm";
 
 const schema = yup.object().shape({
     status: yup.string(),
@@ -26,14 +28,22 @@ const schema = yup.object().shape({
 
 const RegisterGameList = () => {
     const { t } = useTranslation('registerGame');;
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [gameSelected, setGameSelected] = useState<any>({});
     const optionsRegisterGame: any = useSelector((state: RootState) => state.options.optionsRegisterGame);
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const [list, setList] = useState([]);
-    // const [paging, setPaging] = useState({
-    //     page: 0,
-    //     pageSize: 10,
-    // })
+    const [paging, setPaging] = useState({
+        from: 0,
+        size: 10,
+        total: 0
+    })
+
+    const [paginationModel, setPaginationModel] = useState({
+        pageSize: PAGE_SIZE_DEFAULT,
+        page: PAGE_DEFAULT,
+    });
 
     const {
         getValues,
@@ -61,10 +71,14 @@ const RegisterGameList = () => {
     const fetchData = async () => {
         const body = {
             query: { ...getValues() },
-            paging: { from: 0, size: 10 }
+            paging: {
+                from: paginationModel.page,
+                size: paginationModel.pageSize
+            }
         }
         const { payload } = await dispatch(getRegisterGameList(body))
         setList(payload.data.data)
+        setPaging(payload.data.paging)
     }
     const onSubmit = async (data) => {
         console.log(data)
@@ -75,9 +89,15 @@ const RegisterGameList = () => {
         fetchData()
     }, [])
 
-    const onDelete = async (id: string) => {
-        const res: any = await dispatch(deleteRegisterGame(id))
+    useEffect(() => {
+        fetchData();
+    }, [paginationModel]);
+
+    const onDelete = async () => {
+        const res: any = await dispatch(deleteRegisterGame(gameSelected.id))
         if (res.payload) {
+            setOpenModalDelete(false)
+            setGameSelected({})
             toast.success('Delete Game Successfully');
             fetchData()
         }
@@ -161,7 +181,7 @@ const RegisterGameList = () => {
                     <Button onClick={() => navigate(`/edit-register-game/${params.row.id}`)} variant="contained" color="primary">
                         {t('common:edit')}
                     </Button>
-                    <Button onClick={() => onDelete(params.row.id)} variant="contained" color="error">
+                    <Button onClick={() => { setOpenModalDelete(true); setGameSelected(params.row) }} variant="contained" color="error">
                         {t('common:delete')}
                     </Button>
                 </Box>
@@ -414,11 +434,32 @@ const RegisterGameList = () => {
                     rows={list}
                     columns={columns}
                     // initialState={{ pagination: { paging } }}
-                    pageSizeOptions={[5, 10]}
                     sx={{ border: 0, width: '100%' }}
                     getRowHeight={() => 'auto'}
+                    disableRowSelectionOnClick
+                    disableColumnSorting
+                    disableColumnSelector
+                    disableColumnMenu
+                    disableColumnResize
+
+                    pagination
+                    paginationMode="server"
+                    pageSizeOptions={PAGE_SIZE_OPTIONS}
+                    rowCount={paging.total}
+                    paginationModel={paginationModel}
+                    onPaginationModelChange={setPaginationModel}
                 />
             </Paper>
+
+            {
+                openModalDelete && gameSelected && <PopupConfirm
+                    title="Delete!!!"
+                    message={
+                        `This action will be delete "${gameSelected?.gameName}`
+                    }
+                    onConfirm={() => onDelete()}
+                    onCancel={() => setOpenModalDelete(false)} />
+            }
         </Box>
     )
 }
