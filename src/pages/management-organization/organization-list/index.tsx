@@ -294,7 +294,7 @@ const OrganizationList = () => {
         }}
       >
         <Typography component="h2" variant="h6" sx={{ mb: 2 }} fontWeight={600}>
-          {t('organization_management')}
+          {t('organization-management')}
         </Typography>
 
         <Button variant="outlined"
@@ -303,7 +303,7 @@ const OrganizationList = () => {
             textTransform: 'none',
           }}
           startIcon={<AddIcon />} >
-          {t('create_organization')}
+          {t('create-organization')}
         </Button>
       </Stack>
 
@@ -403,7 +403,7 @@ const OrganizationList = () => {
               onPaginationModelChange={setPaginationModel}
               slotProps={{
                 pagination: {
-                  labelRowsPerPage: t('rows_per_page'),
+                  labelRowsPerPage: t('rows-per-page'),
                 },
               }}
               slots={{

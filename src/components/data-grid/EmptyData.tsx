@@ -7,7 +7,7 @@ interface EmptyDataProps {
 }
 
 const EmptyData: React.FC<EmptyDataProps> = ({
-  message = "no_rows",
+  message = "no-rows",
 }) => {
   const { t } = useTranslation();
 
