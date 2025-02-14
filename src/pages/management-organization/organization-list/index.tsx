@@ -3,10 +3,9 @@ import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid2';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { initialFilter, initialStateDataGrid, typeOptions, statusOptions } from "./constants";
+import { initialFilter, typeOptions, statusOptions } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "@/constants/routing";
 import { useDispatch } from "react-redux";
@@ -17,14 +16,15 @@ import PopupConfirm from "@/components/popup/PopupConfirm";
 import { toast } from "react-toastify";
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS } from "@/constants";
 import { useTranslation } from "react-i18next";
-import EmptyData from "@/components/data-grid/EmptyData";
+
+// custom table component 
+import TableComponent from "@/components/table";
+import { ApiListResponsePaging, TableColumn } from "@/types/base";
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
 }));
-
-const CustomNoRowsOverlay = () => <EmptyData />;
 
 const OrganizationList = () => {
   const { t } = useTranslation();
@@ -36,8 +36,9 @@ const OrganizationList = () => {
   const [currentOrganizationDelete, setCurrentOrganizationDelete] = useState(null);
   const dispatch = useDispatch<AppDispatch>();
   const [total, setTotal] = useState(0);
+  const [paging, setPaging] = useState({} as ApiListResponsePaging)
 
-  const [paginationModel, setPaginationModel] = useState({
+  const [paginationModel] = useState({
     pageSize: PAGE_SIZE_DEFAULT,
     page: PAGE_DEFAULT,
   });
@@ -45,14 +46,14 @@ const OrganizationList = () => {
   const handleEdit = (id: string) => {
     console.log("Edit User", id);
   };
-
+  console.log(total, PAGE_SIZE_OPTIONS)
   const handleDelete = (id: string) => {
     console.log("Delete User", id);
     setOpenModalDelete(true);
   };
 
-  const renderCellStatus = (params: GridRenderCellParams) => {
-    const status = params.value;
+  const renderCellStatus = (params: any) => {
+    const { status } = params;
 
     const statusStyles = {
       active: {
@@ -96,7 +97,7 @@ const OrganizationList = () => {
   };
 
 
-  const columns: GridColDef[] = [
+  const columns: TableColumn<any>[] = [
     {
       field: 'no', headerName: '#', width: 90,
       align: 'center',
@@ -117,12 +118,12 @@ const OrganizationList = () => {
             height: '100%'
           }}>
             <img
-              src={params.row.logo || logoDemo}
-              alt={params.row.name}
+              src={params.logo || logoDemo}
+              alt={params.name}
               onError={(e) => { e.currentTarget.src = logoDemo; }}
               style={{ width: 30, height: 30, borderRadius: '50%' }} />
             <Typography component="p" variant="body1" sx={{}}>
-              {params.row.name}
+              {params.name}
             </Typography>
           </Stack>
         );
@@ -137,7 +138,7 @@ const OrganizationList = () => {
       flex: 1,
       align: 'center',
       headerAlign: 'center',
-      renderCell: (params) => t(params.row.type)
+      renderCell: (params) => t(params.type)
     },
     {
       field: 'user',
@@ -180,7 +181,7 @@ const OrganizationList = () => {
             minWidth: 30,
             border: 0,
           }}
-            onClick={() => handleEdit(params.row.id)}>
+            onClick={() => handleEdit(params.id)}>
             <EditIcon />
           </Button>
           <Button variant="outlined" color="error" size="small" sx={{
@@ -190,8 +191,8 @@ const OrganizationList = () => {
             border: 0,
           }}
             onClick={() => {
-              handleDelete(params.row.id);
-              setCurrentOrganizationDelete(params.row);
+              handleDelete(params.id);
+              setCurrentOrganizationDelete(params);
             }}>
             <DeleteOutlineIcon />
           </Button>
@@ -216,6 +217,7 @@ const OrganizationList = () => {
       const currentPage = payload.data.paging?.page || 1;
       const limit = payload.data.paging?.pageSize || 10;
       setTotal(payload.data.paging?.total || 0);
+      setPaging(payload.data.paging)
 
       const dataTmp = payload.data.data || [];
 
@@ -387,7 +389,7 @@ const OrganizationList = () => {
           </Typography>
         ) : (
           <Box sx={{ width: '100%', mt: 4 }}>
-            <DataGrid
+            {/* <DataGrid
               rows={organizations}
               columns={columns}
               initialState={initialStateDataGrid}
@@ -428,6 +430,19 @@ const OrganizationList = () => {
                     display: 'none'
                   }
                 }
+              }}
+            /> */}
+            <TableComponent
+              columns={columns}
+              hasNextPage={paging.from + paging.size < paging.total}
+              hasPreviousPage={paging.from > 0}
+              page={paging.from}
+              data={organizations}
+              isLoading={loading}
+              handleGetCurrentPage={async (currentPage) => {
+                // setPage(currentPage)
+                console.log('currentPage ', currentPage)
+                await fetchOrganizations()
               }}
             />
           </Box>
