@@ -3,30 +3,93 @@ import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid2';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { activeOptions, fakeUsers, initialFilter, initialStateDataGrid, roleOptions } from "./constants";
+import { statusOptions, fakeUsers, initialFilter, initialStateDataGrid, roleOptions, organizationOptions, typeOptions } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "@/constants/routing";
+import { useTranslation } from "react-i18next";
+import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS } from "@/constants";
+import EmptyData from "@/components/data-grid/EmptyData";
+import PopupConfirm from "@/components/popup/PopupConfirm";
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
 }));
 
+
+const CustomNoRowsOverlay = () => <EmptyData />;
+
 const UserList = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState(initialFilter);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [currentUserDelete, setCurrentUserDelete] = useState(null);
   const [users, setUsers] = useState([]);
+  const [total, setTotal] = useState(0);
+
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: PAGE_SIZE_DEFAULT,
+    page: PAGE_DEFAULT,
+  });
 
   const handleEditUser = (id: number) => {
     navigate(`edit/${id}`);
   };
 
-  const handleDeleteUser = (id: number) => {
+
+  const handleDelete = (id: string) => {
     console.log("Delete User", id);
+    setOpenModalDelete(true);
+  };
+
+
+  const renderCellStatus = (params: GridRenderCellParams) => {
+    const status = params.value;
+
+    const statusStyles = {
+      active: {
+        backgroundColor: "#DFF0D8",
+        color: "#3C763D",
+      },
+      inactive: {
+        backgroundColor: "#F2DEDE",
+        color: "#A94442",
+      },
+    };
+
+    const styles = statusStyles[status] || {
+      backgroundColor: "#F5F5F5",
+      color: "#333",
+    };
+
+    return (
+      <Box sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        lineHeight: 1,
+      }}>
+        <Box
+          sx={{
+            padding: "4px 8px",
+            borderRadius: "4px",
+            fontSize: "14px",
+            textTransform: "capitalize",
+            textAlign: "center",
+            ...styles,
+          }}
+        >
+          {status}
+        </Box>
+      </Box>
+    );
   };
 
   const columns: GridColDef[] = [
@@ -37,52 +100,53 @@ const UserList = () => {
     },
     {
       field: 'username',
-      headerName: 'Username',
+      headerName: t('username'),
       width: 150,
       minWidth: 150,
-      editable: true,
+      editable: false,
       flex: 1,
       align: 'center',
       headerAlign: 'center'
     },
     {
-      field: 'telegramId',
-      headerName: 'Telegram Id',
+      field: 'organization',
+      headerName: t('organization'),
       width: 150,
       minWidth: 150,
-      editable: true,
+      editable: false,
       flex: 1,
       align: 'center',
       headerAlign: 'center'
     },
     {
-      field: 'active',
-      headerName: 'Active',
-      type: 'number',
-      width: 110,
-      editable: true,
+      field: 'type',
+      headerName: t('type'),
+      sortable: false,
+      width: 160,
       align: 'center',
       headerAlign: 'center'
     },
     {
       field: 'role',
-      headerName: 'Role',
+      headerName: t('role'),
       sortable: false,
       width: 160,
       align: 'center',
       headerAlign: 'center'
     },
     {
-      field: 'lastLogin',
-      headerName: 'Last login',
-      sortable: false,
-      width: 160,
+      field: 'status',
+      headerName: t('status'),
+      type: 'number',
+      width: 110,
+      editable: false,
       align: 'center',
-      headerAlign: 'center'
+      headerAlign: 'center',
+      renderCell: renderCellStatus,
     },
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: t('action'),
       sortable: false,
       width: 160,
       align: 'center',
@@ -104,7 +168,10 @@ const UserList = () => {
             minWidth: 30,
             border: 0,
           }}
-            onClick={() => handleDeleteUser(params.row.id)}>
+            onClick={() => {
+              handleDelete(params.row.id);
+              setCurrentUserDelete(params.row);
+            }}>
             <DeleteOutlineIcon />
           </Button>
         </Stack>
@@ -120,6 +187,7 @@ const UserList = () => {
 
       // Fake data
       setUsers(fakeUsers);
+      setTotal(fakeUsers.length);
     } catch (error) {
       console.error("Fetch Users Error", error);
     } finally {
@@ -144,10 +212,17 @@ const UserList = () => {
     setFilters(initialFilter);
   };
 
+  const handleConfirmDelete = async () => {
+    console.log("Delete user", currentUserDelete);
+    setOpenModalDelete(false);
+  };
+
   useEffect(() => {
     fetchListUser();
   }, []);
 
+
+  console.log('currentUserDelete', currentUserDelete);
   return (
     <>
       {/* Header */}
@@ -178,7 +253,7 @@ const UserList = () => {
 
       {/* Filter */}
       <Grid container spacing={3}>
-        <FormGrid size={{ xs: 12, sm: 3 }}>
+        <FormGrid size={{ xs: 12, sm: 2 }}>
           <FormLabel htmlFor="Username" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
             Username
           </FormLabel>
@@ -192,36 +267,70 @@ const UserList = () => {
             onChange={handleFilterChange}
           />
         </FormGrid>
-        <FormGrid size={{ xs: 6, sm: 3 }}>
-          <FormLabel htmlFor="select-active" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
-            Active
+        <FormGrid size={{ xs: 6, sm: 2 }}>
+          <FormLabel htmlFor="select-organization" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
+            {t('organization')}
           </FormLabel>
           <Select
-            labelId="select-active"
-            id="select-active"
-            value={filters.active}
+            labelId="select-organization"
+            id="select-organization"
+            value={filters.organization}
             size="small"
-            name="active"
+            name="organization"
             onChange={handleFilterChange}
           >
-            {activeOptions.map(option => (
+            {organizationOptions.map(option => (
               <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
             ))}
           </Select>
         </FormGrid>
-        <FormGrid size={{ xs: 6, sm: 3 }}>
-          <FormLabel htmlFor="select-roles" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
-            Roles
+        <FormGrid size={{ xs: 6, sm: 2 }}>
+          <FormLabel htmlFor="select-type" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
+            {t('type')}
           </FormLabel>
           <Select
-            labelId="select-roles"
-            id="select-roles"
+            labelId="select-type"
+            id="select-type"
+            value={filters.organization}
+            size="small"
+            name="type"
+            onChange={handleFilterChange}
+          >
+            {typeOptions.map(option => (
+              <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+            ))}
+          </Select>
+        </FormGrid>
+        <FormGrid size={{ xs: 6, sm: 2 }}>
+          <FormLabel htmlFor="select-role" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
+            {t('role')}
+          </FormLabel>
+          <Select
+            labelId="select-role"
+            id="select-role"
             value={filters.role}
             size="small"
             name="role"
             onChange={handleFilterChange}
           >
             {roleOptions.map(option => (
+              <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+            ))}
+          </Select>
+        </FormGrid>
+        <FormGrid size={{ xs: 6, sm: 2 }}>
+          <FormLabel htmlFor="select-status" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
+            {t('status')}
+          </FormLabel>
+          <Select
+            labelId="select-status"
+            id="select-status"
+            value={filters.status}
+            size="small"
+            name="status"
+            onChange={handleFilterChange}
+          >
+            {statusOptions.map(option => (
               <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
             ))}
           </Select>
@@ -264,19 +373,54 @@ const UserList = () => {
               disableColumnSelector
               disableColumnMenu
               disableColumnResize
+              rowHeight={56}
+              rowCount={total}
+              pageSizeOptions={PAGE_SIZE_OPTIONS}
+              paginationModel={paginationModel}
+              paginationMode="server"
+              onPaginationModelChange={setPaginationModel}
+              slotProps={{
+                pagination: {
+                  labelRowsPerPage: t('rows-per-page'),
+                },
+              }}
+              slots={{
+                noRowsOverlay: CustomNoRowsOverlay
+              }}
               sx={{
                 '& .MuiDataGrid-columnHeaders': {
                   '& .MuiDataGrid-columnHeader': {
                     backgroundColor: '#1976d2',
-                    color: '#fff',
-                    fontSize: 14,
-                    fontWeight: 600,
+                    '& .MuiDataGrid-columnSeparator': {
+                      color: '#fff',
+                    },
+                    '& .MuiDataGrid-columnHeaderTitle': {
+                      color: '#fff',
+                      fontSize: 14,
+                      fontWeight: 600,
+                    },
                   },
+                },
+                '& .MuiDataGrid-footerContainer': {
+                  '& .MuiDataGrid-selectedRowCount': {
+                    display: 'none'
+                  }
                 }
               }}
             />
           </Box>
         )
+      }
+
+      {
+        openModalDelete && currentUserDelete && <PopupConfirm
+          title='Are you sure to delete a user?'
+          message={
+            `Username: "${currentUserDelete?.username || ''
+            }"`
+          }
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setOpenModalDelete(false)} />
       }
 
     </ >
