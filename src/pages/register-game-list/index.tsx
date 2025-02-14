@@ -91,16 +91,20 @@ const RegisterGameList = () => {
             field: 'gameName',
             headerName: t('gameName'),
             sortable: false,
+            flex: 1
         },
-        {
-            field: 'studio',
-            headerName: t('studio'),
-            sortable: false,
-        },
+        // {
+        //     field: 'studio',
+        //     headerName: t('studio'),
+        //     sortable: false,
+        //     flex: 1
+
+        // },
         {
             field: 'info',
             headerName: t('gameInfo'),
             sortable: false,
+            flex: 1,
             renderCell: (params) => (
                 <Box sx={{
                     whiteSpace: "normal",
@@ -117,11 +121,15 @@ const RegisterGameList = () => {
             field: 'gameDocuments',
             headerName: t('gameDocuments'),
             sortable: false,
+            flex: 1
+
         },
         {
             field: 'lastUpdate',
             headerName: t('lastUpdate'),
             sortable: false,
+            flex: 1,
+
             renderCell: (params) => (
                 <Box>
                     <Box>Update By: {params.row.createdBy}</Box>
@@ -133,17 +141,21 @@ const RegisterGameList = () => {
             field: 'description',
             headerName: t('description'),
             sortable: false,
+            flex: 1
+
         },
         {
             field: 'status',
             headerName: t('status'),
             sortable: false,
+            flex: 1
+
         },
         {
             field: 'actions',
             headerName: t('actions'),
             sortable: false,
-            width: 200,
+            flex: 1,
             renderCell: (params) => (
                 <Box className="flex gap-3">
                     <Button onClick={() => navigate(`/edit-register-game/${params.row.id}`)} variant="contained" color="primary">
@@ -403,7 +415,8 @@ const RegisterGameList = () => {
                     columns={columns}
                     // initialState={{ pagination: { paging } }}
                     pageSizeOptions={[5, 10]}
-                    sx={{ border: 0 }}
+                    sx={{ border: 0, width: '100%' }}
+                    getRowHeight={() => 'auto'}
                 />
             </Paper>
         </Box>
