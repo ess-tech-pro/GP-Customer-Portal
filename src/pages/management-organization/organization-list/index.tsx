@@ -279,10 +279,6 @@ const OrganizationList = () => {
     fetchOrganizations();
   }, [paginationModel]);
 
-  useEffect(() => {
-    fetchOrganizations();
-  }, []);
-
   return (
     <>
       {/* Header */}
@@ -403,6 +399,7 @@ const OrganizationList = () => {
               rowCount={total}
               pageSizeOptions={PAGE_SIZE_OPTIONS}
               paginationModel={paginationModel}
+              paginationMode="server"
               onPaginationModelChange={setPaginationModel}
               slotProps={{
                 pagination: {
