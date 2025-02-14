@@ -1,4 +1,7 @@
 export const ActionTypes = {
+  APP_CONFIG: {
+    GET_CONFIGS: 'app_config/getConfigs'
+  },
   PRODUCTS: {
     FETCH_PRODUCTS: 'products/fetchProducts',
     POST_CART: 'products/postCart',
@@ -19,8 +22,6 @@ export const ActionTypes = {
     REGISTER_GAME_LIST: 'game/registerGameList',
     REGISTER_GAME_DETAIL: 'game/registerGameDetail',
     UPDATE_REGISTER_GAME: 'game/updateRegisterGame',
-
-
   },
   OPTIONS: {
     REGISTER_GAME: 'options/getOptionsRegisterGame'

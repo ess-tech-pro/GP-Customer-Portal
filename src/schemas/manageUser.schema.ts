@@ -18,7 +18,7 @@ export const CreateUserRequestSchema = yup.object().shape({
     .required('Role is required'),
   password: yup
     .string()
-    .min(8, 'Password must be at least 8 characters long')
+    .min(6, 'Password must be at least 6 characters long')
     .required('Password is required'),
   confirmPassword: yup
     .string()
