@@ -5,4 +5,5 @@ export const NameSlices = {
   REGISTER_GAME: 'register_game',
   USER: 'user',
   ORGANIZATION_LIST: 'organization_list',
+  APP_CONFIG: 'app_config',
 };
