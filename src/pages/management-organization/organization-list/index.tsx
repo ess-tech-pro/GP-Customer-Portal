@@ -3,10 +3,10 @@ import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid2';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { initialFilter, initialStateDataGrid, typeOptions } from "./constants";
+import { initialFilter, initialStateDataGrid, typeOptions, statusOptions } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "@/constants/routing";
 import { useDispatch } from "react-redux";
@@ -50,6 +50,51 @@ const OrganizationList = () => {
     console.log("Delete User", id);
     setOpenModalDelete(true);
   };
+
+  const renderCellStatus = (params: GridRenderCellParams) => {
+    const status = params.value;
+
+    const statusStyles = {
+      active: {
+        backgroundColor: "#DFF0D8",
+        color: "#3C763D",
+      },
+      inactive: {
+        backgroundColor: "#F2DEDE",
+        color: "#A94442",
+      },
+    };
+
+    const styles = statusStyles[status] || {
+      backgroundColor: "#F5F5F5",
+      color: "#333",
+    };
+
+    return (
+      <Box sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        lineHeight: 1,
+      }}>
+        <Box
+          sx={{
+            padding: "4px 8px",
+            borderRadius: "4px",
+            fontSize: "14px",
+            textTransform: "capitalize",
+            textAlign: "center",
+            ...styles,
+          }}
+        >
+          {status}
+        </Box>
+      </Box>
+    );
+  };
+
 
   const columns: GridColDef[] = [
     {
@@ -110,7 +155,7 @@ const OrganizationList = () => {
       width: 160,
       align: 'center',
       headerAlign: 'center',
-      renderCell: (params) => t(params.row.status)
+      renderCell: renderCellStatus
     },
     {
       field: 'description',
@@ -168,15 +213,15 @@ const OrganizationList = () => {
         }
       ));
 
-      const currentPage = payload.data.paging?.page || 1; // Trang hiện tại (bắt đầu từ 1)
-      const limit = payload.data.paging?.pageSize || 10; // Số lượng item trên mỗi trang
+      const currentPage = payload.data.paging?.page || 1;
+      const limit = payload.data.paging?.pageSize || 10;
       setTotal(payload.data.paging?.total || 0);
 
       const dataTmp = payload.data.data || [];
 
       const organizationsTmp = dataTmp.map((item, index) => {
         return {
-          no: (currentPage - 1) * limit + index + 1, // Tính số thứ tự theo trang
+          no: (currentPage - 1) * limit + index + 1,
           ...item
         }
       });
@@ -230,7 +275,6 @@ const OrganizationList = () => {
     }
   };
 
-  // I need to when user change page, pageSize, I will fetch data again
   useEffect(() => {
     fetchOrganizations();
   }, [paginationModel]);
@@ -300,6 +344,23 @@ const OrganizationList = () => {
             ))}
           </Select>
         </FormGrid>
+        <FormGrid size={{ xs: 6, sm: 3 }}>
+          <FormLabel htmlFor="select-status" sx={{ mb: 1, fontSize: 14, color: '#333', fontWeight: 600 }}>
+            {t('status')}
+          </FormLabel>
+          <Select
+            labelId="select-status"
+            id="select-status"
+            value={filters.status}
+            size="small"
+            name="status"
+            onChange={handleFilterChange}
+          >
+            {statusOptions.map(option => (
+              <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+            ))}
+          </Select>
+        </FormGrid>
         <FormGrid size={{ xs: 12 }}>
           <Stack spacing={2} direction={{ xs: 'row', sm: 'row' }}>
             <Button
@@ -355,10 +416,20 @@ const OrganizationList = () => {
                 '& .MuiDataGrid-columnHeaders': {
                   '& .MuiDataGrid-columnHeader': {
                     backgroundColor: '#1976d2',
-                    color: '#fff',
-                    fontSize: 14,
-                    fontWeight: 600,
+                    '& .MuiDataGrid-columnSeparator': {
+                      color: '#fff',
+                    },
+                    '& .MuiDataGrid-columnHeaderTitle': {
+                      color: '#fff',
+                      fontSize: 14,
+                      fontWeight: 600,
+                    },
                   },
+                },
+                '& .MuiDataGrid-footerContainer': {
+                  '& .MuiDataGrid-selectedRowCount': {
+                    display: 'none'
+                  }
                 }
               }}
             />
