@@ -1,21 +1,10 @@
-const typeOptions = [
-  { value: 'all', label: 'All' },
-  { value: 'studio', label: 'Studio' },
-  { value: 'brand', label: 'Brand' },
-];
-
-const statusOptions = [
-  { value: 'all', label: 'All' },
-  { value: 'active', label: 'Active' },
-  { value: 'inactive', label: 'Inactive' },
-];
+import { OPTION_ALL } from "@/constants";
 
 const initialFilter = {
   name: '',
-  type: typeOptions[0].value,
-  status: statusOptions[0].value,
+  type: OPTION_ALL,
+  status: OPTION_ALL,
 };
-
 
 const initialStateDataGrid = {
   pagination: {
@@ -26,4 +15,4 @@ const initialStateDataGrid = {
   },
 };
 
-export { typeOptions, statusOptions, initialFilter, initialStateDataGrid };
+export { initialFilter, initialStateDataGrid };

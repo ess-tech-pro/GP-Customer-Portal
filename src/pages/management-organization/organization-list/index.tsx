@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { initialFilter, typeOptions, statusOptions } from "./constants";
+import { initialFilter } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "@/constants/routing";
 import { useDispatch } from "react-redux";
@@ -22,6 +22,7 @@ import TableComponent from "@/components/table";
 import { ApiListResponsePaging } from "@/types/base";
 import { PaginationParams, TableColumn } from '@/types/table';
 import { OrganizationListResponse } from "@/schemas";
+import { useAppConfig } from "@/hooks/useAppConfig";
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -30,7 +31,9 @@ const FormGrid = styled(Grid)(() => ({
 
 const OrganizationList = () => {
   const { t } = useTranslation();
+  const translateConfigOrganization = (key: string) => t(`app-configs.organization.${key}`);
   const navigate = useNavigate();
+  const appConfigs = useAppConfig();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState(initialFilter);
   const [organizations, setOrganizations] = useState([] as OrganizationListResponse[]);
@@ -43,6 +46,16 @@ const OrganizationList = () => {
     total: 0
   } as ApiListResponsePaging)
 
+
+  const typeOptions = (appConfigs?.config?.organization?.type || []).map((item) => ({
+    value: item,
+    label: translateConfigOrganization(`type.${item}`),
+  }));
+
+  const statusOptions = (appConfigs?.config?.organization?.status || []).map((item) => ({
+    value: item,
+    label: translateConfigOrganization(`status.${item}`),
+  }));
 
   const handleEdit = (id: string) => {
     console.log("Edit User", id);
@@ -337,6 +350,7 @@ const OrganizationList = () => {
             name="type"
             onChange={handleFilterChange}
           >
+            <MenuItem key='all' value='all'>{t('all')}</MenuItem>
             {typeOptions.map(option => (
               <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
             ))}
@@ -354,6 +368,7 @@ const OrganizationList = () => {
             name="status"
             onChange={handleFilterChange}
           >
+            <MenuItem key='all' value='all'>{t('all')}</MenuItem>
             {statusOptions.map(option => (
               <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
             ))}
