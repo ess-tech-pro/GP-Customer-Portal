@@ -159,9 +159,9 @@ const colorSchemes = (): Theme['colorSchemes'] => {
     dark: {
       palette: {
         primary: {
-          main: '#7367F0',
-          light: '#8F85F3',
-          dark: '#675DD8',
+          main: '#3366FF',
+          light: '#4C8DFF',
+          dark: '#2B56C6',
           lighterOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.08)',
           lightOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.16)',
           mainOpacity: 'rgb(var(--mui-palette-primary-mainChannel) / 0.24)',
