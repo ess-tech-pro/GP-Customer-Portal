@@ -282,7 +282,7 @@ const GameList = () => {
                     <Typography sx={{ fontWeight: 'bold', marginBottom: '10px' }} variant="h4">{"\u200B"}</Typography>
                     <Box className="flex justify-between">
                       <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:release-date')}</Typography>
-                      <Typography>{formatDate(game.timeRunning)}</Typography>
+                      <Typography>{formatDate(game.releaseDate)}</Typography>
                     </Box>
                     <Box className="flex justify-between">
                       <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:game-symbol')}</Typography>
