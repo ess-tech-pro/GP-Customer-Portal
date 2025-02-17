@@ -127,7 +127,7 @@ const CreateEditUser = () => {
   return (
     <Grid container columns={12}>
       <Box className='mb-5'>
-        <Typography variant="h4">{t('create-user')}</Typography>
+        <Typography variant="h4">{t('action.create-user')}</Typography>
       </Box>
 
       <Card variant="outlined">
@@ -357,7 +357,7 @@ const CreateEditUser = () => {
                   style={{ textTransform: 'capitalize' }}
                   onClick={() => reset()}
                 >
-                  {t('cancel')}
+                  {t('action.cancel')}
                 </Button>
                 <Button
                   variant='contained'
@@ -366,7 +366,7 @@ const CreateEditUser = () => {
                   style={{ textTransform: 'capitalize' }}
                 >
                   {loading && <CircularProgress size={20} color='inherit' />}
-                  {t('create')}
+                  {t('action.create')}
                 </Button>
               </Grid>
             </Grid>
