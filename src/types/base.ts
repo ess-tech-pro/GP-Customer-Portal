@@ -6,3 +6,5 @@ export type ChildrenType = {
 }
 
 export type SystemMode = 'light' | 'dark'
+
+export type ThemeColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success'
