@@ -40,6 +40,15 @@
 	"no-rows": "Không có dữ liệu",
 	"organization": "Tổ chức",
 	"all": "Tất cả",
+	"management-user": "Quản lý người dùng",
+	"create": "Tạo",
+	"edit": "Chỉnh sửa",
+	"user-list": "Danh sách người dùng",
+	"organization-list": "Danh sách tổ chức",
+	"create-register-game": "Tạo Đăng Ký Game",
+	"edit-register-game": "Chỉnh Sửa Đăng Ký Game",
+	"register-game-list": "Danh Sách Đăng Ký Game",
+	"game": "Game",
 	"app-configs": {
 		"gameConfig": {
 			"currencies": {

@@ -41,6 +41,15 @@
 	"no-rows": "No rows",
 	"organization": "Organization",
 	"all": "All",
+	"management-user": "Management User",
+	"create": "Create",
+	"edit": "Edit",
+	"user-list": "User List",
+	"organization-list": "Organization List",
+	"create-register-game": "Create Register Game",
+	"edit-register-game": "Edit Register Game",
+	"register-game-list": "Register Game List",
+	"game": "Game",
 	"app-configs": {
 		"gameConfig": {
 			"currencies": {
