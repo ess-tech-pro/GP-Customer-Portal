@@ -6,7 +6,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { initialFilter, initialStateDataGrid, typeOptions, statusOptions } from "./constants";
+import { initialFilter, initialStateDataGrid } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "@/constants/routing";
 import { useDispatch } from "react-redux";
@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS } from "@/constants";
 import { useTranslation } from "react-i18next";
 import EmptyData from "@/components/data-grid/EmptyData";
+import { useAppConfig } from "@/hooks/useAppConfig";
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -28,7 +29,9 @@ const CustomNoRowsOverlay = () => <EmptyData />;
 
 const OrganizationList = () => {
   const { t } = useTranslation();
+  const translateConfigOrganization = (key: string) => t(`app-configs.organization.${key}`);
   const navigate = useNavigate();
+  const appConfigs = useAppConfig();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState(initialFilter);
   const [organizations, setOrganizations] = useState([]);
@@ -41,6 +44,16 @@ const OrganizationList = () => {
     pageSize: PAGE_SIZE_DEFAULT,
     page: PAGE_DEFAULT,
   });
+
+  const typeOptions = (appConfigs?.config?.organization?.type || []).map((item) => ({
+    value: item,
+    label: translateConfigOrganization(`type.${item}`),
+  }));
+
+  const statusOptions = (appConfigs?.config?.organization?.status || []).map((item) => ({
+    value: item,
+    label: translateConfigOrganization(`status.${item}`),
+  }));
 
   const handleEdit = (id: string) => {
     console.log("Edit User", id);
@@ -94,7 +107,6 @@ const OrganizationList = () => {
       </Box>
     );
   };
-
 
   const columns: GridColDef[] = [
     {
@@ -335,6 +347,7 @@ const OrganizationList = () => {
             name="type"
             onChange={handleFilterChange}
           >
+            <MenuItem key='all' value='all'>{t('all')}</MenuItem>
             {typeOptions.map(option => (
               <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
             ))}
@@ -352,6 +365,7 @@ const OrganizationList = () => {
             name="status"
             onChange={handleFilterChange}
           >
+            <MenuItem key='all' value='all'>{t('all')}</MenuItem>
             {statusOptions.map(option => (
               <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
             ))}
