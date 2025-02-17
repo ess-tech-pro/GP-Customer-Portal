@@ -1,12 +1,19 @@
 const typeOptions = [
   { value: 'all', label: 'All' },
   { value: 'studio', label: 'Studio' },
-  { value: 'branch', label: 'Branch' },
+  { value: 'brand', label: 'Brand' },
+];
+
+const statusOptions = [
+  { value: 'all', label: 'All' },
+  { value: 'active', label: 'Active' },
+  { value: 'inactive', label: 'Inactive' },
 ];
 
 const initialFilter = {
   name: '',
   type: typeOptions[0].value,
+  status: statusOptions[0].value,
 };
 
 
@@ -19,4 +26,4 @@ const initialStateDataGrid = {
   },
 };
 
-export { typeOptions, initialFilter, initialStateDataGrid };
+export { typeOptions, statusOptions, initialFilter, initialStateDataGrid };

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ActionTypes } from '../constants/actionTypes'
-import { getGameDetailService, getGameListService, getOptionsService, registerGameService } from '@/services/gameService'
+import { deleteRegisterGameService, getGameDetailService, getGameListService, getOptionsService, getRegisterGameDetailService, getRegisterGameListService, registerGameService, updateRegisterGameService } from '@/services/gameService'
 
 export const getGameDetail = createAsyncThunk<any, any>(
 	ActionTypes.GAME.GAME_DETAIL,
@@ -63,3 +63,65 @@ export const registerGame = createAsyncThunk<any, any>(
 		}
 	},
 );
+
+export const getRegisterGameList = createAsyncThunk<any, any>(
+	ActionTypes.GAME.REGISTER_GAME_LIST,
+	async (data, thunkAPI) => {
+		try {
+			const response = await getRegisterGameListService(data);
+			return response;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return thunkAPI.rejectWithValue(error.message);
+			}
+			return thunkAPI.rejectWithValue('An unknown error occurred');
+		}
+	},
+);
+
+export const deleteRegisterGame = createAsyncThunk<any, any>(
+	ActionTypes.GAME.REGISTER_GAME,
+	async (id, thunkAPI) => {
+		try {
+			const response = await deleteRegisterGameService(id);
+			return response;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return thunkAPI.rejectWithValue(error.message);
+			}
+			return thunkAPI.rejectWithValue('An unknown error occurred');
+		}
+	},
+);
+
+export const getRegisterGameDetail = createAsyncThunk<any, any>(
+	ActionTypes.GAME.REGISTER_GAME_DETAIL,
+	async (id, thunkAPI) => {
+		try {
+			const response = await getRegisterGameDetailService(id);
+			return response;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return thunkAPI.rejectWithValue(error.message);
+			}
+			return thunkAPI.rejectWithValue('An unknown error occurred');
+		}
+	},
+);
+
+export const updateRegisterGame = createAsyncThunk<any, any>(
+	ActionTypes.GAME.UPDATE_REGISTER_GAME,
+	async ({ id, data }, thunkAPI) => {
+		try {
+			const response = await updateRegisterGameService(id, data);
+			return response;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return thunkAPI.rejectWithValue(error.message);
+			}
+			return thunkAPI.rejectWithValue('An unknown error occurred');
+		}
+	},
+);
+
+

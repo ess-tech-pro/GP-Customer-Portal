@@ -23,7 +23,7 @@ const PopupConfirm = (props: PopupConfirmProps) => {
         width: 500,
         bgcolor: 'background.paper',
         boxShadow: 24,
-        p: 4,
+        p: 6,
       }}>
         <Stack direction="row" spacing={2} alignItems="center" mb={2}>
           <WarningIcon color="warning" sx={{ fontSize: 30 }} />

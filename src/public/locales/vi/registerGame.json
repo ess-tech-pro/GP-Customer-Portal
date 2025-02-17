@@ -9,5 +9,18 @@
 	"live-casino": "casino trực tiếp",
 	"game-pvp": "game pvp",
 	"new": "New",
-	"reskin": "Reskin"
+	"reskin": "Reskin",
+	"gameName": "Tên Trò chơi",
+	"category": "Loại",
+	"status": "Trạng thái",
+	"gameType": "Loại trò chơi",
+	"event": "Sự kiện",
+	"gameEngine": "Công nghệ trò chơi",
+	"orientation": "Hướng hiển thị",
+	"studio": "Đơn vị SX",
+	"gameInfo": "Thông tin game",
+	"gameDocuments": "Tài liệu",
+	"lastUpdate": "Update lần cuối",
+	"description": "Miêu tả",
+	"actions": "Thao tác"
 }

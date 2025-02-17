@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import "react-quill/dist/quill.snow.css";
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { OGANIZATION_INFO_DEFAULT } from './constants';
+import { ORGANIZATION_INFO_DEFAULT } from './constants';
 import { ReactQuillStyle } from './styles';
 
 
@@ -40,7 +40,7 @@ const CreateEditOrganization = () => {
     getValues,
     formState: { errors }
   } = useForm({
-    defaultValues: OGANIZATION_INFO_DEFAULT,
+    defaultValues: ORGANIZATION_INFO_DEFAULT,
     resolver: yupResolver(CreateOrganizationRequestSchema)
   })
 
@@ -82,7 +82,7 @@ const CreateEditOrganization = () => {
   return (
     <Grid container columns={12}>
       <Box className='mb-5'>
-        <Typography variant="h4">{t('create_organization')}</Typography>
+        <Typography variant="h4">{t('create-organization')}</Typography>
       </Box>
 
       <Card variant="outlined">
@@ -198,17 +198,17 @@ const CreateEditOrganization = () => {
                   textAlign={{ md: 'right', xs: 'left' }}
                 >
                   <FormControl>
-                    <FormLabel htmlFor='name' required>
+                    <FormLabel htmlFor='status' required>
                       {t('status')}
                     </FormLabel>
                   </FormControl>
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
                   <Controller
-                    name='name'
+                    name='status'
                     control={control}
                     render={({ field }) => (
-                      <Switch {...field} defaultChecked={OGANIZATION_INFO_DEFAULT.status} />
+                      <Switch {...field} defaultChecked={ORGANIZATION_INFO_DEFAULT.status} />
                     )}
                   />
                 </Grid>
@@ -232,7 +232,7 @@ const CreateEditOrganization = () => {
                 </Grid>
                 <Grid size={{ md: 9, xs: 12 }}>
                   <Controller
-                    name='name'
+                    name='description'
                     control={control}
                     render={({ field }) => (
                       <ReactQuillStyle

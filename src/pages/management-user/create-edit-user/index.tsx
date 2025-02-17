@@ -127,7 +127,7 @@ const CreateEditUser = () => {
   return (
     <Grid container columns={12}>
       <Box className='mb-5'>
-        <Typography variant="h4">{t('createUser')}</Typography>
+        <Typography variant="h4">{t('create-user')}</Typography>
       </Box>
 
       <Card variant="outlined">
@@ -147,7 +147,7 @@ const CreateEditUser = () => {
                 >
                   <FormControl>
                     <FormLabel htmlFor='username' required>
-                      {t('userName')}
+                      {t('username')}
                     </FormLabel>
                   </FormControl>
                 </Grid>
@@ -160,7 +160,7 @@ const CreateEditUser = () => {
                         {...field}
                         id='username'
                         fullWidth
-                        placeholder={t('userName')}
+                        placeholder={t('username')}
                         {...(errors.username && { error: true, helperText: errors.username?.message })}
                       />
                     )}
@@ -288,7 +288,7 @@ const CreateEditUser = () => {
                 >
                   <FormControl>
                     <FormLabel htmlFor='confirm-password' required>
-                      {t('confirmPassword')}
+                      {t('confirm-password')}
                     </FormLabel>
                   </FormControl>
                 </Grid>
