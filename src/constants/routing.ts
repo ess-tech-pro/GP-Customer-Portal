@@ -16,6 +16,6 @@ export const ROUTE_PATH = {
   MANAGEMENT_USER_EDIT: '/management-user/edit/:id',
   MANAGEMENT_ORGANIZATION: {
     ORGANIZATION_LIST: '/organization-list',
-    ORGANIZATION_CREATE: '/management-organization/create',
+    ORGANIZATION_CREATE: '/organization-list/create',
   }
 }
