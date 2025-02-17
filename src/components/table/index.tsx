@@ -1,3 +1,6 @@
+import type React from "react"
+
+import { useState } from "react"
 import {
     Table,
     TableBody,
@@ -5,102 +8,118 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    TablePagination,
     Paper,
-    Box,
-    CircularProgress,
-} from '@mui/material';
+} from "@mui/material"
+import type { TableColumn, PaginationParams } from "@/types/table"
+import { Loading } from "../common/Loading";
+import NoData from "../common/NoData";
 
-import Pagination from './Pagination'
+interface CustomTableProps<T> {
+    columns: TableColumn<T>[]
+    data: T[]
+    pageSize?: number
+    pageSizeOption?: number[]
+    totalRows: number
+    loading?: boolean
+    onPageChange: (params: PaginationParams) => Promise<void> | void
+}
 
-const LoadingOverlay = () => (
-    <Box
-        className="min-h-[300px] w-full h-full flex justify-center items-center"
-    >
-        <CircularProgress />
-    </Box>
-);
-
-const NoDataOverlay = () => (
-    <Box
-        className="w-full h-full min-h-[300px] flex justify-center items-center flex-col"
-    >
-        <p className="text-[14px] text-[--color-grey] mt-2 text-center">
-            No Data
-        </p>
-    </Box>
-);
-
-const TableComponent = ({
+const CustomTable = <T,>({
     columns,
     data,
-    isLoading,
-    page,
-    turnOffOver = false,
-    hasNewMobileTable = false,
-    hiddenPagination = false,
-    handleGetCurrentPage,
-    hasNextPage,
-    hasPreviousPage,
-}: any) => {
+    pageSize = 10,
+    totalRows,
+    loading = false,
+    pageSizeOption = [10, 25, 50],
+    onPageChange,
+}: CustomTableProps<T>) => {
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(pageSize)
+
+    const handleChangePage = async (_event: unknown, newPage: number) => {
+        setPage(newPage)
+        await onPageChange({
+            page: newPage,
+            size: rowsPerPage,
+        })
+    }
+
+    const handleChangeRowsPerPage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newRowsPerPage = Number.parseInt(event.target.value, 10)
+        setRowsPerPage(newRowsPerPage)
+        setPage(0)
+        await onPageChange({
+            page: 0,
+            size: newRowsPerPage,
+        })
+    }
+
     return (
-        <div className="scroll-custom">
-            <div>
-                <div
-                    className={`${turnOffOver ? '' : 'overflow-x-auto min-h-[300px]'} 
-            Table mt-[20px] ${hasNewMobileTable ? 'hidden md:block' : ''}`}
-                >
-                    {isLoading && <LoadingOverlay />}
-                    {!isLoading && !!data?.length && (
-                        <Paper>
-                            <TableContainer >
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            {columns?.map((column) => (
-                                                <TableCell key={`TABLE_CELL:${column.headerAlign}`} align={column.headerAlign}>
-                                                    {column.headerName}
-                                                </TableCell>
-                                            ))}
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {data.map((row) => (
-                                            <TableRow key={`row-${row.id}`}>
-                                                {columns.map((column) => (
-                                                    <TableCell
-                                                        key={`cell-${row.id}-${column.field}`}
-                                                        align={column.headerAlign}
-                                                    >
-                                                        {column.renderCell
-                                                            ? column.renderCell(row)
-                                                            : row[column.field]
-                                                        }
-                                                    </TableCell>
-                                                ))}
-                                            </TableRow>
+        <Paper elevation={2}>
+            <TableContainer>
+                <Table stickyHeader>
+                    <TableHead>
+                        <TableRow>
+                            {columns.map((column) => (
+                                <TableCell
+                                    key={column.field}
+                                    align={column.headerAlign || "left"}
+                                    style={{
+                                        minWidth: column.minWidth,
+                                        width: column.width,
+                                        flex: column.flex,
+                                    }}
+                                    sx={{
+                                        backgroundColor: "primary.main",
+                                        color: "primary.contrastText",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    {column.headerName}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {loading ? (
+                            <TableRow>
+                                <TableCell colSpan={columns.length} align="center" sx={{ py: 8 }}>
+                                    <Loading isLoading={loading} />
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            data.length === 0 ? (
+                                <TableRow>
+                                    <TableCell colSpan={columns.length} align="center" sx={{ py: 8 }}>
+                                        <NoData message="No Data" />
+                                    </TableCell>
+                                </TableRow>
+                            ) :
+                                data.map((row: T, idx: number) => (
+                                    <TableRow hover key={`TABLE_ITEM:${idx}`}>
+                                        {columns.map((column) => (
+                                            <TableCell key={column.field} align={column.align || "left"}>
+                                                {column.renderCell ? column.renderCell({ row }) : row[column.field]}
+                                            </TableCell>
                                         ))}
-                                    </TableBody>
-                                    {!hiddenPagination && (
-                                        <Pagination
-                                            handleGetCurrentPage={handleGetCurrentPage}
-                                            hasNextPage={hasNextPage}
-                                            hasPreviousPage={hasPreviousPage}
-                                            pageNumber={page}
-                                            isLoading={isLoading}
-                                        />
-                                    )}
-                                </Table>
-                            </TableContainer>
-                        </Paper>
-                    )}
+                                    </TableRow>
+                                ))
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                page={page}
+                component="div"
+                count={totalRows}
+                rowsPerPage={rowsPerPage}
+                rowsPerPageOptions={pageSizeOption}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </Paper>
+    )
+}
 
-                    {!isLoading && data?.length === 0 && <NoDataOverlay />}
-                </div>
-
-
-            </div>
-        </div>
-    );
-};
-
-export default TableComponent;
+export default CustomTable

@@ -19,7 +19,9 @@ import { useTranslation } from "react-i18next";
 
 // custom table component 
 import TableComponent from "@/components/table";
-import { ApiListResponsePaging, TableColumn } from "@/types/base";
+import { ApiListResponsePaging } from "@/types/base";
+import { PaginationParams, TableColumn } from '@/types/table';
+import { OrganizationListResponse } from "@/schemas";
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -31,29 +33,28 @@ const OrganizationList = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState(initialFilter);
-  const [organizations, setOrganizations] = useState([]);
+  const [organizations, setOrganizations] = useState([] as OrganizationListResponse[]);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [currentOrganizationDelete, setCurrentOrganizationDelete] = useState(null);
   const dispatch = useDispatch<AppDispatch>();
-  const [total, setTotal] = useState(0);
-  const [paging, setPaging] = useState({} as ApiListResponsePaging)
+  const [paging, setPaging] = useState({
+    from: PAGE_DEFAULT,
+    size: PAGE_SIZE_DEFAULT,
+    total: 0
+  } as ApiListResponsePaging)
 
-  const [paginationModel] = useState({
-    pageSize: PAGE_SIZE_DEFAULT,
-    page: PAGE_DEFAULT,
-  });
 
   const handleEdit = (id: string) => {
     console.log("Edit User", id);
   };
-  console.log(total, PAGE_SIZE_OPTIONS)
+
   const handleDelete = (id: string) => {
     console.log("Delete User", id);
     setOpenModalDelete(true);
   };
 
-  const renderCellStatus = (params: any) => {
-    const { status } = params;
+  const renderCellStatus = (params) => {
+    const { status } = params.row;
 
     const statusStyles = {
       active: {
@@ -97,7 +98,7 @@ const OrganizationList = () => {
   };
 
 
-  const columns: TableColumn<any>[] = [
+  const columns: TableColumn<OrganizationListResponse>[] = [
     {
       field: 'no', headerName: '#', width: 90,
       align: 'center',
@@ -118,12 +119,12 @@ const OrganizationList = () => {
             height: '100%'
           }}>
             <img
-              src={params.logo || logoDemo}
-              alt={params.name}
+              src={params.row.logo || logoDemo}
+              alt={params.row.name}
               onError={(e) => { e.currentTarget.src = logoDemo; }}
               style={{ width: 30, height: 30, borderRadius: '50%' }} />
             <Typography component="p" variant="body1" sx={{}}>
-              {params.name}
+              {params.row.name}
             </Typography>
           </Stack>
         );
@@ -138,12 +139,11 @@ const OrganizationList = () => {
       flex: 1,
       align: 'center',
       headerAlign: 'center',
-      renderCell: (params) => t(params.type)
+      renderCell: (params) => t(params.row.type)
     },
     {
       field: 'user',
       headerName: t('user'),
-      type: 'number',
       width: 110,
       editable: false,
       align: 'center',
@@ -152,7 +152,6 @@ const OrganizationList = () => {
     {
       field: 'status',
       headerName: t('status'),
-      sortable: false,
       width: 160,
       align: 'center',
       headerAlign: 'center',
@@ -161,7 +160,6 @@ const OrganizationList = () => {
     {
       field: 'description',
       headerName: t('description'),
-      sortable: false,
       width: 160,
       align: 'center',
       headerAlign: 'center'
@@ -169,7 +167,6 @@ const OrganizationList = () => {
     {
       field: 'action',
       headerName: t('action'),
-      sortable: false,
       width: 160,
       align: 'center',
       headerAlign: 'center',
@@ -181,7 +178,7 @@ const OrganizationList = () => {
             minWidth: 30,
             border: 0,
           }}
-            onClick={() => handleEdit(params.id)}>
+            onClick={() => handleEdit(params.row.id)}>
             <EditIcon />
           </Button>
           <Button variant="outlined" color="error" size="small" sx={{
@@ -191,7 +188,7 @@ const OrganizationList = () => {
             border: 0,
           }}
             onClick={() => {
-              handleDelete(params.id);
+              handleDelete(params.row.id);
               setCurrentOrganizationDelete(params);
             }}>
             <DeleteOutlineIcon />
@@ -201,22 +198,21 @@ const OrganizationList = () => {
     },
   ];
 
-  const fetchOrganizations = async () => {
+  const fetchOrganizations = async (params?: PaginationParams) => {
     setLoading(true);
     try {
       const { payload } = await dispatch(getOrganizationList(
         {
           query: filters,
           paging: {
-            from: paginationModel.page,
-            size: paginationModel.pageSize
+            from: params?.page || paging?.from,
+            size: params?.size || paging?.size
           }
         }
       ));
 
       const currentPage = payload.data.paging?.page || 1;
       const limit = payload.data.paging?.pageSize || 10;
-      setTotal(payload.data.paging?.total || 0);
       setPaging(payload.data.paging)
 
       const dataTmp = payload.data.data || [];
@@ -254,6 +250,10 @@ const OrganizationList = () => {
     fetchOrganizations();
   };
 
+  const handlePageChange = (params: any) => {
+    fetchOrganizations(params)
+  }
+
   const handleConfirmDelete = async () => {
     if (!currentOrganizationDelete) {
       return;
@@ -279,7 +279,7 @@ const OrganizationList = () => {
 
   useEffect(() => {
     fetchOrganizations();
-  }, [paginationModel]);
+  }, []);
 
   return (
     <>
@@ -382,73 +382,17 @@ const OrganizationList = () => {
         </FormGrid>
       </Grid>
 
-      {
-        loading ? (
-          <Typography component="p" variant="body1" sx={{ mt: 2 }}>
-            Loading...
-          </Typography>
-        ) : (
-          <Box sx={{ width: '100%', mt: 4 }}>
-            {/* <DataGrid
-              rows={organizations}
-              columns={columns}
-              initialState={initialStateDataGrid}
-              disableColumnSorting
-              disableColumnSelector
-              disableColumnMenu
-              disableColumnResize
-              rowHeight={56}
-              rowCount={total}
-              pageSizeOptions={PAGE_SIZE_OPTIONS}
-              paginationModel={paginationModel}
-              paginationMode="server"
-              onPaginationModelChange={setPaginationModel}
-              slotProps={{
-                pagination: {
-                  labelRowsPerPage: t('rows-per-page'),
-                },
-              }}
-              slots={{
-                noRowsOverlay: CustomNoRowsOverlay
-              }}
-              sx={{
-                '& .MuiDataGrid-columnHeaders': {
-                  '& .MuiDataGrid-columnHeader': {
-                    backgroundColor: '#1976d2',
-                    '& .MuiDataGrid-columnSeparator': {
-                      color: '#fff',
-                    },
-                    '& .MuiDataGrid-columnHeaderTitle': {
-                      color: '#fff',
-                      fontSize: 14,
-                      fontWeight: 600,
-                    },
-                  },
-                },
-                '& .MuiDataGrid-footerContainer': {
-                  '& .MuiDataGrid-selectedRowCount': {
-                    display: 'none'
-                  }
-                }
-              }}
-            /> */}
-            <TableComponent
-              columns={columns}
-              hasNextPage={paging.from + paging.size < paging.total}
-              hasPreviousPage={paging.from > 0}
-              page={paging.from}
-              data={organizations}
-              isLoading={loading}
-              handleGetCurrentPage={async (currentPage) => {
-                // setPage(currentPage)
-                console.log('currentPage ', currentPage)
-                await fetchOrganizations()
-              }}
-            />
-          </Box>
-        )
-      }
-
+      <Box sx={{ width: '100%', mt: 4 }}>
+        <TableComponent<OrganizationListResponse>
+          columns={columns}
+          data={organizations}
+          pageSize={paging?.size}
+          totalRows={paging?.total}
+          loading={loading}
+          pageSizeOption={PAGE_SIZE_OPTIONS}
+          onPageChange={handlePageChange}
+        />
+      </Box>
       {
         openModalDelete && currentOrganizationDelete && <PopupConfirm
           title={
