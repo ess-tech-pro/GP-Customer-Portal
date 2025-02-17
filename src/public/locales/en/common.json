@@ -29,5 +29,7 @@
 	"clear": "Clear",
 	"rows-per-page": "Rows per page",
 	"no-rows": "No rows",
-	"organization": "Organization"
+	"organization": "Organization",
+	"currency": "Currency",
+	"lang": "Lang"
 }

@@ -30,7 +30,7 @@ export const getGameListService = async (
 	try {
 		// await CreateProductRequestSchema.validate(cartData, { abortEarly: false })
 
-		const response = await axiosClient.post('/api/v1/game/list-game-public', filters)
+		const response = await axiosClient.post('/game-portal/api/v1/game/list-games-public', filters)
 
 		// const validatedData = await CreateProductResponseSchema.validate(response, {
 		// 	abortEarly: false,

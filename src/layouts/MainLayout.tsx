@@ -7,7 +7,7 @@ import Header from './MainLayout/Header'
 import Sidebar from './MainLayout/Sidebar/Sidebar'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store/store'
-import { getOptionsRegisterGame } from '@/store/slices/optionsSlice'
+import { getConfigs } from '@/store/slices/optionsSlice'
 
 interface MainLayoutProps {
   children: ReactNode
@@ -17,11 +17,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const { sidebarOpen } = useLayoutContext()
   const isMobile = useIsMobile()
   const dispatch = useDispatch<AppDispatch>();
-
   useEffect(() => {
-    dispatch(getOptionsRegisterGame())
+    dispatch(getConfigs())
   }, [])
-
 
   return (
     <>

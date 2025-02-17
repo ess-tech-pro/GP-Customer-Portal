@@ -29,5 +29,7 @@
 	"clear": "Xóa",
 	"rows-per-page": "Số dòng mỗi trang",
 	"no-rows": "Không có dữ liệu",
-	"organization": "Tổ chức"
+	"organization": "Tổ chức",
+	"currency": "Tiền tệ",
+	"lang": "Ngôn Ngữ"
 }
