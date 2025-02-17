@@ -1,119 +1,119 @@
 {
-  "welcome": "Chào mừng bạn đến với React",
-  "action": {
-    "title": "Hành Động",
-    "save": "Lưu",
-    "cancel": "Hủy",
-    "confirm": "Xác Nhận",
-    "edit": "Sửa",
-    "delete": "Xoá",
-    "create": "Tạo",
-    "create-user": "Tạo Người Dùng",
-    "create-organization": "Tạo Tổ Chức",
-    "search": "Tìm kiếm",
-    "clear": "Xóa",
-    "done": "Hoàn tất",
-    "back": "Quay lại",
-    "next": "Tiếp theo",
-    "close": "Đóng",
-    "sign-in": "Đăng nhập",
-    "sign-out": "Đăng xuất",
-    "sign-up": "Đăng ký"
-  },
-  "game-list": "Game List Vietnam",
-  "role": "Vai Trò",
-  "password": "Mật Khẩu",
-  "confirm-password": "Xác Nhận Mật Khẩu",
-  "status": "Trạng Thái",
-  "active": "Đang hoạt động",
-  "inactive": "Inactive",
-  "brand": "Brand",
-  "studio": "Studio",
-  "game-provider": "Game Provider",
-  "user": "Người Dùng",
-  "description": "Mô tả",
-  "type": "Loại",
-  "username": "Tên Đăng Nhập",
-  "organization-management": "Quản Lý Tổ Chức",
-  "name": "Tên",
-  "rows-per-page": "Số dòng mỗi trang",
-  "no-rows": "Không có dữ liệu",
-  "organization": "Tổ chức",
-  "all": "Tất cả",
-  "app-configs": {
-    "gameConfig": {
-      "currencies": {
-        "vnd": "VND",
-        "usd": "USD",
-        "thb": "THB"
-      },
-      "drives": {
-        "mobile": "Mobile",
-        "tablet": "Tablet",
-        "desktop": "Desktop"
-      },
-      "gameCategories": {
-        "slot": "Slot",
-        "shooting": "Bắn Cá",
-        "card": "Game Bài",
-        "rng": "Game Cá Cược",
-        "pvp": "Game PvP"
-      },
-      "gameStatus": {
-        "incoming": "Incoming",
-        "running": "Running",
-        "maintenance": "Maintenance"
-      },
-      "langs": {
-        "en": "Tiếng Anh",
-        "vi": "Tiếng Việt",
-        "th": "Tiếng Thái"
-      }
-    },
-    "gameRegister": {
-      "categories": {
-        "slot": "Slot",
-        "shooting": "Bắn Cá",
-        "card": "Game Bài",
-        "rng": "Game Cá Cược",
-        "pvp": "Game PvP"
-      },
-      "event": {
-        "new-year": "Năm Mới",
-        "mid-autumn": "Trung Thu"
-      },
-      "gameEngine": {
-        "cocos213": "Cocos 2.1.3",
-        "cocos362": "Cocos 3.6.2",
-        "cocos372": "Cocos 3.7.2",
-        "cocos373": "Cocos 3.7.3"
-      },
-      "gameType": {
-        "new": "New",
-        "reskin": "Reskin"
-      },
-      "orientation": {
-        "landscape": "Ngang",
-        "portrait": "Dọc",
-        "both": "Cả hai"
-      },
-      "status": {
-        "draft": "Draft",
-        "registered": "Registered",
-        "approved": "Approved",
-        "rejected": "Rejected"
-      }
-    },
-    "organization": {
-      "status": {
-        "active": "Active",
-        "inactive": "Inactive"
-      },
-      "type": {
-        "brand": "Brand",
-        "studio": "Studio",
-        "game-provider": "Game Provider"
-      }
-    }
-  }
+	"welcome": "Chào mừng bạn đến với React",
+	"action": {
+		"title": "Hành Động",
+		"save": "Lưu",
+		"cancel": "Hủy",
+		"confirm": "Xác Nhận",
+		"edit": "Sửa",
+		"delete": "Xoá",
+		"create": "Tạo",
+		"create-user": "Tạo Người Dùng",
+		"create-organization": "Tạo Tổ Chức",
+		"search": "Tìm kiếm",
+		"clear": "Xóa",
+		"done": "Hoàn tất",
+		"back": "Quay lại",
+		"next": "Tiếp theo",
+		"close": "Đóng",
+		"sign-in": "Đăng nhập",
+		"sign-out": "Đăng xuất",
+		"sign-up": "Đăng ký"
+	},
+	"game-list": "Game List Vietnam",
+	"role": "Vai Trò",
+	"password": "Mật Khẩu",
+	"confirm-password": "Xác Nhận Mật Khẩu",
+	"status": "Trạng Thái",
+	"active": "Đang hoạt động",
+	"inactive": "Inactive",
+	"brand": "Brand",
+	"studio": "Studio",
+	"game-provider": "Game Provider",
+	"user": "Người Dùng",
+	"description": "Mô tả",
+	"type": "Loại",
+	"username": "Tên Đăng Nhập",
+	"organization-management": "Quản Lý Tổ Chức",
+	"name": "Tên",
+	"rows-per-page": "Số dòng mỗi trang",
+	"no-rows": "Không có dữ liệu",
+	"organization": "Tổ chức",
+	"all": "Tất cả",
+	"app-configs": {
+		"gameConfig": {
+			"currencies": {
+				"vnd": "VND",
+				"usd": "USD",
+				"thb": "THB"
+			},
+			"drives": {
+				"mobile": "Mobile",
+				"tablet": "Tablet",
+				"desktop": "Desktop"
+			},
+			"gameCategories": {
+				"slot": "Slot",
+				"shooting": "Bắn Cá",
+				"card": "Game Bài",
+				"rng": "Game Cá Cược",
+				"pvp": "Game PvP"
+			},
+			"gameStatus": {
+				"incoming": "Incoming",
+				"running": "Running",
+				"maintenance": "Maintenance"
+			},
+			"langs": {
+				"en": "Tiếng Anh",
+				"vi": "Tiếng Việt",
+				"th": "Tiếng Thái"
+			}
+		},
+		"gameRegister": {
+			"categories": {
+				"slot": "Slot",
+				"shooting": "Bắn Cá",
+				"card": "Game Bài",
+				"rng": "Game Cá Cược",
+				"pvp": "Game PvP"
+			},
+			"event": {
+				"new-year": "Năm Mới",
+				"mid-autumn": "Trung Thu"
+			},
+			"gameEngine": {
+				"cocos213": "Cocos 2.1.3",
+				"cocos362": "Cocos 3.6.2",
+				"cocos372": "Cocos 3.7.2",
+				"cocos373": "Cocos 3.7.3"
+			},
+			"gameType": {
+				"new": "New",
+				"reskin": "Reskin"
+			},
+			"orientation": {
+				"landscape": "Ngang",
+				"portrait": "Dọc",
+				"both": "Cả hai"
+			},
+			"status": {
+				"draft": "Draft",
+				"registered": "Registered",
+				"approved": "Approved",
+				"rejected": "Rejected"
+			}
+		},
+		"organization": {
+			"status": {
+				"active": "Active",
+				"inactive": "Inactive"
+			},
+			"type": {
+				"brand": "Brand",
+				"studio": "Studio",
+				"game-provider": "Game Provider"
+			}
+		}
+	}
 }
