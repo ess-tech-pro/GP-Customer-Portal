@@ -1,8 +1,10 @@
 import { CloudUpload } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import { styled } from '@mui/material/styles'
+import type { Theme } from "@mui/material/styles";
 
-export const FileUploadStyled = styled(Box)(({ theme }) => ({
+
+export const FileUploadStyled = styled(Box)(({ theme }: { theme: Theme }) => ({
   position: "relative",
   border: "2px dashed gray",
   borderRadius: "8px",
@@ -12,6 +14,10 @@ export const FileUploadStyled = styled(Box)(({ theme }) => ({
   backgroundColor: "#f5f5f5",
   width: '100%',
   'aspectRatio': '11/3',
+
+  '&.--is-error': {
+    borderColor: theme.getCssVar('palette-error-main')
+  },
 
   [theme.breakpoints.down('sm')]: {
     '&:has(img)': {

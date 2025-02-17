@@ -1,8 +1,6 @@
 import CustomTextField from '@/components/mui/TextField';
 import FileUploader from '@/pages/management-organization/create-edit-organization/components/FileUpload';
 import { CreateOrganizationRequest, CreateOrganizationRequestSchema } from '@/schemas/organization.schema';
-import { fetchDetailUser } from '@/store/slices/manageUserSlice';
-import { AppDispatch } from '@/store/store';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Box,
@@ -12,6 +10,7 @@ import {
   CircularProgress,
   FormControl,
   FormLabel,
+  MenuItem,
   Switch,
   Typography,
 } from '@mui/material';
@@ -19,24 +18,19 @@ import Grid from '@mui/material/Grid2';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import "react-quill/dist/quill.snow.css";
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { ORGANIZATION_INFO_DEFAULT } from './constants';
 import { ReactQuillStyle } from './styles';
 
 
 const CreateEditOrganization = () => {
-  const { id: userId } = useParams();
   // States
   const [loading, setLoading] = useState(false)
 
-  const dispatch = useDispatch<AppDispatch>();
   // Hooks
   const {
     control,
     reset,
     handleSubmit,
-    setValue,
     getValues,
     formState: { errors }
   } = useForm({
@@ -46,33 +40,20 @@ const CreateEditOrganization = () => {
 
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (userId) {
-      // If editing an existing user, fetch user data and set it in the form
-      dispatch(fetchDetailUser(userId)) // Dispatch an action to fetch the user data by ID
-        .unwrap()
-        .then((userData) => {
-          console.log(userData);
-          // Set form fields based on user data
-          // setValue('username', userData.username);
-          // setValue('role', userData.role);
-          // setValue('status', userData.status);
-
-          // I using reset value for form
-          reset({
-            // username: userData.username,
-            // role: userData.role,
-            // status: userData.status
-          });
-        })
-        .catch((err) => {
-          toast.error('Failed to load user data');
-          console.error('Error loading user data:', err);
-        });
-    } else {
-      reset(); // Reset the form if no user is selected for editing
-    }
-  }, [userId, dispatch, setValue, reset]);
+  const typeInputOptionList = useMemo(() => ([
+    {
+      id: 'studio',
+      name: t('studio')
+    },
+    {
+      id: 'brand',
+      name: t('brand')
+    },
+    {
+      id: 'game-provider',
+      name: t('game-provider')
+    },
+  ]), []) // typeInputOptionList
 
   const onSubmit = async (data: CreateOrganizationRequest) => {
     setLoading(true)
@@ -117,8 +98,15 @@ const CreateEditOrganization = () => {
                         id='type'
                         fullWidth
                         placeholder={t('type')}
-                        {...(errors.type && { error: true, helperText: errors.type?.message })}
-                      />
+                        defaultValue={ORGANIZATION_INFO_DEFAULT.type}
+                        {...(errors.type && errors.type.message && { error: true, helperText: t(errors.type.message) })}
+                      >
+                        {typeInputOptionList.map((option) => (
+                          <MenuItem key={option.id} value={option.id}>
+                            {option.name}
+                          </MenuItem>
+                        ))}
+                      </CustomTextField>
                     )}
                   />
                 </Grid>
@@ -180,7 +168,7 @@ const CreateEditOrganization = () => {
                         type="text"
                         error={Boolean(errors.name)}
                         autoComplete="name"
-                        {...(errors.name && { error: true, helperText: errors.name?.message })}
+                        {...(errors.name && errors.name.message && { error: true, helperText: t(errors.name.message) })}
                       />
                     )}
                   />

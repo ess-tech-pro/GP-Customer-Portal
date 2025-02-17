@@ -13,7 +13,7 @@
   "save": "Save",
   "active": "Active",
   "inactive": "Inactive",
-  "branch": "Branch",
+  "brand": "Brand",
   "studio": "Studio",
   "game-provider": "Game Provider",
   "ok": "OK",
@@ -29,5 +29,87 @@
   "clear": "Clear",
   "rows-per-page": "Rows per page",
   "no-rows": "No rows",
-  "organization": "Organization"
+  "organization": "Organization",
+  "all": "All",
+  "app-configs": {
+    "gameConfig": {
+      "currencies": {
+        "vnd": "VND",
+        "usd": "USD",
+        "thb": "THB"
+      },
+      "drives": {
+        "mobile": "Mobile",
+        "tablet": "Tablet",
+        "desktop": "Desktop"
+      },
+      "gameCategories": {
+        "slot": "Slot",
+        "shooting": "Shooting",
+        "card": "Card",
+        "rng": "RNG",
+        "pvp": "PVP"
+      },
+      "gameStatus": {
+        "incoming": "Incoming",
+        "running": "Running",
+        "maintenance": "Maintenance"
+      },
+      "langs": {
+        "en": "English",
+        "vi": "Vietnamese",
+        "th": "Thai"
+      }
+    },
+    "gameRegister": {
+      "categories": {
+        "slot": "Slot",
+        "shooting": "Shooting",
+        "card": "Card",
+        "rng": "rng",
+        "pvp": "pvp"
+      },
+      "event": {
+        "new-year": "New year",
+        "mid-autumn": "Mid autumn"
+      },
+      "gameEngine": {
+        "cocos213": "cocos213",
+        "cocos362": "cocos362",
+        "cocos372": "cocos372",
+        "cocos373": "cocos373"
+      },
+      "gameType": {
+        "new": "New",
+        "reskin": "Reskin"
+      },
+      "orientation": {
+        "landscape": "Landscape",
+        "portrait": "Portrait",
+        "both": "Both"
+      },
+      "status": {
+        "draft": "Draft",
+        "registered": "Registered",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      }
+    },
+    "organization": {
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "type": {
+        "brand": "Brand",
+        "studio": "Studio",
+        "game-provider": "Game Provider"
+      }
+    }
+  },
+  "errors": {
+    "type-is-required": "Type is required",
+    "logo-is-required": "Logo is required",
+    "name-is-required": "Name is required"
+  }
 }

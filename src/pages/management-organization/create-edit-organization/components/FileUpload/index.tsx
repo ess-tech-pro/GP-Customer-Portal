@@ -57,6 +57,9 @@ const FileUploader = ({ field: { onChange, ...field }, errors, getValues }: {
           onClick={() => fileInput.current.click()}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
+          className={
+            `${errors.logo && errors.logo.message ? '--is-error' : ''}`
+          }
         >
           <input
             {...field}
@@ -76,7 +79,7 @@ const FileUploader = ({ field: { onChange, ...field }, errors, getValues }: {
           }
         </FileUploadStyled>
         <Grid2 display="flex" width="100%">
-          {errors.logo && typeof errors.logo.message === 'string' && <Typography color="error" style={{ marginTop: "4px", fontSize: "14px" }}>{errors.logo.message || ''}</Typography>}
+          {errors.logo && typeof errors.logo.message === 'string' && <Typography color="error" style={{ marginTop: "4px", fontSize: "13px" }}>{t(errors.logo.message)}</Typography>}
         </Grid2>
       </Box>
 
