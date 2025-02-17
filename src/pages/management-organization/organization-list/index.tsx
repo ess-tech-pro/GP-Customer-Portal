@@ -179,7 +179,7 @@ const OrganizationList = () => {
     },
     {
       field: 'action',
-      headerName: t('action'),
+      headerName: t('action.title'),
       sortable: false,
       width: 160,
       align: 'center',
@@ -315,7 +315,7 @@ const OrganizationList = () => {
             textTransform: 'none',
           }}
           startIcon={<AddIcon />} >
-          {t('create-organization')}
+          {t('action.create-organization')}
         </Button>
       </Stack>
 
@@ -380,7 +380,7 @@ const OrganizationList = () => {
               sx={{ textTransform: 'none' }}
               onClick={handleSearchFilter}
             >
-              {t('search')}
+              {t('action.search')}
             </Button>
             <Button
               variant="outlined"
@@ -388,7 +388,7 @@ const OrganizationList = () => {
               sx={{ ml: 1, textTransform: 'none' }}
               onClick={handleClearFilter}
             >
-              {t('clear')}
+              {t('action.clear')}
             </Button>
           </Stack>
         </FormGrid>
