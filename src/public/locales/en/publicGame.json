@@ -22,5 +22,7 @@
 	"play-demo-game": "Play Demo Game",
 	"game-overview": "Game Overview",
 	"see-more": "See More",
-	"contact": "Contact your dedicated Account Manager to help you filter your desired games"
+	"contact": "Contact your dedicated Account Manager to help you filter your desired games",
+	"currency": "Currency",
+	"lang": "Lang"
 }

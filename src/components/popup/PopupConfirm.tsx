@@ -33,10 +33,10 @@ const PopupConfirm = (props: PopupConfirmProps) => {
         <Stack direction='row' spacing={1} justifyContent="flex-end" sx={{ mt: 4 }}>
           <Button variant="outlined" color="primary" onClick={onCancel} sx={{
             textTransform: 'none',
-          }}>{t('cancel')}</Button>
+          }}>{t('action.cancel')}</Button>
           <Button variant="contained" color="primary" onClick={onConfirm} sx={{
             textTransform: 'none',
-          }}>{t('ok')}</Button>
+          }}>{t('action.confirm')}</Button>
         </Stack>
       </Box>
     </Modal>

@@ -116,7 +116,7 @@ const GameList = () => {
                         </MenuItem>
                         {formattedOptionTypes(options.gameCategories).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameConfig.gameCategories.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -127,7 +127,7 @@ const GameList = () => {
             </Box>
             <Box>
               <Box>
-                <label className="font-bold" htmlFor="username">{t('common:currency')}</label>
+                <label className="font-bold" htmlFor="username">{t('publicGame:currency')}</label>
               </Box>
               <Box>
                 <FormControl className="w-50">
@@ -147,7 +147,7 @@ const GameList = () => {
                         </MenuItem>
                         {formattedOptionTypes(options.currencies).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameConfig.currencies.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -158,7 +158,7 @@ const GameList = () => {
             </Box>
             <Box>
               <Box>
-                <label className="font-bold" htmlFor="username">{t('common:lang')}</label>
+                <label className="font-bold" htmlFor="username">{t('publicGame:lang')}</label>
               </Box>
               <Box>
                 <FormControl className="w-50">
@@ -178,7 +178,7 @@ const GameList = () => {
                         </MenuItem>
                         {formattedOptionTypes(options.langs).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameConfig.langs.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -209,7 +209,7 @@ const GameList = () => {
                         </MenuItem>
                         {formattedOptionTypes(options.gameStatus).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameConfig.gameStatus.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>

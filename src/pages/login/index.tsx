@@ -8,8 +8,10 @@ import { AppDispatch, RootState } from '../../store/store';
 import { LoginRequest, LoginRequestSchema } from '../../schemas';
 import { toast } from 'react-toastify';
 import { Button } from '@mui/material';
+import { useTranslation } from "react-i18next";
 
 function Login() {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -136,7 +138,7 @@ function Login() {
                 loadingPosition="start"
                 className="hover:cursor-pointer w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Sign in
+                {t('action.sign-in')}
               </Button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?
@@ -147,7 +149,7 @@ function Login() {
                     // Add your sign-up logic here
                   }}
                 >
-                  Sign up
+                  {t('action.sign-up')}
                 </Button>
               </p>
             </form>
