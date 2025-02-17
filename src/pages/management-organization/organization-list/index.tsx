@@ -388,7 +388,7 @@ const OrganizationList = () => {
           data={organizations}
           pageSize={paging?.size}
           totalRows={paging?.total}
-          loading={loading}
+          isLoading={loading}
           pageSizeOption={PAGE_SIZE_OPTIONS}
           onPageChange={handlePageChange}
         />

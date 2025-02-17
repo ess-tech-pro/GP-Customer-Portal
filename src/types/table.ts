@@ -1,4 +1,5 @@
 import React from "react"
+
 export interface TableColumn<T> {
     field: string
     headerName: string
@@ -21,3 +22,17 @@ export interface PaginationParams {
     size: number
 }
 
+
+export interface CustomTableProps<T> {
+    columns: TableColumn<T>[]
+    data: T[]
+    pageSize?: number
+    pageSizeOption?: number[]
+    totalRows: number
+    isLoading?: boolean
+    onPageChange: (params: PaginationParams) => Promise<void> | void
+}
+
+export interface BaseItem {
+    id: string | number;
+}

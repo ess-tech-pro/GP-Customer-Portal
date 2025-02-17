@@ -11,26 +11,17 @@ import {
     TablePagination,
     Paper,
 } from "@mui/material"
-import type { TableColumn, PaginationParams } from "@/types/table"
+import type { BaseItem, CustomTableProps } from "@/types/table"
 import { Loading } from "../common/Loading";
 import NoData from "../common/NoData";
 
-interface CustomTableProps<T> {
-    columns: TableColumn<T>[]
-    data: T[]
-    pageSize?: number
-    pageSizeOption?: number[]
-    totalRows: number
-    loading?: boolean
-    onPageChange: (params: PaginationParams) => Promise<void> | void
-}
 
-const CustomTable = <T,>({
+const CustomTable = <T extends BaseItem,>({
     columns,
     data,
     pageSize = 10,
     totalRows,
-    loading = false,
+    isLoading = false,
     pageSizeOption = [10, 25, 50],
     onPageChange,
 }: CustomTableProps<T>) => {
@@ -82,10 +73,10 @@ const CustomTable = <T,>({
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {loading ? (
+                        {isLoading ? (
                             <TableRow>
                                 <TableCell colSpan={columns.length} align="center" sx={{ py: 8 }}>
-                                    <Loading isLoading={loading} />
+                                    <Loading isLoading={isLoading} />
                                 </TableCell>
                             </TableRow>
                         ) : (
@@ -96,8 +87,8 @@ const CustomTable = <T,>({
                                     </TableCell>
                                 </TableRow>
                             ) :
-                                data.map((row: T, idx: number) => (
-                                    <TableRow hover key={`TABLE_ITEM:${idx}`}>
+                                data.map((row: T) => (
+                                    <TableRow hover key={row.id}>
                                         {columns.map((column) => (
                                             <TableCell key={column.field} align={column.align || "left"}>
                                                 {column.renderCell ? column.renderCell({ row }) : row[column.field]}
