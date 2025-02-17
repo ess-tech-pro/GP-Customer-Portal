@@ -1,215 +1,362 @@
-import { getGameList, getOptions } from "@/store/slices/gameSlice";
-import { AppDispatch } from "@/store/store";
+import { getGameList } from "@/store/slices/gameSlice";
+import { AppDispatch, RootState } from "@/store/store";
 import { Box, Typography } from "@mui/material"
 import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { getValueByLang } from '@/utils/utils';
+import { formatDate, formattedOptionTypes, getValueByLang } from '@/utils/utils';
 
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import CustomTextField from "@/components/mui/TextField";
+import AztecImg from '../../public/images/aztec.jpeg';
+
+const schema = yup.object().shape({
+  gameName: yup.string(),
+  category: yup.string(),
+  currency: yup.string(),
+  langs: yup.string(),
+  status: yup.string(),
+});
 
 
 const GameList = () => {
-  const { t, i18n } = useTranslation();
+  const options: any = useSelector((state: RootState) => state.options.optionsGameConfig);
+  const { t, i18n } = useTranslation(['registerGame', 'publicGame']);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [games, setGames] = useState([]);
-  const [options, setOptions] = useState<any>({});
-  const [filters, setFilters] = useState({
-    gameCategories: 'slot',
-    gameCurrencies: 'thb',
-    gameLangs: 'en',
-    gameStatus: '0',
-    gameTags: 'EVENT',
-    jackpots: 'JACKPOT',
-    volatilities: 'HIGH',
-    rtps: '99'
-  })
 
+  const {
+    getValues,
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      gameName: "",
+      category: "all",
+      currency: "all",
+      langs: "all",
+      status: "all",
+    },
+    resolver: yupResolver(schema),
+  });
 
   const fetchGameList = async () => {
-    const { payload } = await dispatch(getGameList({ gameStatus: 2 }))
-    setGames(payload.data.data)
-  }
-
-  const fetchOptions = async () => {
-    const { payload } = await dispatch(getOptions())
-    setOptions(payload)
-  }
-
+    const { payload } = await dispatch(getGameList(getValues()));
+    setGames(payload.data.data);
+  };
   useEffect(() => {
-    fetchGameList()
-    fetchOptions()
-  }, [])
+    fetchGameList();
+  }, [watch('gameName'), watch('category'), watch('currency'), watch('langs'), watch('status')]);
+
+  const onSubmit = async (data) => {
+    console.log(data)
+  }
 
   return (
-    <Grid container columns={12}>
-      <Grid size={12}>
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label">Categories</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={filters.gameCategories}
-            label="Categories"
-            onChange={(event) => setFilters({ ...filters, gameCategories: event.target.value })}          >
-            {
-              options?.gameCategories?.map((category: string) => {
-                return <MenuItem key={category} value={category}>{category}</MenuItem>
-              })
-            }
-          </Select>
-        </FormControl>
+    <Box>
+      <form className="mb-2" onSubmit={handleSubmit(onSubmit)}>
+        <Box sx={{
+          backgroundColor: '#f1eff1',
+          paddingY: '16px',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+        }}>
+          <Box sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '12px',
+            justifyContent: 'center'
+          }}>
+            <Box>
+              <Box>
+                <label className="font-bold" htmlFor="username">{t('gameName')}</label>
+              </Box>
+              <Box>
+                <FormControl className="w-50">
+                  <Controller
+                    name='gameName'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        {...field}
+                        id='gameName'
+                        fullWidth
+                        {...(errors.gameName && { error: true, helperText: errors.gameName?.message })}
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Box>
+            </Box>
+            <Box>
+              <Box>
+                <label className="font-bold" htmlFor="username">{t('category')}</label>
+              </Box>
+              <Box>
+                <FormControl className="w-50">
+                  <Controller
+                    name='category'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        select
+                        fullWidth
+                        id='category'
+                        {...field}
+                        {...(errors.category && { error: true, helperText: errors.category?.message })}
+                      >
+                        <MenuItem value="all">
+                          All
+                        </MenuItem>
+                        {formattedOptionTypes(options.gameCategories).map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {t(`common:app-configs.gameConfig.gameCategories.${option.label}`)}
+                          </MenuItem>
+                        ))}
+                      </CustomTextField>
+                    )}
+                  />
+                </FormControl>
+              </Box>
+            </Box>
+            <Box>
+              <Box>
+                <label className="font-bold" htmlFor="username">{t('publicGame:currency')}</label>
+              </Box>
+              <Box>
+                <FormControl className="w-50">
+                  <Controller
+                    name='currency'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        select
+                        fullWidth
+                        id='currency'
+                        {...field}
+                        {...(errors.currency && { error: true, helperText: errors.currency?.message })}
+                      >
+                        <MenuItem value="all">
+                          All
+                        </MenuItem>
+                        {formattedOptionTypes(options.currencies).map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {t(`common:app-configs.gameConfig.currencies.${option.label}`)}
+                          </MenuItem>
+                        ))}
+                      </CustomTextField>
+                    )}
+                  />
+                </FormControl>
+              </Box>
+            </Box>
+            <Box>
+              <Box>
+                <label className="font-bold" htmlFor="username">{t('publicGame:lang')}</label>
+              </Box>
+              <Box>
+                <FormControl className="w-50">
+                  <Controller
+                    name='langs'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        select
+                        fullWidth
+                        id='langs'
+                        {...field}
+                        {...(errors.langs && { error: true, helperText: errors.langs?.message })}
+                      >
+                        <MenuItem value="all">
+                          All
+                        </MenuItem>
+                        {formattedOptionTypes(options.langs).map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {t(`common:app-configs.gameConfig.langs.${option.label}`)}
+                          </MenuItem>
+                        ))}
+                      </CustomTextField>
+                    )}
+                  />
+                </FormControl>
+              </Box>
+            </Box>
+            <Box>
+              <Box>
+                <label className="font-bold" htmlFor="username">{t('status')}</label>
+              </Box>
+              <Box>
+                <FormControl className="w-50">
+                  <Controller
+                    name='status'
+                    control={control}
+                    render={({ field }) => (
+                      <CustomTextField
+                        select
+                        fullWidth
+                        id='status'
+                        {...field}
+                        {...(errors.status && { error: true, helperText: errors.status?.message })}
+                      >
+                        <MenuItem value="all">
+                          All
+                        </MenuItem>
+                        {formattedOptionTypes(options.gameStatus).map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {t(`common:app-configs.gameConfig.gameStatus.${option.label}`)}
+                          </MenuItem>
+                        ))}
+                      </CustomTextField>
+                    )}
+                  />
+                </FormControl>
+              </Box>
+            </Box>
+          </Box>
+          <Box className="flex justify-center mt-4">
+            <Typography>{t('publicGame:contact')}</Typography>
+          </Box>
+        </Box>
 
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label2">Currencies</InputLabel>
-          <Select
-            labelId="demo-simple-select-label2"
-            id="demo-simple-select2"
-            value={filters.gameCurrencies}
-            label="Categories"
-            onChange={(event) => setFilters({ ...filters, gameCurrencies: event.target.value })}          >
-            {
-              Object.keys(options.gameCurrencies ?? {}).map((key) => (
-                <MenuItem key={key} value={options.gameCurrencies[key]}>{key}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
+      </form>
+      <Box className="px-5 py-7">
+        {
+          games?.map((game: any) => {
+            return (
+              <Box sx={{
+                width: '100%',
+                height: 'auto',
+                border: '2px solid #e4811c',
+                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+                padding: '16px 22px',
+                borderRadius: '8px',
+                marginBottom: '40px'
+              }}>
+                <Grid container columns={12} spacing={6}>
+                  <Grid size={4}>
+                    <img src={AztecImg} alt="" />
+                  </Grid>
+                  <Grid size={4}>
+                    <Typography sx={{ fontWeight: 'bold', marginBottom: '10px' }} variant="h4">{getValueByLang(game.gameName, i18n.language)}</Typography>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:volatility')}</Typography>
+                      <Typography>{t(`publicGame:${game.volatility}`)}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:min-bet-line')}</Typography>
+                      <Typography>{game.extraConfig[0]?.minBetPerLine}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:min-total-bet')}</Typography>
+                      <Typography>{game.minTotalBet}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:max-mul-win')}</Typography>
+                      <Typography>{game.extraConfig[0]?.maxMulWin}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:bet-mul')}</Typography>
+                      <Typography>{game.extraConfig[0]?.betMul}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:max-total-bet')}</Typography>
+                      <Typography>{game.maxTotalBet}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:pet-per-line')}</Typography>
+                      <Typography>{game.extraConfig[0]?.betPerLine}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:total-bet')}</Typography>
+                      <Typography>{game.extraConfig[0]?.totalBet}</Typography>
+                    </Box>
+                  </Grid>
 
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label3">Lang</InputLabel>
-          <Select
-            labelId="demo-simple-select-label3"
-            id="demo-simple-select3"
-            value={filters.gameLangs}
-            label="Lang"
-            onChange={(event) => setFilters({ ...filters, gameLangs: event.target.value })}          >
-            {
-              Object.keys(options.gameLangs ?? {}).map((key) => (
-                <MenuItem key={key} value={options.gameLangs[key]}>{key}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
+                  <Grid size={4}>
+                    <Typography sx={{ fontWeight: 'bold', marginBottom: '10px' }} variant="h4">{"\u200B"}</Typography>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:release-date')}</Typography>
+                      <Typography>{formatDate(game.releaseDate)}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:game-symbol')}</Typography>
+                      <Typography>{game.symbol}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:rtps')}</Typography>
+                      <Typography>{game.rtps[0]}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:numeric-id')}</Typography>
+                      <Typography>{game.numId}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:game-format')}</Typography>
+                      <Typography>{game.extraConfig[0]?.gameFormat}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:pay-type')}</Typography>
+                      <Typography>{game.extraConfig[0]?.payType}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:symbol-pays')}</Typography>
+                      <Typography>{game.extraConfig[0]?.symbolType}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:has-reply')}</Typography>
+                      <Typography>{game.extraConfig[0]?.hasReplay ? 'Yes' : 'No'}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:has-buy-spins')}</Typography>
+                      <Typography>{game.extraConfig[0]?.hasBuySpin ? 'Yes' : 'No'}</Typography>
+                    </Box>
+                    <Box className="flex justify-between">
+                      <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:has-instant-bonus')}</Typography>
+                      <Typography>{game.extraConfig[0]?.hasInstantBonus ? 'Yes' : 'No'}</Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Box className="w-full flex justify-end gap-2 mt-3">
+                  <Box sx={{
+                    padding: '8px',
+                    border: '2px solid #e4811c',
+                    borderRadius: '8px',
+                    color: '#e4811c',
+                    cursor: 'pointer'
+                  }}>{t('publicGame:play-demo-game')}</Box>
+                  <Box sx={{
+                    padding: '8px',
+                    border: '2px solid #e4811c',
+                    borderRadius: '8px',
+                    color: '#e4811c',
+                    cursor: 'pointer'
 
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label4">Status</InputLabel>
-          <Select
-            labelId="demo-simple-select-label4"
-            id="demo-simple-select4"
-            value={filters.gameStatus}
-            label="Lang"
-            onChange={(event) => setFilters({ ...filters, gameStatus: event.target.value })}          >
-            {
-              Object.keys(options.gameStatus ?? {}).map((key) => (
-                <MenuItem key={key} value={options.gameStatus[key]}>{key}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
+                  }}>{t('publicGame:game-overview')}</Box>
+                  <Box sx={{
+                    padding: '8px',
+                    border: '2px solid #e4811c',
+                    borderRadius: '8px',
+                    color: 'white',
+                    backgroundColor: '#e4811c',
+                    cursor: 'pointer'
 
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label5">Tags</InputLabel>
-          <Select
-            labelId="demo-simple-select-label5"
-            id="demo-simple-select5"
-            value={filters.gameTags}
-            label="Lang"
-            onChange={(event) => setFilters({ ...filters, gameTags: event.target.value })}          >
-            {
-              Object.keys(options.gameTags ?? {}).map((key) => (
-                <MenuItem key={key} value={options.gameTags[key]}>{key}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label6">jackpots</InputLabel>
-          <Select
-            labelId="demo-simple-select-label6"
-            id="demo-simple-select6"
-            value={filters.jackpots}
-            label="Lang"
-            onChange={(event) => setFilters({ ...filters, jackpots: event.target.value })}          >
-            {
-              Object.keys(options.jackpots ?? {}).map((key) => (
-                <MenuItem key={key} value={options.jackpots[key]}>{key}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
+                  }} onClick={() => navigate(
+                    `/game/${game.gameId}`
+                  )}>{t('publicGame:see-more')}</Box>
+                </Box>
+              </Box>
+            )
+          })
+        }
 
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label7">volatilities</InputLabel>
-          <Select
-            labelId="demo-simple-select-label7"
-            id="demo-simple-select7"
-            value={filters.volatilities}
-            label="Lang"
-            onChange={(event) => setFilters({ ...filters, volatilities: event.target.value })}          >
-            {
-              Object.keys(options.volatilities ?? {}).map((key) => (
-                <MenuItem key={key} value={options.volatilities[key]}>{key}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
-
-        <FormControl sx={{ marginRight: 2, marginBottom: 2, minWidth: '150px' }}>
-          <InputLabel id="demo-simple-select-label10">rtps</InputLabel>
-          <Select
-            labelId="demo-simple-select-label10"
-            id="demo-simple-select10"
-            value={filters.rtps}
-            label="Categories"
-            onChange={(event) => setFilters({ ...filters, rtps: event.target.value })}          >
-            {
-              options?.rtps?.map((category: string) => {
-                return <MenuItem key={category} value={category}>{category}</MenuItem>
-              })
-            }
-          </Select>
-        </FormControl>
-
-      </Grid>
-      <Box>
-        <Typography variant="h3">{t('game-list')}</Typography>
       </Box>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4">
-        {games.map((game: any) => (
-          <div
-            key={game.gameId}
-            className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
-          >
-            {/* <img
-                            src={product.thumbnail}
-                            alt={product.title}
-                            className="w-full h-48 object-cover"
-                        /> */}
-            <div className="p-4">
-              <h3 className="text-xl font-bold text-gray-800">
-                {
-                  getValueByLang(game.gameName, i18n.language)
-                }
-              </h3>
-              <div className="text-gray-600 mt-2" dangerouslySetInnerHTML={{ __html: getValueByLang(game.description, i18n.language) }} />
-
-              <button onClick={() => navigate(
-                `/game/${game.gameId}`
-              )} className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors duration-300">
-                Play
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Grid>
+    </Box>
   )
 }
 
