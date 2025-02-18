@@ -84,7 +84,6 @@ const RegisterGame = () => {
         }));
 
         const res: any = id ? await dispatch(updateRegisterGame({ id, data: formData })) : await dispatch(registerGame(formData))
-        console.log(res)
         if (res.payload.data) {
             toast.success(`${id ? 'Edit' : 'Register'} Game Successfully`);
             navigate(-1)
@@ -139,7 +138,7 @@ const RegisterGame = () => {
                                             >
                                                 {formattedOptionTypes(optionsRegisterGame.categories).map((option) => (
                                                     <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
+                                                        {t(`common:app-configs.gameConfig.gameCategories.${option.label}`)}
                                                     </MenuItem>
                                                 ))}
                                             </CustomTextField>
@@ -188,7 +187,7 @@ const RegisterGame = () => {
                                             >
                                                 {formattedOptionTypes(optionsRegisterGame.gameType).map((option) => (
                                                     <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
+                                                        {t(`common:app-configs.gameRegister.gameType.${option.label}`)}
                                                     </MenuItem>
                                                 ))}
                                             </CustomTextField>
@@ -216,7 +215,7 @@ const RegisterGame = () => {
                                             >
                                                 {formattedOptionTypes(optionsRegisterGame.gameEngine).map((option) => (
                                                     <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
+                                                        {t(`common:app-configs.gameRegister.gameEngine.${option.label}`)}
                                                     </MenuItem>
                                                 ))}
                                             </CustomTextField>
@@ -244,7 +243,7 @@ const RegisterGame = () => {
                                             >
                                                 {formattedOptionTypes(optionsRegisterGame.orientation).map((option) => (
                                                     <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
+                                                        {t(`common:app-configs.gameRegister.orientation.${option.label}`)}
                                                     </MenuItem>
                                                 ))}
                                             </CustomTextField>
@@ -278,7 +277,7 @@ const RegisterGame = () => {
                                             >
                                                 {formattedOptionTypes(optionsRegisterGame.event).map((option) => (
                                                     <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
+                                                        {t(`common:app-configs.gameRegister.event.${option.label}`)}
                                                     </MenuItem>
                                                 ))}
                                             </CustomTextField>
