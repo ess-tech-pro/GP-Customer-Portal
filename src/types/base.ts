@@ -8,3 +8,31 @@ export type ChildrenType = {
 export type SystemMode = 'light' | 'dark'
 
 export type ThemeColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success'
+
+export type ApiListResponsePaging = {
+  from: number,
+  size: number,
+  total: number
+}
+
+
+export type IApiListResponse_Data<T> = {
+  data: T[]
+  paging: ApiListResponsePaging
+}
+
+
+export type TableColumn<T> = {
+  field: string,
+  headerName: string,
+  width?: number,
+  minWidth?: number,
+  editable?: boolean,
+  flex?: number,
+  align?: string,
+  type?: string,
+  sortable?: boolean,
+  headerAlign?: string,
+  renderCell?: (row: T) => ReactNode
+}
+

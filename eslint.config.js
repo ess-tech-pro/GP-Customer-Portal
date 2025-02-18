@@ -107,6 +107,7 @@ export default [
 			'react/state-in-constructor': 'off',
 			'react/destructuring-assignment': 'off',
 			'no-unreachable': 'off',
+			'no-nested-ternary': 'off',
 			quotes: 'off',
 			'react/require-default-props': 'off',
 		},

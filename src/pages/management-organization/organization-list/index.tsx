@@ -3,10 +3,9 @@ import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid2';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { initialFilter, initialStateDataGrid } from "./constants";
+import { initialFilter } from "./constants";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "@/constants/routing";
 import { useDispatch } from "react-redux";
@@ -17,7 +16,12 @@ import PopupConfirm from "@/components/popup/PopupConfirm";
 import { toast } from "react-toastify";
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS } from "@/constants";
 import { useTranslation } from "react-i18next";
-import EmptyData from "@/components/data-grid/EmptyData";
+
+// custom table component
+import TableComponent from "@/components/table";
+import { ApiListResponsePaging } from "@/types/base";
+import { PaginationParams, TableColumn } from '@/types/table';
+import { OrganizationListResponse } from "@/schemas";
 import { useAppConfig } from "@/hooks/useAppConfig";
 import { useEffect, useState } from "react";
 import { setBreadcrumbs } from "@/store/slices/breadcrumbsSlice";
@@ -27,8 +31,6 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: 'column',
 }));
 
-const CustomNoRowsOverlay = () => <EmptyData />;
-
 const OrganizationList = () => {
   const { t } = useTranslation();
   const translateConfigOrganization = (key: string) => t(`app-configs.organization.${key}`);
@@ -36,16 +38,16 @@ const OrganizationList = () => {
   const appConfigs = useAppConfig();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState(initialFilter);
-  const [organizations, setOrganizations] = useState([]);
+  const [organizations, setOrganizations] = useState([] as OrganizationListResponse[]);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [currentOrganizationDelete, setCurrentOrganizationDelete] = useState(null);
   const dispatch = useDispatch<AppDispatch>();
-  const [total, setTotal] = useState(0);
+  const [paging, setPaging] = useState({
+    from: PAGE_DEFAULT,
+    size: PAGE_SIZE_DEFAULT,
+    total: 0
+  } as ApiListResponsePaging)
 
-  const [paginationModel, setPaginationModel] = useState({
-    pageSize: PAGE_SIZE_DEFAULT,
-    page: PAGE_DEFAULT,
-  });
 
   const typeOptions = (appConfigs?.config?.organization?.type || []).map((item) => ({
     value: item,
@@ -66,8 +68,8 @@ const OrganizationList = () => {
     setOpenModalDelete(true);
   };
 
-  const renderCellStatus = (params: GridRenderCellParams) => {
-    const status = params.value;
+  const renderCellStatus = (params) => {
+    const { status } = params.row;
 
     const statusStyles = {
       active: {
@@ -110,7 +112,8 @@ const OrganizationList = () => {
     );
   };
 
-  const columns: GridColDef[] = [
+
+  const columns: TableColumn<OrganizationListResponse>[] = [
     {
       field: 'no', headerName: '#', width: 90,
       align: 'center',
@@ -156,7 +159,6 @@ const OrganizationList = () => {
     {
       field: 'user',
       headerName: t('user'),
-      type: 'number',
       width: 110,
       editable: false,
       align: 'center',
@@ -165,7 +167,6 @@ const OrganizationList = () => {
     {
       field: 'status',
       headerName: t('status'),
-      sortable: false,
       width: 160,
       align: 'center',
       headerAlign: 'center',
@@ -174,7 +175,6 @@ const OrganizationList = () => {
     {
       field: 'description',
       headerName: t('description'),
-      sortable: false,
       width: 160,
       align: 'center',
       headerAlign: 'center'
@@ -182,7 +182,6 @@ const OrganizationList = () => {
     {
       field: 'action',
       headerName: t('action.title'),
-      sortable: false,
       width: 160,
       align: 'center',
       headerAlign: 'center',
@@ -205,7 +204,7 @@ const OrganizationList = () => {
           }}
             onClick={() => {
               handleDelete(params.row.id);
-              setCurrentOrganizationDelete(params.row);
+              setCurrentOrganizationDelete(params);
             }}>
             <DeleteOutlineIcon />
           </Button>
@@ -214,22 +213,22 @@ const OrganizationList = () => {
     },
   ];
 
-  const fetchOrganizations = async () => {
+  const fetchOrganizations = async (params?: PaginationParams) => {
     setLoading(true);
     try {
       const { payload } = await dispatch(getOrganizationList(
         {
           query: filters,
           paging: {
-            from: paginationModel.page,
-            size: paginationModel.pageSize
+            from: params?.page || paging?.from,
+            size: params?.size || paging?.size
           }
         }
       ));
 
       const currentPage = payload.data.paging?.page || 1;
       const limit = payload.data.paging?.pageSize || 10;
-      setTotal(payload.data.paging?.total || 0);
+      setPaging(payload.data.paging)
 
       const dataTmp = payload.data.data || [];
 
@@ -266,6 +265,10 @@ const OrganizationList = () => {
     fetchOrganizations();
   };
 
+  const handlePageChange = (params: any) => {
+    fetchOrganizations(params)
+  }
+
   const handleConfirmDelete = async () => {
     if (!currentOrganizationDelete) {
       return;
@@ -291,7 +294,7 @@ const OrganizationList = () => {
 
   useEffect(() => {
     fetchOrganizations();
-  }, [paginationModel]);
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -406,60 +409,17 @@ const OrganizationList = () => {
         </FormGrid>
       </Grid>
 
-      {
-        loading ? (
-          <Typography component="p" variant="body1" sx={{ mt: 2 }}>
-            Loading...
-          </Typography>
-        ) : (
-          <Box sx={{ width: '100%', mt: 4 }}>
-            <DataGrid
-              rows={organizations}
-              columns={columns}
-              initialState={initialStateDataGrid}
-              disableColumnSorting
-              disableColumnSelector
-              disableColumnMenu
-              disableColumnResize
-              rowHeight={56}
-              rowCount={total}
-              pageSizeOptions={PAGE_SIZE_OPTIONS}
-              paginationModel={paginationModel}
-              paginationMode="server"
-              onPaginationModelChange={setPaginationModel}
-              slotProps={{
-                pagination: {
-                  labelRowsPerPage: t('rows-per-page'),
-                },
-              }}
-              slots={{
-                noRowsOverlay: CustomNoRowsOverlay
-              }}
-              sx={{
-                '& .MuiDataGrid-columnHeaders': {
-                  '& .MuiDataGrid-columnHeader': {
-                    backgroundColor: '#1976d2',
-                    '& .MuiDataGrid-columnSeparator': {
-                      color: '#fff',
-                    },
-                    '& .MuiDataGrid-columnHeaderTitle': {
-                      color: '#fff',
-                      fontSize: 14,
-                      fontWeight: 600,
-                    },
-                  },
-                },
-                '& .MuiDataGrid-footerContainer': {
-                  '& .MuiDataGrid-selectedRowCount': {
-                    display: 'none'
-                  }
-                }
-              }}
-            />
-          </Box>
-        )
-      }
-
+      <Box sx={{ width: '100%', mt: 4 }}>
+        <TableComponent<OrganizationListResponse>
+          columns={columns}
+          data={organizations}
+          pageSize={paging?.size}
+          totalRows={paging?.total}
+          isLoading={loading}
+          pageSizeOption={PAGE_SIZE_OPTIONS}
+          onPageChange={handlePageChange}
+        />
+      </Box>
       {
         openModalDelete && currentOrganizationDelete && <PopupConfirm
           title={
