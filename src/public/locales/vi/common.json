@@ -59,6 +59,7 @@
     "logo-is-required": "Vui lòng chọn logo tổ chức",
     "name-is-required": "Vui lòng nhập tên tổ chức"
   },
+  "logo-must-ratio-11-3": "Logo phải có tỷ lệ 11:3",
   "app-configs": {
     "gameConfig": {
       "currencies": {

@@ -60,6 +60,7 @@
     "logo-is-required": "Logo is required",
     "name-is-required": "Name is required"
   },
+  "logo-must-ratio-11-3": "The logo must ratio 11:3",
   "app-configs": {
     "gameConfig": {
       "currencies": {

@@ -8,8 +8,6 @@ import enRegisterGame from "./public/locales/en/registerGame.json";
 import viRegisterGame from "./public/locales/vi/registerGame.json";
 import enPublicGame from "./public/locales/en/publicGame.json";
 import viPublicGame from "./public/locales/vi/publicGame.json";
-import enCreateEditOrganization from "./public/locales/en/createEditOrganization.json";
-import viCreateEditOrganization from "./public/locales/vi/createEditOrganization.json";
 
 // Khởi tạo i18n
 i18n
@@ -20,17 +18,15 @@ i18n
         common: enCommon,
         registerGame: enRegisterGame,
         publicGame: enPublicGame,
-        createEditOrganization: enCreateEditOrganization,
       },
       vi: {
         common: viCommon,
         registerGame: viRegisterGame,
         publicGame: viPublicGame,
-        createEditOrganization: viCreateEditOrganization,
       },
     },
     fallbackLng: "en", // Ngôn ngữ mặc định
-    ns: ["common", "registerGame", "publicGame", "createEditOrganization"], // Danh sách namespace
+    ns: ["common", "registerGame", "publicGame"], // Danh sách namespace
     defaultNS: "common", // Namespace mặc định
     debug: false, // Log trong môi trường phát triển
     interpolation: {
