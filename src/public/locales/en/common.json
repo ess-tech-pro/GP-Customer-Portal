@@ -24,7 +24,7 @@
 		"approve": "Approve",
 		"reject": "Reject"
 	},
-	"game-list": "Game List English",
+	"game-list": "Game List",
 	"role": "Role",
 	"password": "Password",
 	"confirm-password": "Confirm Password",
@@ -54,6 +54,7 @@
 	"edit-register-game": "Edit Register Game",
 	"register-game-list": "Register Game List",
 	"game": "Game",
+	"home": "Home",
 	"app-configs": {
 		"gameConfig": {
 			"currencies": {

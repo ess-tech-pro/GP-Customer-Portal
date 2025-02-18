@@ -13,6 +13,8 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomTextField from "@/components/mui/TextField";
 import AztecImg from '../../public/images/aztec.jpeg';
+import { ROUTE_PATH } from "@/constants/routing";
+import { setBreadcrumbs } from "@/store/slices/breadcrumbsSlice";
 
 const schema = yup.object().shape({
   gameName: yup.string(),
@@ -58,6 +60,18 @@ const GameList = () => {
   const onSubmit = async (data) => {
     console.log(data)
   }
+
+  useEffect(() => {
+    dispatch(
+      setBreadcrumbs({
+        links: [
+          { name: t('common:home'), href: ROUTE_PATH.HOME },
+          {
+            name: t('common:game-list'), href: ROUTE_PATH.GAME
+          }
+        ]
+      }));
+  }, [setBreadcrumbs, t]);
 
   return (
     <Box>
