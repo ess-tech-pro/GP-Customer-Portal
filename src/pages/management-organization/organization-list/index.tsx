@@ -19,6 +19,8 @@ import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS } from "@/constants"
 import { useTranslation } from "react-i18next";
 import EmptyData from "@/components/data-grid/EmptyData";
 import { useAppConfig } from "@/hooks/useAppConfig";
+import { useEffect, useState } from "react";
+import { setBreadcrumbs } from "@/store/slices/breadcrumbsSlice";
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -290,6 +292,16 @@ const OrganizationList = () => {
   useEffect(() => {
     fetchOrganizations();
   }, [paginationModel]);
+
+  useEffect(() => {
+    dispatch(
+      setBreadcrumbs({
+        links: [
+          { name: t('home'), href: ROUTE_PATH.HOME },
+          { name: t('organization-management'), href: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST }
+        ]
+      }));
+  }, [setBreadcrumbs, t]);
 
   return (
     <Box padding={4}>

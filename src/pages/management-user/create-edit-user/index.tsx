@@ -27,6 +27,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CustomTextField from '@/components/mui/TextField';
 import { roleOptions } from '../utils';
+import { ROUTE_PATH } from '@/constants/routing';
+import { setBreadcrumbs } from '@/store/slices/breadcrumbsSlice';
 
 
 const CreateEditUser = () => {
@@ -123,6 +125,41 @@ const CreateEditUser = () => {
         })
     }
   };
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(
+        setBreadcrumbs({
+          links: [
+            { name: t('home'), href: ROUTE_PATH.HOME },
+            {
+              name: t('management-user'), href: ROUTE_PATH.MANAGEMENT_USER
+            },
+            {
+              name: t('edit'),
+            },
+            {
+              name: `User ${userId}`,
+            }
+          ]
+        }));
+
+      return;
+    }
+
+    dispatch(
+      setBreadcrumbs({
+        links: [
+          { name: t('home'), href: ROUTE_PATH.HOME },
+          {
+            name: t('management-user'), href: ROUTE_PATH.MANAGEMENT_USER
+          },
+          {
+            name: t('create'), href: ROUTE_PATH.MANAGEMENT_USER_CREATE
+          }
+        ]
+      }));
+  }, [setBreadcrumbs, t, userId]);
 
   return (
     <Grid container columns={12} padding={4}>

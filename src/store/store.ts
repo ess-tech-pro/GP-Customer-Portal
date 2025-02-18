@@ -7,6 +7,7 @@ import exampleReducer from './slices/exampleSlice'
 import loginReducer from './slices/loginSlice'
 import optionsReducer from './slices/optionsSlice'
 import userReducer from './slices/userSlice'
+import breadcrumbsReducer from './slices/breadcrumbsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     example: exampleReducer,
     login: loginReducer,
     user: userReducer,
-    options: optionsReducer
+    options: optionsReducer,
+    breadcrumbs: breadcrumbsReducer
   },
 })
 

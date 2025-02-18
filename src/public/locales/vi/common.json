@@ -20,7 +20,7 @@
 		"sign-out": "Đăng xuất",
 		"sign-up": "Đăng ký"
 	},
-	"game-list": "Game List Vietnam",
+	"game-list": "Game List",
 	"role": "Vai Trò",
 	"password": "Mật Khẩu",
 	"confirm-password": "Xác Nhận Mật Khẩu",
@@ -49,6 +49,7 @@
 	"edit-register-game": "Chỉnh Sửa Đăng Ký Game",
 	"register-game-list": "Danh Sách Đăng Ký Game",
 	"game": "Game",
+	"home": "Trang chủ",
 	"app-configs": {
 		"gameConfig": {
 			"currencies": {
