@@ -18,7 +18,11 @@
 		"close": "Close",
 		"sign-in": "Sign in",
 		"sign-out": "Sign out",
-		"sign-up": "Sign up"
+		"sign-up": "Sign up",
+		"update-by": "Update by",
+		"update-at": "Update at",
+		"approve": "Approve",
+		"reject": "Reject"
 	},
 	"game-list": "Game List",
 	"role": "Role",

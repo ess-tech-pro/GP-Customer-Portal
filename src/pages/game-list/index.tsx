@@ -243,15 +243,29 @@ const GameList = () => {
         {
           games?.map((game: any) => {
             return (
-              <Box sx={{
+
+              <Box key={game.gameId} sx={{
                 width: '100%',
                 height: 'auto',
                 border: '2px solid #e4811c',
                 boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
                 padding: '16px 22px',
                 borderRadius: '8px',
-                marginBottom: '40px'
+                marginBottom: '40px',
+                position: 'relative'
               }}>
+                <Box sx={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  backgroundColor: '#e4811c',
+                  padding: '6px',
+                  borderBottomRightRadius: '8px',
+                  color: 'white'
+                }}>
+                  <Typography>{t('publicGame:next-release')}</Typography>
+
+                </Box>
                 <Grid container columns={12} spacing={6}>
                   <Grid size={4}>
                     <img src={AztecImg} alt="" />
@@ -296,7 +310,7 @@ const GameList = () => {
                     <Typography sx={{ fontWeight: 'bold', marginBottom: '10px' }} variant="h4">{"\u200B"}</Typography>
                     <Box className="flex justify-between">
                       <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:release-date')}</Typography>
-                      <Typography>{formatDate(game.releaseDate)}</Typography>
+                      <Typography>{formatDate(game.releaseDate, 'Do MMMM YYYY')}</Typography>
                     </Box>
                     <Box className="flex justify-between">
                       <Typography sx={{ fontWeight: 'bold' }}>{t('publicGame:game-symbol')}</Typography>

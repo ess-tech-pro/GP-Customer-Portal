@@ -117,6 +117,7 @@ const RegisterGame = () => {
     getDetail();
   }, [id]);
 
+
   useEffect(() => {
     if (id) {
       dispatch(
@@ -134,7 +135,6 @@ const RegisterGame = () => {
 
       return;
     }
-
     dispatch(
       setBreadcrumbs({
         links: [
@@ -149,8 +149,9 @@ const RegisterGame = () => {
       }));
   }, [setBreadcrumbs, t, id]);
 
+
   return (
-    <Box padding={4} sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%' }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className="w-full flex flex-col">
           <Box>
@@ -173,7 +174,7 @@ const RegisterGame = () => {
                       >
                         {formattedOptionTypes(optionsRegisterGame.categories).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameConfig.gameCategories.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -222,7 +223,7 @@ const RegisterGame = () => {
                       >
                         {formattedOptionTypes(optionsRegisterGame.gameType).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameRegister.gameType.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -250,7 +251,7 @@ const RegisterGame = () => {
                       >
                         {formattedOptionTypes(optionsRegisterGame.gameEngine).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameRegister.gameEngine.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -278,7 +279,7 @@ const RegisterGame = () => {
                       >
                         {formattedOptionTypes(optionsRegisterGame.orientation).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameRegister.orientation.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -312,7 +313,7 @@ const RegisterGame = () => {
                       >
                         {formattedOptionTypes(optionsRegisterGame.event).map((option) => (
                           <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                            {t(`common:app-configs.gameRegister.event.${option.label}`)}
                           </MenuItem>
                         ))}
                       </CustomTextField>
@@ -378,7 +379,7 @@ const RegisterGame = () => {
           </Box>
           <Box className="w-full flex justify-center mt-20">
             <Button type="submit" variant="contained" color="primary">
-              {t('common:save')}
+              {t('common:action.save')}
             </Button>
           </Box>
         </Box>
