@@ -258,7 +258,7 @@ const RegisterGameList = () => {
         links: [
           { name: t('common:home'), href: ROUTE_PATH.HOME },
           {
-            name: t('common:register-game-list'), href: ROUTE_PATH.REGISTER
+            name: t('common:register-game-list'), href: ROUTE_PATH.GAME_MANAGEMENT.REGISTER_GAME_LIST
           }
         ]
       }));
