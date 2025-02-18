@@ -119,18 +119,17 @@ const RegisterGameList = () => {
 
 
 
-    const onApprove = async (id: string) => {
-        console.log(id)
-        await dispatch(approveRegisterGame(id))
+    const onApprove = async () => {
+        await dispatch(approveRegisterGame(gameSelected.id))
+        setGameSelected({})
         handleClose();
         toast.success('Approve Game Successfully');
         fetchData()
     }
 
-    const onReject = async (id: string) => {
-        console.log(id)
-
-        await dispatch(rejectRegisterGame(id))
+    const onReject = async () => {
+        await dispatch(rejectRegisterGame(gameSelected.id))
+        setGameSelected({})
         handleClose();
         toast.success('Reject Game Successfully');
         fetchData()
@@ -213,7 +212,7 @@ const RegisterGameList = () => {
             renderCell: (params) => (
                 <Box className="mt-1">
                     <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                        <Button onClick={handleClick}>▼</Button>
+                        <Button onClick={(event) => { handleClick(event); setGameSelected(params.row) }}>▼</Button>
                     </ButtonGroup>
                     <Menu
                         anchorEl={anchorEl}
@@ -221,22 +220,22 @@ const RegisterGameList = () => {
                         onClose={handleClose}
                     >
                         <MenuItem>
-                            <Button className="w-full" onClick={() => navigate(`/edit-register-game/${params.row.id}`)} variant="contained" color="primary">
+                            <Button className="w-full" onClick={() => navigate(`/edit-register-game/${gameSelected.id}`)} variant="contained" color="primary">
                                 {t('common:action.edit')}
                             </Button>
                         </MenuItem>
                         <MenuItem>
-                            <Button className="w-full" onClick={() => { setOpenModalDelete(true); setGameSelected(params.row) }} variant="contained" color="error">
+                            <Button className="w-full" onClick={() => setOpenModalDelete(true)} variant="contained" color="error">
                                 {t('common:action.delete')}
                             </Button>
                         </MenuItem>
                         <MenuItem>
-                            <Button className="w-full" onClick={() => onApprove(params.row.id)} variant="contained" color="success">
+                            <Button className="w-full" onClick={() => onApprove()} variant="contained" color="success">
                                 {t('common:action.approve')}
                             </Button>
                         </MenuItem>
                         <MenuItem>
-                            <Button className="w-full" onClick={() => onReject(params.row.id)} variant="contained" color="warning">
+                            <Button className="w-full" onClick={() => onReject()} variant="contained" color="warning">
                                 {t('common:action.reject')}
                             </Button>
                         </MenuItem>

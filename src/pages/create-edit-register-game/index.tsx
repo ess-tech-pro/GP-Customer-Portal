@@ -343,7 +343,7 @@ const RegisterGame = () => {
                     </Box>
                     <Box className="w-full flex justify-center mt-20">
                         <Button type="submit" variant="contained" color="primary">
-                            {t('common:save')}
+                            {t('common:action.save')}
                         </Button>
                     </Box>
                 </Box>
