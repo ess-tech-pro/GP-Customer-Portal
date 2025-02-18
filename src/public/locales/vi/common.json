@@ -18,9 +18,13 @@
     "close": "Đóng",
     "sign-in": "Đăng nhập",
     "sign-out": "Đăng xuất",
-    "sign-up": "Đăng ký"
+    "sign-up": "Đăng ký",
+    "update-by": "Cập nhật bởi",
+    "update-at": "Cập nhật tại",
+    "approve": "Chấp thuận",
+    "reject": "Từ chối"
   },
-  "game-list": "Game List Vietnam",
+  "game-list": "Game List",
   "role": "Vai Trò",
   "password": "Mật Khẩu",
   "confirm-password": "Xác Nhận Mật Khẩu",
@@ -40,6 +44,21 @@
   "no-rows": "Không có dữ liệu",
   "organization": "Tổ chức",
   "all": "Tất cả",
+  "management-user": "Quản lý người dùng",
+  "create": "Tạo",
+  "edit": "Chỉnh sửa",
+  "user-list": "Danh sách người dùng",
+  "organization-list": "Danh sách tổ chức",
+  "create-register-game": "Tạo Đăng Ký Game",
+  "edit-register-game": "Chỉnh Sửa Đăng Ký Game",
+  "register-game-list": "Danh Sách Đăng Ký Game",
+  "game": "Game",
+  "home": "Trang chủ",
+  "errors": {
+    "type-is-required": "Vui lòng nhập loại tổ chức",
+    "logo-is-required": "Vui lòng chọn logo tổ chức",
+    "name-is-required": "Vui lòng nhập tên tổ chức"
+  },
   "app-configs": {
     "gameConfig": {
       "currencies": {
@@ -89,8 +108,8 @@
         "cocos373": "Cocos 3.7.3"
       },
       "gameType": {
-        "new": "New",
-        "reskin": "Reskin"
+        "new": "Mới",
+        "reskin": "Thay đổi giao diện"
       },
       "orientation": {
         "landscape": "Ngang",
@@ -98,10 +117,10 @@
         "both": "Cả hai"
       },
       "status": {
-        "draft": "Draft",
-        "registered": "Registered",
-        "approved": "Approved",
-        "rejected": "Rejected"
+        "draft": "Bản nháp",
+        "registered": "Đăng ký",
+        "approved": "Chấp nhận",
+        "rejected": "Loại bỏ"
       }
     },
     "organization": {
@@ -115,10 +134,5 @@
         "game-provider": "Game Provider"
       }
     }
-  },
-  "errors": {
-    "type-is-required": "Type is required",
-    "logo-is-required": "Logo is required",
-    "name-is-required": "Name is required"
   }
 }

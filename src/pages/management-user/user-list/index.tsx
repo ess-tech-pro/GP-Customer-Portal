@@ -13,6 +13,9 @@ import { useTranslation } from "react-i18next";
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS } from "@/constants";
 import EmptyData from "@/components/data-grid/EmptyData";
 import PopupConfirm from "@/components/popup/PopupConfirm";
+import { AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { setBreadcrumbs } from "@/store/slices/breadcrumbsSlice";
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -31,6 +34,7 @@ const UserList = () => {
   const [currentUserDelete, setCurrentUserDelete] = useState(null);
   const [users, setUsers] = useState([]);
   const [total, setTotal] = useState(0);
+  const dispatch = useDispatch<AppDispatch>();
 
   const [paginationModel, setPaginationModel] = useState({
     pageSize: PAGE_SIZE_DEFAULT,
@@ -221,10 +225,22 @@ const UserList = () => {
     fetchListUser();
   }, []);
 
+  useEffect(() => {
+    dispatch(
+      setBreadcrumbs({
+        links: [
+          { name: t('home'), href: ROUTE_PATH.HOME },
+          {
+            name: t('management-user'), href: ROUTE_PATH.MANAGEMENT_USER
+          }
+        ]
+      }));
+  }, [setBreadcrumbs, t]);
+
 
   console.log('currentUserDelete', currentUserDelete);
   return (
-    <>
+    <Box padding={4}>
       {/* Header */}
       <Stack
         spacing={2}
@@ -423,7 +439,7 @@ const UserList = () => {
           onCancel={() => setOpenModalDelete(false)} />
       }
 
-    </ >
+    </Box>
   );
 };
 

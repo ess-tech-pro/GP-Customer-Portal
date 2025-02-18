@@ -18,9 +18,13 @@
     "close": "Close",
     "sign-in": "Sign in",
     "sign-out": "Sign out",
-    "sign-up": "Sign up"
+    "sign-up": "Sign up",
+    "update-by": "Update by",
+    "update-at": "Update at",
+    "approve": "Approve",
+    "reject": "Reject"
   },
-  "game-list": "Game List English",
+  "game-list": "Game List",
   "role": "Role",
   "password": "Password",
   "confirm-password": "Confirm Password",
@@ -41,6 +45,21 @@
   "no-rows": "No rows",
   "organization": "Organization",
   "all": "All",
+  "management-user": "Management User",
+  "create": "Create",
+  "edit": "Edit",
+  "user-list": "User List",
+  "organization-list": "Organization List",
+  "create-register-game": "Create Register Game",
+  "edit-register-game": "Edit Register Game",
+  "register-game-list": "Register Game List",
+  "game": "Game",
+  "home": "Home",
+  "errors": {
+    "type-is-required": "Type is required",
+    "logo-is-required": "Logo is required",
+    "name-is-required": "Name is required"
+  },
   "app-configs": {
     "gameConfig": {
       "currencies": {
@@ -116,10 +135,5 @@
         "game-provider": "Game Provider"
       }
     }
-  },
-  "errors": {
-    "type-is-required": "Type is required",
-    "logo-is-required": "Logo is required",
-    "name-is-required": "Name is required"
   }
 }

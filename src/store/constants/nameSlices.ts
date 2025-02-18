@@ -6,4 +6,5 @@ export const NameSlices = {
   USER: 'user',
   ORGANIZATION_LIST: 'organization_list',
   APP_CONFIG: 'app_config',
+  BREADCRUMB: 'breadcrumb'
 };

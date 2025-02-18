@@ -44,13 +44,31 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <Box
           component="div"
           sx={{
-            p: 4,
             mt: 16,
             background: 'white',
-            borderRadius: '16px 16px 0 0',
             width: '100%'
           }}
         >
+          <Box position='relative'>
+            <Box sx={{
+              width: '20px',
+              height: '20px',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              background: 'black',
+              maskImage: 'radial-gradient(circle at bottom right, transparent 20px, black 21px)',
+            }} />
+            <Box sx={{
+              width: '20px',
+              height: '20px',
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              background: 'black',
+              maskImage: 'radial-gradient(circle at bottom left, transparent 20px, black 21px)',
+            }} />
+          </Box>
           <main className="flex-1 container mx-auto">{children}</main>
         </Box>
       </Box>

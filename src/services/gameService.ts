@@ -30,7 +30,7 @@ export const getGameListService = async (
 	try {
 		// await CreateProductRequestSchema.validate(cartData, { abortEarly: false })
 
-		const response = await axiosClient.post('/game-portal/api/v1/game/list-games-public', filters)
+		const response = await axiosClient.post('/game-portal/api/v1/game/list-games-public', { query: filters, paging: { from: 0, size: 10 } })
 
 		// const validatedData = await CreateProductResponseSchema.validate(response, {
 		// 	abortEarly: false,
@@ -123,6 +123,32 @@ export const updateRegisterGameService = async (id: string, data: any):
 			}
 		)
 		return rep
+	} catch (error) {
+		if (error instanceof yup.ValidationError) {
+			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
+		}
+		throw error
+	}
+}
+
+export const rejectRegisterGameService = async (id: string):
+	Promise<any> => {
+	try {
+		const rep = await axiosClient.put(`/config-service/api/v1/game-register/reject/${id}`)
+		return rep.data
+	} catch (error) {
+		if (error instanceof yup.ValidationError) {
+			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
+		}
+		throw error
+	}
+}
+
+export const approveRegisterGameService = async (id: string):
+	Promise<any> => {
+	try {
+		const rep = await axiosClient.put(`/config-service/api/v1/game-register/approve/${id}`)
+		return rep.data
 	} catch (error) {
 		if (error instanceof yup.ValidationError) {
 			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
