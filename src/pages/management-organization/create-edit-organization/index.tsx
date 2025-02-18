@@ -19,7 +19,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import "react-quill/dist/quill.snow.css";
 import { ORGANIZATION_INFO_DEFAULT } from './constants';
-import { ReactQuillStyled, InputDisabledStyled } from './styles';
+import { ReactQuillStyled } from './styles';
 import { useDispatch } from 'react-redux';
 import { createOrganization, getOrganizationDetail, updateOrganization } from '@/store/slices/organizationSlice';
 import { AppDispatch } from '@/store/store';
@@ -52,7 +52,7 @@ const CreateEditOrganization = () => {
 
   const [organizationInfo, setOrganizationInfo] = useState<{ [key: string]: any }>({})
 
-  const callback = useCallback(async () => {
+  const getOrganizationDetailCallback = useCallback(async () => {
     if (id) {
       const res: any = await dispatch(getOrganizationDetail({ id }))
 
@@ -77,7 +77,7 @@ const CreateEditOrganization = () => {
   }, [])
 
   useEffect(() => {
-    callback()
+    getOrganizationDetailCallback()
   }, [])
 
   const typeOptions = useMemo(() => (appConfigs?.config?.organization?.type || []).map((item) => ({
@@ -132,9 +132,15 @@ const CreateEditOrganization = () => {
 
     if (res.payload.data) {
       toast.success(id ? 'Edit Organization Success!' : 'Create Organization Success!');
-      navigate({
-        pathname: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST,
-      })
+
+      if (!id) {
+        navigate({
+          pathname: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST,
+        })
+      } else {
+        setLoading(false)
+        setOrganizationInfo(data)
+      }
     }
 
     if (res.error.message) {
@@ -199,9 +205,18 @@ const CreateEditOrganization = () => {
                       />
                     </Grid> :
                     organizationInfo.type &&
-                    <InputDisabledStyled>
-                      {translateConfigOrganization(`type.${organizationInfo.type}`)}
-                    </InputDisabledStyled>
+                    <CustomTextField
+                      select
+                      id='type'
+                      fullWidth
+                      placeholder={t('type')}
+                      defaultValue={organizationInfo.type}
+                      disabled
+                    >
+                      <MenuItem key={organizationInfo.type} value={organizationInfo.type} >
+                        {translateConfigOrganization(`type.${organizationInfo.type}`)}
+                      </MenuItem>
+                    </CustomTextField>
                 }
               </Grid>
               <Grid
