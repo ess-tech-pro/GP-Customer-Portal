@@ -130,3 +130,29 @@ export const updateRegisterGameService = async (id: string, data: any):
 		throw error
 	}
 }
+
+export const rejectRegisterGameService = async (id: string):
+	Promise<any> => {
+	try {
+		const rep = await axiosClient.put(`/config-service/api/v1/game-register/reject/${id}`)
+		return rep.data
+	} catch (error) {
+		if (error instanceof yup.ValidationError) {
+			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
+		}
+		throw error
+	}
+}
+
+export const approveRegisterGameService = async (id: string):
+	Promise<any> => {
+	try {
+		const rep = await axiosClient.put(`/config-service/api/v1/game-register/approve/${id}`)
+		return rep.data
+	} catch (error) {
+		if (error instanceof yup.ValidationError) {
+			throw new Error(`Validation failed: ${error.errors.join(', ')}`)
+		}
+		throw error
+	}
+}

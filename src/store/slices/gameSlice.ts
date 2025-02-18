@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ActionTypes } from '../constants/actionTypes'
-import { deleteRegisterGameService, getGameDetailService, getGameListService, getOptionsService, getRegisterGameDetailService, getRegisterGameListService, registerGameService, updateRegisterGameService } from '@/services/gameService'
+import { approveRegisterGameService, deleteRegisterGameService, getGameDetailService, getGameListService, getOptionsService, getRegisterGameDetailService, getRegisterGameListService, registerGameService, rejectRegisterGameService, updateRegisterGameService } from '@/services/gameService'
 
 export const getGameDetail = createAsyncThunk<any, any>(
 	ActionTypes.GAME.GAME_DETAIL,
@@ -124,4 +124,33 @@ export const updateRegisterGame = createAsyncThunk<any, any>(
 	},
 );
 
+export const rejectRegisterGame = createAsyncThunk<any, any>(
+	ActionTypes.GAME.REGISTER_GAME,
+	async (id, thunkAPI) => {
+		try {
+			const response = await rejectRegisterGameService(id);
+			return response;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return thunkAPI.rejectWithValue(error.message);
+			}
+			return thunkAPI.rejectWithValue('An unknown error occurred');
+		}
+	},
+);
+
+export const approveRegisterGame = createAsyncThunk<any, any>(
+	ActionTypes.GAME.REGISTER_GAME,
+	async (id, thunkAPI) => {
+		try {
+			const response = await approveRegisterGameService(id);
+			return response;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				return thunkAPI.rejectWithValue(error.message);
+			}
+			return thunkAPI.rejectWithValue('An unknown error occurred');
+		}
+	},
+);
 

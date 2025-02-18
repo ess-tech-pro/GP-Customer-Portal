@@ -1,9 +1,9 @@
 import CustomTextField from "@/components/mui/TextField";
-import { deleteRegisterGame, getRegisterGameList } from "@/store/slices/gameSlice";
+import { approveRegisterGame, deleteRegisterGame, getRegisterGameList, rejectRegisterGame } from "@/store/slices/gameSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { formatDate, formattedOptionTypes } from "@/utils/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Divider, FormControl, MenuItem, Typography } from "@mui/material"
+import { Box, Button, Divider, FormControl, MenuItem, Typography, Menu, ButtonGroup } from "@mui/material"
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +28,7 @@ const schema = yup.object().shape({
 
 const RegisterGameList = () => {
     const { t } = useTranslation('registerGame');;
+    const [anchorEl, setAnchorEl] = useState(null);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [gameSelected, setGameSelected] = useState<any>({});
     const optionsRegisterGame: any = useSelector((state: RootState) => state.options.optionsRegisterGame);
@@ -66,13 +67,15 @@ const RegisterGameList = () => {
         resolver: yupResolver(schema),
     });
 
-
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const fetchData = async () => {
         const body = {
             query: { ...getValues() },
             paging: {
-                from: paginationModel.page,
+                from: paginationModel.page * 10,
                 size: paginationModel.pageSize
             }
         }
@@ -93,6 +96,8 @@ const RegisterGameList = () => {
         fetchData();
     }, [paginationModel]);
 
+
+
     const onDelete = async () => {
         const res: any = await dispatch(deleteRegisterGame(gameSelected.id))
         if (res.payload) {
@@ -100,11 +105,37 @@ const RegisterGameList = () => {
             setGameSelected({})
             toast.success('Delete Game Successfully');
             fetchData()
+            handleClose();
         }
         if (res.error.message) {
             toast.error(res.error.message);
         }
     }
+
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+
+
+    const onApprove = async (id: string) => {
+        console.log(id)
+        await dispatch(approveRegisterGame(id))
+        handleClose();
+        toast.success('Approve Game Successfully');
+        fetchData()
+    }
+
+    const onReject = async (id: string) => {
+        console.log(id)
+
+        await dispatch(rejectRegisterGame(id))
+        handleClose();
+        toast.success('Reject Game Successfully');
+        fetchData()
+    }
+
 
     const columns: GridColDef[] = [
         {
@@ -130,10 +161,10 @@ const RegisterGameList = () => {
                     whiteSpace: "normal",
                     wordBreak: "break-word",
                 }}>
-                    <Box>Game Type: {params.row.gameType}</Box>
-                    <Box>Game Engine: {params.row.gameEngine}</Box>
-                    <Box>Orientation: {params.row.orientation}</Box>
-                    <Box>Event: {params.row.events?.[0]}</Box>
+                    <Box>{t('gameType')}: {t(`common:app-configs.gameRegister.gameType.${params.row.gameType}`)}</Box>
+                    <Box>{t('gameEngine')}: {t(`common:app-configs.gameRegister.gameEngine.${params.row.gameEngine}`)}</Box>
+                    <Box>{t('orientation')}: {t(`common:app-configs.gameRegister.orientation.${params.row.orientation}`)}</Box>
+                    <Box>{t('event')}: {t(`common:app-configs.gameRegister.event.${params.row.events?.[0]}`)}</Box>
                 </Box>
             ),
         },
@@ -152,8 +183,8 @@ const RegisterGameList = () => {
 
             renderCell: (params) => (
                 <Box>
-                    <Box>Update By: {params.row.createdBy}</Box>
-                    <Box>Update At: {formatDate(params.row.createdAt)}</Box>
+                    <Box>{t('common:action.update-by')}: {params.row.createdBy}</Box>
+                    <Box>{t('common:action.update-at')}: {formatDate(params.row.createdAt, 'Do MMMM YYYY')}</Box>
                 </Box>
             ),
         },
@@ -168,22 +199,48 @@ const RegisterGameList = () => {
             field: 'status',
             headerName: t('status'),
             sortable: false,
-            flex: 1
+            flex: 1,
+            renderCell: (params) => (
+                <Typography>{t(`common:app-configs.gameRegister.status.${params.row.status}`)}</Typography>
+            ),
 
         },
         {
-            field: 'actions',
+            field: 'id',
             headerName: t('actions'),
             sortable: false,
             flex: 1,
             renderCell: (params) => (
-                <Box className="flex gap-3">
-                    <Button onClick={() => navigate(`/edit-register-game/${params.row.id}`)} variant="contained" color="primary">
-                        {t('common:edit')}
-                    </Button>
-                    <Button onClick={() => { setOpenModalDelete(true); setGameSelected(params.row) }} variant="contained" color="error">
-                        {t('common:delete')}
-                    </Button>
+                <Box className="mt-1">
+                    <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                        <Button onClick={handleClick}>▼</Button>
+                    </ButtonGroup>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem>
+                            <Button className="w-full" onClick={() => navigate(`/edit-register-game/${params.row.id}`)} variant="contained" color="primary">
+                                {t('common:action.edit')}
+                            </Button>
+                        </MenuItem>
+                        <MenuItem>
+                            <Button className="w-full" onClick={() => { setOpenModalDelete(true); setGameSelected(params.row) }} variant="contained" color="error">
+                                {t('common:action.delete')}
+                            </Button>
+                        </MenuItem>
+                        <MenuItem>
+                            <Button className="w-full" onClick={() => onApprove(params.row.id)} variant="contained" color="success">
+                                {t('common:action.approve')}
+                            </Button>
+                        </MenuItem>
+                        <MenuItem>
+                            <Button className="w-full" onClick={() => onReject(params.row.id)} variant="contained" color="warning">
+                                {t('common:action.reject')}
+                            </Button>
+                        </MenuItem>
+                    </Menu>
                 </Box>
             ),
         },
@@ -249,7 +306,7 @@ const RegisterGameList = () => {
                                             </MenuItem>
                                             {formattedOptionTypes(optionsRegisterGame.categories).map((option) => (
                                                 <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
+                                                    {t(`common:app-configs.gameConfig.gameCategories.${option.label}`)}
                                                 </MenuItem>
                                             ))}
                                         </CustomTextField>
@@ -281,7 +338,7 @@ const RegisterGameList = () => {
                                             </MenuItem>
                                             {formattedOptionTypes(optionsRegisterGame.status).map((option) => (
                                                 <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
+                                                    {t(`common:app-configs.gameRegister.status.${option.label}`)}
                                                 </MenuItem>
                                             ))}
                                         </CustomTextField>
@@ -313,7 +370,7 @@ const RegisterGameList = () => {
                                             </MenuItem>
                                             {formattedOptionTypes(optionsRegisterGame.gameType).map((option) => (
                                                 <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
+                                                    {t(`common:app-configs.gameRegister.gameType.${option.label}`)}
                                                 </MenuItem>
                                             ))}
                                         </CustomTextField>
@@ -345,7 +402,7 @@ const RegisterGameList = () => {
                                             </MenuItem>
                                             {formattedOptionTypes(optionsRegisterGame.event).map((option) => (
                                                 <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
+                                                    {t(`common:app-configs.gameRegister.event.${option.label}`)}
                                                 </MenuItem>
                                             ))}
                                         </CustomTextField>
@@ -377,7 +434,7 @@ const RegisterGameList = () => {
                                             </MenuItem>
                                             {formattedOptionTypes(optionsRegisterGame.gameEngine).map((option) => (
                                                 <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
+                                                    {t(`common:app-configs.gameRegister.gameEngine.${option.label}`)}
                                                 </MenuItem>
                                             ))}
                                         </CustomTextField>
@@ -409,7 +466,7 @@ const RegisterGameList = () => {
                                             </MenuItem>
                                             {formattedOptionTypes(optionsRegisterGame.orientation).map((option) => (
                                                 <MenuItem key={option.value} value={option.value}>
-                                                    {option.label}
+                                                    {t(`common:app-configs.gameRegister.orientation.${option.label}`)}
                                                 </MenuItem>
                                             ))}
                                         </CustomTextField>
@@ -421,10 +478,10 @@ const RegisterGameList = () => {
                 </Box>
                 <Box className="mt-3 flex gap-3">
                     <Button type="submit" variant="contained" color="primary">
-                        {t('common:search')}
+                        {t('common:action.search')}
                     </Button>
                     <Button onClick={() => onClearFilter()} disabled={!isDirty} variant="contained" color="primary">
-                        {t('common:clear')}
+                        {t('common:action.clear')}
                     </Button>
                 </Box>
             </form>
