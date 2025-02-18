@@ -125,7 +125,7 @@ const CreateEditUser = () => {
   };
 
   return (
-    <Grid container columns={12}>
+    <Grid container columns={12} padding={4}>
       <Box className='mb-5'>
         <Typography variant="h4">{t('action.create-user')}</Typography>
       </Box>
