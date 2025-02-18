@@ -1,6 +1,6 @@
 import CustomTextField from '@/components/mui/TextField';
 import FileUploader from '@/pages/management-organization/create-edit-organization/components/FileUpload';
-import { CreateOrganizationRequest, CreateOrganizationRequestSchema } from '@/schemas/organization.schema';
+import { CreateOrganizationRequestSchema, EditOrganizationRequest, EditOrganizationRequestSchema } from '@/schemas/organization.schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Box,
@@ -19,12 +19,24 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import "react-quill/dist/quill.snow.css";
 import { ORGANIZATION_INFO_DEFAULT } from './constants';
-import { ReactQuillStyle } from './styles';
+import { ReactQuillStyled, InputDisabledStyled } from './styles';
+import { useDispatch } from 'react-redux';
+import { createOrganization, getOrganizationDetail, updateOrganization } from '@/store/slices/organizationSlice';
+import { AppDispatch } from '@/store/store';
+import { useAppConfig } from '@/hooks/useAppConfig';
+import { toast } from 'react-toastify';
+import { ROUTE_PATH } from '@/constants/routing';
 
 
 const CreateEditOrganization = () => {
   // States
   const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch<AppDispatch>()
+  const { t } = useTranslation();
+  const appConfigs = useAppConfig();
+  const translateConfigOrganization = (key: string) => t(`app-configs.organization.${key}`);
+  const navigate = useNavigate()
+  const { id } = useParams()
 
   // Hooks
   const {
@@ -34,30 +46,100 @@ const CreateEditOrganization = () => {
     getValues,
     formState: { errors }
   } = useForm({
-    defaultValues: ORGANIZATION_INFO_DEFAULT,
-    resolver: yupResolver(CreateOrganizationRequestSchema)
+    defaultValues: id ? {} : ORGANIZATION_INFO_DEFAULT,
+    resolver: yupResolver(id ? EditOrganizationRequestSchema : CreateOrganizationRequestSchema)
   })
 
-  const { t } = useTranslation();
+  const [organizationInfo, setOrganizationInfo] = useState<{ [key: string]: any }>({})
 
-  const typeInputOptionList = useMemo(() => ([
-    {
-      id: 'studio',
-      name: t('studio')
-    },
-    {
-      id: 'brand',
-      name: t('brand')
-    },
-    {
-      id: 'game-provider',
-      name: t('game-provider')
-    },
-  ]), []) // typeInputOptionList
+  const callback = useCallback(async () => {
+    if (id) {
+      const res: any = await dispatch(getOrganizationDetail({ id }))
 
-  const onSubmit = async (data: CreateOrganizationRequest) => {
+      if (res.payload.data) {
+        const dataFormatted: EditOrganizationRequest = {
+          name: res.payload.data.name,
+          description: res.payload.data.description,
+          type: res.payload.data.type,
+          status: res.payload.data.status === 'active',
+          logo: res.payload.data.logo,
+        }
+        reset(dataFormatted)
+        setOrganizationInfo(dataFormatted)
+      } else if (res.error) {
+        toast.error('The organization information is currently not available, please try again later.')
+
+        navigate({
+          pathname: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST,
+        })
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    callback()
+  }, [])
+
+  const typeOptions = useMemo(() => (appConfigs?.config?.organization?.type || []).map((item) => ({
+    value: item,
+    label: translateConfigOrganization(`type.${item}`),
+  })), []);
+
+  const statusOptions = useMemo(() => (appConfigs?.config?.organization?.status || []).map((item) => ({
+    value: item,
+    label: translateConfigOrganization(`status.${item}`),
+  })), []);
+
+  // eslint-disable-next-line consistent-return
+  const onSubmit = async (data: EditOrganizationRequest) => {
+    if (id) {
+      let isChanged = false
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key in data) {
+        if (data[key] !== organizationInfo[key]) {
+          isChanged = true
+          break
+        }
+      }
+
+      if (!isChanged) {
+        return toast.warn("Nothing has changed")
+      }
+    }
+
     setLoading(true)
-    console.log(data);
+
+    const formData = new FormData()
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in data) {
+      if (statusOptions && statusOptions.length && key === 'status') {
+        const status = (statusOptions[Math.abs(Number(data[key]) - 1)]?.value ?? data[key]) as unknown as string
+        formData.append(key, status)
+      }
+
+      else
+        formData.append(key, data[key])
+    }
+
+    if (id && typeof formData.get('logo') === 'string') {
+      formData.delete('logo')
+    }
+
+    const res: any = await dispatch(id ? updateOrganization({
+      data: formData,
+      id,
+    }) : createOrganization(formData))
+
+    if (res.payload.data) {
+      toast.success(id ? 'Edit Organization Success!' : 'Create Organization Success!');
+      navigate({
+        pathname: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_LIST,
+      })
+    }
+
+    if (res.error.message) {
+      toast.error(id ? 'Edit Organization Fail. Please try again later' : 'Create Organization Fail. Please try again later');
+    }
   };
 
   return (
@@ -87,29 +169,40 @@ const CreateEditOrganization = () => {
                     </FormLabel>
                   </FormControl>
                 </Grid>
-                <Grid size={{ md: 9, xs: 12 }}>
-                  <Controller
-                    name='type'
-                    control={control}
-                    render={({ field }) => (
-                      <CustomTextField
-                        {...field}
-                        select
-                        id='type'
-                        fullWidth
-                        placeholder={t('type')}
-                        defaultValue={ORGANIZATION_INFO_DEFAULT.type}
-                        {...(errors.type && errors.type.message && { error: true, helperText: t(errors.type.message) })}
-                      >
-                        {typeInputOptionList.map((option) => (
-                          <MenuItem key={option.id} value={option.id}>
-                            {option.name}
-                          </MenuItem>
-                        ))}
-                      </CustomTextField>
-                    )}
-                  />
-                </Grid>
+                {
+                  !id &&
+                    typeOptions &&
+                    typeOptions.length ?
+                    <Grid size={{ md: 9, xs: 12 }}>
+                      <Controller
+                        name='type'
+                        control={control}
+                        render={({ field }) => (
+                          <CustomTextField
+                            {...field}
+                            select
+                            id='type'
+                            fullWidth
+                            placeholder={t('type')}
+                            defaultValue={ORGANIZATION_INFO_DEFAULT.type}
+                            {...(errors.type && errors.type.message && { error: true, helperText: t(errors.type.message) })}
+                          >
+                            {
+                              typeOptions.map((option) => (
+                                <MenuItem key={option.value} value={option.value} >
+                                  {option.label}
+                                </MenuItem>
+                              ))
+                            }
+                          </CustomTextField>
+                        )}
+                      />
+                    </Grid> :
+                    organizationInfo.type &&
+                    <InputDisabledStyled>
+                      {translateConfigOrganization(`type.${organizationInfo.type}`)}
+                    </InputDisabledStyled>
+                }
               </Grid>
               <Grid
                 size={{ xs: 12 }}
@@ -133,7 +226,7 @@ const CreateEditOrganization = () => {
                     name='logo'
                     control={control}
                     render={({ field }) => (
-                      <FileUploader field={field} errors={errors} getValues={getValues} />
+                      <FileUploader field={field} errors={errors} getValues={getValues} logo={organizationInfo.logo} />
                     )}
                   />
                 </Grid>
@@ -223,7 +316,7 @@ const CreateEditOrganization = () => {
                     name='description'
                     control={control}
                     render={({ field }) => (
-                      <ReactQuillStyle
+                      <ReactQuillStyled
                         {...field}
                         onChange={(content) => field.onChange(content)}
                         theme="snow"

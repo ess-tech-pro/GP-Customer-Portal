@@ -56,7 +56,8 @@ const OrganizationList = () => {
   }));
 
   const handleEdit = (id: string) => {
-    console.log("Edit User", id);
+    if (!id) return
+    navigate(ROUTE_PATH.MANAGEMENT_ORGANIZATION.EDIT_ORGANIZATION.replace(':id', id))
   };
 
   const handleDelete = (id: string) => {
@@ -179,7 +180,7 @@ const OrganizationList = () => {
     },
     {
       field: 'action',
-      headerName: t('action'),
+      headerName: t('action.title'),
       sortable: false,
       width: 160,
       align: 'center',
@@ -247,7 +248,7 @@ const OrganizationList = () => {
   };
 
   const handleCreate = () => {
-    navigate(ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_CREATE);
+    navigate(ROUTE_PATH.MANAGEMENT_ORGANIZATION.CREATE_ORGANIZATION);
   };
 
   const handleFilterChange = (e) => {
@@ -315,7 +316,7 @@ const OrganizationList = () => {
             textTransform: 'none',
           }}
           startIcon={<AddIcon />} >
-          {t('create-organization')}
+          {t('action.create-organization')}
         </Button>
       </Stack>
 
@@ -380,7 +381,7 @@ const OrganizationList = () => {
               sx={{ textTransform: 'none' }}
               onClick={handleSearchFilter}
             >
-              {t('search')}
+              {t('action.search')}
             </Button>
             <Button
               variant="outlined"
@@ -388,7 +389,7 @@ const OrganizationList = () => {
               sx={{ ml: 1, textTransform: 'none' }}
               onClick={handleClearFilter}
             >
-              {t('clear')}
+              {t('action.clear')}
             </Button>
           </Stack>
         </FormGrid>

@@ -6,7 +6,7 @@ import { ControllerRenderProps, FieldErrors, UseFormGetValues } from "react-hook
 import { useTranslation } from "react-i18next";
 import { FileUploadStyled, PreviewLogoStyled, UploadIconStyled } from "./styles";
 
-const FileUploader = ({ field: { onChange, ...field }, errors, getValues }: {
+const FileUploader = ({ field: { onChange, ...field }, errors, getValues, logo }: {
   field: ControllerRenderProps<{
     logo?: unknown;
   }, "logo">
@@ -15,7 +15,9 @@ const FileUploader = ({ field: { onChange, ...field }, errors, getValues }: {
   }>
   getValues: UseFormGetValues<{
     logo?: any;
-  }>
+  }
+  >
+  logo?: string
 }) => {
   const { t } = useTranslation();
   const [file, setFile] = useState(null);
@@ -73,8 +75,8 @@ const FileUploader = ({ field: { onChange, ...field }, errors, getValues }: {
             hidden
           />
           {
-            file ?
-              <PreviewLogoStyled src={file} alt="Preview" /> :
+            file || logo ?
+              <PreviewLogoStyled src={file || logo} alt="Preview" /> :
               <UploadIconStyled />
           }
         </FileUploadStyled>

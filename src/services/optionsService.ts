@@ -1,9 +1,9 @@
 import * as yup from 'yup'
 import axiosClient from './axiosClient'
 
-export const getOptionsRegisterGameService = async (): Promise<any> => {
+export const getConfigsService = async (): Promise<any> => {
     try {
-        const response = await axiosClient.get('/config-service/api/v1/game-register/get-options-config')
+        const response = await axiosClient.get('/config-service/api/v1/app-config/get-configs')
         return response
     } catch (error) {
         if (error instanceof yup.ValidationError) {

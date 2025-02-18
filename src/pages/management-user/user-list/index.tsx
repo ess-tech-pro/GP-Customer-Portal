@@ -146,7 +146,7 @@ const UserList = () => {
     },
     {
       field: 'action',
-      headerName: t('action'),
+      headerName: t('action.title'),
       sortable: false,
       width: 160,
       align: 'center',

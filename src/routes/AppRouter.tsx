@@ -94,7 +94,12 @@ const routesConfig = [
     component: ManagementOrganizationList,
   },
   {
-    path: ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_CREATE,
+    path: ROUTE_PATH.MANAGEMENT_ORGANIZATION.CREATE_ORGANIZATION,
+    layout: MainLayout,
+    component: ManagementOrganizationCreate,
+  },
+  {
+    path: ROUTE_PATH.MANAGEMENT_ORGANIZATION.EDIT_ORGANIZATION,
     layout: MainLayout,
     component: ManagementOrganizationCreate,
   },
