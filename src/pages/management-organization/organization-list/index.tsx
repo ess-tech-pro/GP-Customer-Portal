@@ -58,7 +58,8 @@ const OrganizationList = () => {
   }));
 
   const handleEdit = (id: string) => {
-    console.log("Edit User", id);
+    if (!id) return
+    navigate(ROUTE_PATH.MANAGEMENT_ORGANIZATION.EDIT_ORGANIZATION.replace(':id', id))
   };
 
   const handleDelete = (id: string) => {
@@ -249,7 +250,7 @@ const OrganizationList = () => {
   };
 
   const handleCreate = () => {
-    navigate(ROUTE_PATH.MANAGEMENT_ORGANIZATION.ORGANIZATION_CREATE);
+    navigate(ROUTE_PATH.MANAGEMENT_ORGANIZATION.CREATE_ORGANIZATION);
   };
 
   const handleFilterChange = (e) => {

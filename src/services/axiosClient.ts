@@ -13,7 +13,7 @@ const axiosClient = axios.create({
    * development => will call 'https://gpcs.ex-integrationstd.xyz/api/v1/game/game-detail-public/0000' (relative path)
    * other environments => will call '/api/v1/game/game-detail-public/0000' (absolute path)
    */
-  baseURL: 'https://gpcs.ex-integrationstd.xyz',
+  baseURL: import.meta.env.VITE_BASE_API_URL,
   timeout: 10000, // Thời gian timeout
 })
 

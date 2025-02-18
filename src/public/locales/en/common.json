@@ -1,134 +1,140 @@
 {
-	"welcome": "Welcome to React",
-	"action": {
-		"title": "Action",
-		"save": "Save",
-		"cancel": "Cancel",
-		"confirm": "Confirm",
-		"edit": "Edit",
-		"delete": "Delete",
-		"create": "Create",
-		"create-user": "Create User",
-		"create-organization": "Create Organization",
-		"search": "Search",
-		"clear": "Clear",
-		"done": "Done",
-		"back": "Back",
-		"next": "Next",
-		"close": "Close",
-		"sign-in": "Sign in",
-		"sign-out": "Sign out",
-		"sign-up": "Sign up",
-		"update-by": "Update by",
-		"update-at": "Update at",
-		"approve": "Approve",
-		"reject": "Reject"
-	},
-	"game-list": "Game List",
-	"role": "Role",
-	"password": "Password",
-	"confirm-password": "Confirm Password",
-	"status": "Status",
-	"active": "Active",
-	"inactive": "Inactive",
-	"brand": "Brand",
-	"studio": "Studio",
-	"game-provider": "Game Provider",
-	"ok": "OK",
-	"user": "User",
-	"description": "Description",
-	"type": "Type",
-	"username": "Username",
-	"organization-management": "Organization Management",
-	"name": "Name",
-	"rows-per-page": "Rows per page",
-	"no-rows": "No rows",
-	"organization": "Organization",
-	"all": "All",
-	"management-user": "Management User",
-	"create": "Create",
-	"edit": "Edit",
-	"user-list": "User List",
-	"organization-list": "Organization List",
-	"create-register-game": "Create Register Game",
-	"edit-register-game": "Edit Register Game",
-	"register-game-list": "Register Game List",
-	"game": "Game",
-	"home": "Home",
-	"app-configs": {
-		"gameConfig": {
-			"currencies": {
-				"vnd": "VND",
-				"usd": "USD",
-				"thb": "THB"
-			},
-			"drives": {
-				"mobile": "Mobile",
-				"tablet": "Tablet",
-				"desktop": "Desktop"
-			},
-			"gameCategories": {
-				"slot": "Slot",
-				"shooting": "Shooting",
-				"card": "Card",
-				"rng": "RNG",
-				"pvp": "PVP"
-			},
-			"gameStatus": {
-				"incoming": "Incoming",
-				"running": "Running",
-				"maintenance": "Maintenance"
-			},
-			"langs": {
-				"en": "English",
-				"vi": "Vietnamese",
-				"th": "Thai"
-			}
-		},
-		"gameRegister": {
-			"categories": {
-				"slot": "Slot",
-				"shooting": "Shooting",
-				"card": "Card",
-				"rng": "rng",
-				"pvp": "pvp"
-			},
-			"event": {
-				"new-year": "New year",
-				"mid-autumn": "Mid autumn"
-			},
-			"gameEngine": {
-				"cocos213": "cocos213",
-				"cocos362": "cocos362",
-				"cocos372": "cocos372",
-				"cocos373": "cocos373"
-			},
-			"gameType": {
-				"new": "New",
-				"reskin": "Reskin"
-			},
-			"orientation": {
-				"landscape": "Landscape",
-				"portrait": "Portrait",
-				"both": "Both"
-			},
-			"status": {
-				"draft": "Draft",
-				"registered": "Registered",
-				"approved": "Approved",
-				"rejected": "Rejected"
-			}
-		},
-		"organization": {
-			"status": {
-				"active": "Active",
-				"inactive": "Inactive"
-			},
-			"type": {
-				"brand": "Brand",
-				"studio": "Studio",
-				"game-provider": "Game Provider"
-			}
-		}
-	}
+  "welcome": "Welcome to React",
+  "action": {
+    "title": "Action",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create",
+    "create-user": "Create User",
+    "create-organization": "Create Organization",
+    "search": "Search",
+    "clear": "Clear",
+    "done": "Done",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "sign-in": "Sign in",
+    "sign-out": "Sign out",
+    "sign-up": "Sign up",
+    "update-by": "Update by",
+    "update-at": "Update at",
+    "approve": "Approve",
+    "reject": "Reject"
+  },
+  "game-list": "Game List",
+  "role": "Role",
+  "password": "Password",
+  "confirm-password": "Confirm Password",
+  "status": "Status",
+  "active": "Active",
+  "inactive": "Inactive",
+  "brand": "Brand",
+  "studio": "Studio",
+  "game-provider": "Game Provider",
+  "ok": "OK",
+  "user": "User",
+  "description": "Description",
+  "type": "Type",
+  "username": "Username",
+  "organization-management": "Organization Management",
+  "name": "Name",
+  "rows-per-page": "Rows per page",
+  "no-rows": "No rows",
+  "organization": "Organization",
+  "all": "All",
+  "management-user": "Management User",
+  "create": "Create",
+  "edit": "Edit",
+  "user-list": "User List",
+  "organization-list": "Organization List",
+  "create-register-game": "Create Register Game",
+  "edit-register-game": "Edit Register Game",
+  "register-game-list": "Register Game List",
+  "game": "Game",
+  "home": "Home",
+  "errors": {
+    "type-is-required": "Type is required",
+    "logo-is-required": "Logo is required",
+    "name-is-required": "Name is required"
+  },
+  "logo-must-ratio-11-3": "The logo must ratio 11:3",
+  "app-configs": {
+    "gameConfig": {
+      "currencies": {
+        "vnd": "VND",
+        "usd": "USD",
+        "thb": "THB"
+      },
+      "drives": {
+        "mobile": "Mobile",
+        "tablet": "Tablet",
+        "desktop": "Desktop"
+      },
+      "gameCategories": {
+        "slot": "Slot",
+        "shooting": "Shooting",
+        "card": "Card",
+        "rng": "RNG",
+        "pvp": "PVP"
+      },
+      "gameStatus": {
+        "incoming": "Incoming",
+        "running": "Running",
+        "maintenance": "Maintenance"
+      },
+      "langs": {
+        "en": "English",
+        "vi": "Vietnamese",
+        "th": "Thai"
+      }
+    },
+    "gameRegister": {
+      "categories": {
+        "slot": "Slot",
+        "shooting": "Shooting",
+        "card": "Card",
+        "rng": "rng",
+        "pvp": "pvp"
+      },
+      "event": {
+        "new-year": "New year",
+        "mid-autumn": "Mid autumn"
+      },
+      "gameEngine": {
+        "cocos213": "cocos213",
+        "cocos362": "cocos362",
+        "cocos372": "cocos372",
+        "cocos373": "cocos373"
+      },
+      "gameType": {
+        "new": "New",
+        "reskin": "Reskin"
+      },
+      "orientation": {
+        "landscape": "Landscape",
+        "portrait": "Portrait",
+        "both": "Both"
+      },
+      "status": {
+        "draft": "Draft",
+        "registered": "Registered",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      }
+    },
+    "organization": {
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "type": {
+        "brand": "Brand",
+        "studio": "Studio",
+        "game-provider": "Game Provider"
+      }
+    }
+  }
 }

@@ -30,6 +30,7 @@ export const ActionTypes = {
     ORGANIZATION_LIST: 'organizations/organizationList',
     CREATE_ORGANIZATION: 'organizations/createOrganization',
     DELETE_ORGANIZATION: 'organizations/deleteOrganization',
+    UPDATE_ORGANIZATION: 'organizations/updateOrganization'
   },
   REGISTER_GAME: 'game/register'
 }
