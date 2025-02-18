@@ -292,7 +292,7 @@ const OrganizationList = () => {
   }, [paginationModel]);
 
   return (
-    <>
+    <Box padding={4}>
       {/* Header */}
       <Stack
         spacing={2}
@@ -461,7 +461,7 @@ const OrganizationList = () => {
           onConfirm={handleConfirmDelete}
           onCancel={() => setOpenModalDelete(false)} />
       }
-    </ >
+    </Box>
   );
 };
 

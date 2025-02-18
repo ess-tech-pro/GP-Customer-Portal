@@ -224,7 +224,7 @@ const UserList = () => {
 
   console.log('currentUserDelete', currentUserDelete);
   return (
-    <>
+    <Box padding={4}>
       {/* Header */}
       <Stack
         spacing={2}
@@ -423,7 +423,7 @@ const UserList = () => {
           onCancel={() => setOpenModalDelete(false)} />
       }
 
-    </ >
+    </Box>
   );
 };
 
